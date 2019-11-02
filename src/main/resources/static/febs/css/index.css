@@ -1,0 +1,69 @@
+#febs-index .welcome-info {
+	border: 1px solid #f1f1f1;
+	margin-bottom: .5rem;
+	padding: .5rem;
+}
+
+#febs-index .welcome-info-wrapper {
+	padding: .2rem;
+	display: inline-block
+}
+
+#febs-index .welcome-info-wrapper .user-header {
+	display: inline-block;
+	vertical-align: middle
+}
+
+#febs-index .welcome-info-wrapper .user-header img {
+	width: 5rem;
+	margin: .5rem 1rem;
+	border-radius: 50%
+}
+
+#febs-index .welcome-info-wrapper .user-info {
+	display: inline-block;
+	vertical-align: middle
+}
+
+#febs-index .welcome-info-wrapper .user-info .random-message {
+	font-size: 1rem;
+	margin-bottom: .2rem;
+	max-width: 21rem
+}
+
+#febs-index .welcome-info-wrapper .user-info .user-dept, #febs-index .welcome-info-wrapper .user-info .user-login-info {
+	color: rgba(0, 0, 0, 0.45);
+}
+
+#febs-index .login-count-table {
+	width: 100%;
+	margin: 1rem;
+}
+
+#febs-index .login-count-table .count {
+	padding-top: .8rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #1890ff
+}
+
+#febs-index .project-table {
+	padding: .5rem;
+	border: 1px solid #f1f1f1;
+	width: 100%
+}
+
+#febs-index .project-table-td {
+	padding: .5rem 0.7rem;
+	border: 1px solid #f1f1f1;
+}
+
+#febs-index .project-table-td a {
+	color: #42b983;
+	font-size: .9rem;
+	font-weight: 600;
+}
+
+#febs-index .project-desc {
+	color: rgba(0, 0, 0, 0.45);
+}

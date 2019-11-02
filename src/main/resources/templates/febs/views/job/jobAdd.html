@@ -1,0 +1,40 @@
+<link rel="stylesheet" th:href="@{febs/css/job/jobAdd.css}" media="all">
+<div class="layui-fluid" id="job-add">
+    <form class="layui-form" action="" lay-filter="job-add-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">Bean名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="beanName" maxlength="20" lay-verify="range|required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">方法名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="methodName" maxlength="50" lay-verify="range|required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">方法参数：</label>
+            <div class="layui-input-block">
+                <input type="text" name="params" maxlength="50" lay-verify="range" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">cron表达式：</label>
+            <div class="layui-input-block">
+                <input type="text" name="cronExpression" maxlength="20" lay-verify="range|required|cron" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">任务备注：</label>
+            <div class="layui-input-block">
+                <textarea name="remark" maxlength="50" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="job-add-form-submit" id="submit"></button>
+            <button type="reset" class="layui-btn" id="reset"></button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/job/jobAdd.js}"></script>

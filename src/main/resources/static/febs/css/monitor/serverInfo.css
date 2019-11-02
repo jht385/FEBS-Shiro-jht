@@ -1,0 +1,7 @@
+#febs-server-info table th, #febs-server-info table td {
+    height: 28px;
+    line-height: 28px;
+    padding: 9px 15px;
+    position: relative;
+    box-sizing: border-box;
+}

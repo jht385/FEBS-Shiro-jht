@@ -1,0 +1,104 @@
+<div class="layui-fluid layui-anim febs-anim" id="febs-user" lay-title="用户管理">
+    <div class="layui-row febs-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body febs-table-full">
+                    <form class="layui-form layui-table-form" lay-filter="user-table-form">
+                        <div class="layui-row">
+                            <div class="layui-col-md10">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">用户名</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="username" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="createTime" id="createTime" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">状态</label>
+                                        <div class="layui-input-inline">
+                                            <select name="status">
+                                                <option value=""></option>
+                                                <option value="0">禁用</option>
+                                                <option value="1">有效</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">手机</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="mobile" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">部门</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="dept" id="dept" lay-filter="dept" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">性别</label>
+                                        <div class="layui-input-inline">
+                                            <select name="sex">
+                                                <option value=""></option>
+                                                <option value="0">男</option>
+                                                <option value="1">女</option>
+                                                <option value="2">保密</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+                                    <i class="layui-icon">&#xe848;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+                                    <i class="layui-icon">&#xe79b;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"
+                                     shiro:hasAnyPermissions="user:add,user:update,user:password:reset,user:export">
+                                    <i class="layui-icon">&#xe875;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table lay-filter="userTable" lay-data="{id: 'userTable'}"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="user-status">
+    {{#
+    var status = {
+    1: {title: '有效', color: 'green'},
+    0: {title: '禁用', color: 'volcano'}
+    }[d.status];
+    }}
+    <span class="layui-badge febs-tag-{{status.color}}">{{ status.title }}</span>
+</script>
+<script type="text/html" id="user-sex">
+    {{#
+    var sex = {
+    2: {title: '保密'},
+    1: {title: '女'},
+    0: {title: '男'}
+    }[d.sex];
+    }}
+    <span>{{ sex.title }}</span>
+</script>
+<script type="text/html" id="user-option">
+    <span shiro:lacksPermission="user:view,user:update,user:delete">
+        <span class="layui-badge-dot febs-bg-orange"></span> 无权限
+    </span>
+    <a lay-event="detail" shiro:hasPermission="user:view"><i class="layui-icon febs-edit-area febs-green">&#xe7a5;</i></a>
+    <a lay-event="edit" shiro:hasPermission="user:update"><i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
+    <a lay-event="del" shiro:hasPermission="user:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
+</script>
+<script th:src="@{febs/js/system/user/user.js}"></script>

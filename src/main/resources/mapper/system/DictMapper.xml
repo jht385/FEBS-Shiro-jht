@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.system.mapper.DictMapper">
+
+	<resultMap id="dict" type="cc.mrbird.febs.system.entity.Dict">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="value" jdbcType="VARCHAR" property="value"/>
+		<result column="type" jdbcType="VARCHAR" property="type"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<result column="sort" jdbcType="DECIMAL" property="sort"/>
+		<result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+		<result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+		<result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+		<result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+		<result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+		<result column="ex1" jdbcType="VARCHAR" property="ex1"/>
+	</resultMap>
+	
+	<sql id="findDictSql">
+		select id, name, value, type, description, sort, parent_id, create_by, create_date, update_by, update_date, remarks, del_flag, ex1
+		from t_dict
+		where 1=1
+		<if test="dict.id != null and dict.id != ''"> AND id = #{dict.id}</if>
+		<if test="dict.name != null and dict.name != ''"> AND name = #{dict.name}</if>
+		<if test="dict.value != null and dict.value != ''"> AND value = #{dict.value}</if>
+		<if test="dict.type != null and dict.type != ''"> AND type = #{dict.type}</if>
+		<if test="dict.description != null and dict.description != ''"> AND description = #{dict.description}</if>
+		<if test="dict.sort != null and dict.sort != ''"> AND sort = #{dict.sort}</if>
+		<if test="dict.parentId != null and dict.parentId != ''"> AND parent_id = #{dict.parentId}</if>
+		<if test="dict.createBy != null and dict.createBy != ''"> AND create_by = #{dict.createBy}</if>
+		<if test="dict.createDate != null and dict.createDate != ''"> AND create_date = #{dict.createDate}</if>
+		<if test="dict.updateBy != null and dict.updateBy != ''"> AND update_by = #{dict.updateBy}</if>
+		<if test="dict.updateDate != null and dict.updateDate != ''"> AND update_date = #{dict.updateDate}</if>
+		<if test="dict.remarks != null and dict.remarks != ''"> AND remarks = #{dict.remarks}</if>
+		<if test="dict.delFlag != null and dict.delFlag != ''"> AND del_flag = #{dict.delFlag}</if>
+		<if test="dict.ex1 != null and dict.ex1 != ''"> AND ex1 = #{dict.ex1}</if>
+		group by id
+	</sql>
+	
+	<select id="findDictPage" parameterType="dict" resultType="dict">
+		<include refid="findDictSql"/>
+	</select>
+</mapper>

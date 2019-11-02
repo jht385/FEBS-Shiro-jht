@@ -1,0 +1,11 @@
+#febs-redis-info .layui-card-header {
+    font-weight: 600;
+}
+
+#febs-redis-info table th, #febs-redis-info table td {
+    height: 28px;
+    line-height: 28px;
+    padding: 9px 15px;
+    position: relative;
+    box-sizing: border-box;
+}

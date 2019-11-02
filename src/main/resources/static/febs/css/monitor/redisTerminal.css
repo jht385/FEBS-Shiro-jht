@@ -1,0 +1,97 @@
+#febs-redis-terminal .layui-card {
+    border-radius: 4px 4px 0 0;
+}
+
+#febs-redis-terminal textarea, #febs-redis-terminal input, #febs-redis-terminal button {
+    outline: none
+}
+
+#febs-redis-terminal .window-button, #febs-redis-terminal .window .buttons .closes, #febs-redis-terminal .window .buttons .minimize, #febs-redis-terminal .window .buttons .maximize {
+    padding: 0;
+    margin: 0 6px 0 0;
+    width: 12px;
+    height: 12px;
+    background-color: gainsboro;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.5)
+}
+
+#febs-redis-terminal .window .handle {
+    height: 38px;
+    font-family: 'consolas', serif;
+    font-size: 13px;
+    line-height: 38px;
+    text-align: center
+}
+
+#febs-redis-terminal .window .buttons {
+    position: absolute;
+    float: left;
+    margin: 0 8px
+}
+
+#febs-redis-terminal .window .buttons .closes {
+    background-color: #fc625d
+}
+
+#febs-redis-terminal .window .buttons .minimize {
+    background-color: #fdbc40
+}
+
+#febs-redis-terminal .window .buttons .maximize {
+    background-color: #35cd4b
+}
+
+#febs-redis-terminal .window .terminal {
+    padding: 4px;
+    background-color: black;
+    opacity: 0.7;
+    color: white;
+    font-family: 'consolas', serif;
+    font-weight: 300;
+    font-size: .85rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-radius: 1px 1px 5px 5px;
+    overflow-y: scroll
+}
+
+#febs-redis-terminal .window .terminal::after {
+    content: "|";
+    animation: blink 1.25s steps(1) infinite
+}
+
+#febs-redis-terminal .prompt {
+    color: #bde371
+}
+
+#febs-redis-terminal .path {
+    color: #5ed7ff
+}
+
+@keyframes blink {
+    50% {
+        color: transparent
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateY(-1000px)
+    }
+    60% {
+        transform: translateY(200px)
+    }
+    100% {
+        transform: translateY(0px)
+    }
+}
+
+#febs-redis-terminal .kw_a {
+    color: #E6DB74
+}
+
+#febs-redis-terminal .kw_b {
+    color: #bde371
+}

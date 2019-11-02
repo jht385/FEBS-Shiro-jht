@@ -1,0 +1,11 @@
+#job-update {
+    padding: 20px 25px 25px 0;
+}
+
+#job-update .layui-form-label {
+    width: 88px;
+}
+
+#job-update .layui-input-block {
+    margin-left: 120px;
+}

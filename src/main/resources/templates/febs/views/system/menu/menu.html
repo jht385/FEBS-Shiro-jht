@@ -1,0 +1,102 @@
+<div class="layui-fluid layui-anim febs-anim" id="febs-menu" lay-title="菜单管理">
+    <div class="layui-row layui-col-space8 febs-container">
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-body febs-table-full">
+                    <form class="layui-form layui-table-form" lay-filter="menu-table-form" id="menu-table-form">
+                        <div class="layui-row">
+                            <div class="layui-col-md8 layui-col-sm9 layui-col-xs9">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">名称</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="menuName" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md4 layui-col-sm12 layui-col-xs12 table-action-area">
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+                                    <i class="layui-icon">&#xe848;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+                                    <i class="layui-icon">&#xe79b;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="action-more"
+                                     shiro:hasAnyPermissions="menu:add,menu:delete,menu:export">
+                                    <i class="layui-icon">&#xe875;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="eleTree menuTree" lay-filter="menuTree" style="margin-left: 1rem"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-header" id="form-header">新增菜单</div>
+                <div class="layui-card-body febs-table-full">
+                    <form class="layui-form layui-table-form" action="" lay-filter="menu-form">
+                        <div class="layui-form-item febs-hide">
+                            <label class="layui-form-label febs-form-item-require">ID：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="menuId" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上级ID：</label>
+                            <div class="layui-input-block">
+                                <input type="text" value="" name="parentId" readonly class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label febs-form-item-require">名称：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="menuName" autocomplete="off" class="layui-input"
+                                       minlength="2" maxlength="10" lay-verify="range">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label febs-form-item-require">类型：</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="type" lay-filter="menu-type" value="0" title="菜单" checked="">
+                                <input type="radio" name="type" lay-filter="menu-type" value="1" title="按钮">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">图标：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="icon" autocomplete="off" class="layui-input" maxlength="50" lay-verify="range">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">URL：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="url" autocomplete="off" class="layui-input" maxlength="50" lay-verify="range">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">权限：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="perms" autocomplete="off" class="layui-input" maxlength="50" lay-verify="range">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">排序：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="orderNum" autocomplete="off" class="layui-input" lay-verify="number">
+                            </div>
+                        </div>
+                        <button type="reset" class="layui-btn febs-hide" id="reset-form"></button>
+                        <button class="layui-btn febs-hide" lay-submit="" lay-filter="menu-form-submit" id="submit-form"></button>
+                    </form>
+                </div>
+                <div class="layui-card-footer">
+                    <button class="layui-btn" id="submit">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{febs/js/system/menu/menu.js}"></script>

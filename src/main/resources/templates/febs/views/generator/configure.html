@@ -1,0 +1,106 @@
+<link rel="stylesheet" th:href="@{febs/css/generator/configure.css}" media="all">
+<div class="layui-fluid layui-anim febs-anim" id="febs-generator-configure" lay-title="生成配置">
+    <div class="layui-row febs-container">
+        <div class="layui-card">
+            <div class="layui-card-body" style="padding: 15px;">
+                <form class="layui-form" action="" lay-filter="generator-configure-form">
+                    <div class="layui-form-item febs-hide">
+                        <label class="layui-form-label febs-form-item-require">ID：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="id" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label febs-form-item-require">作者名称：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="author" autocomplete="off" maxlength="20" lay-verify="required"
+                                   class="layui-input">
+                        </div>
+                        <label class="layui-form-label febs-form-item-require">基础包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="basePackage" autocomplete="off" maxlength="50"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                        <label class="layui-form-label febs-form-item-require">模块名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="module" autocomplete="off" maxlength="50"
+                            	 class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                    	<label class="layui-form-label febs-form-item-require">controller包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="controllerPackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                        <label class="layui-form-label febs-form-item-require">service包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="servicePackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                        <label class="layui-form-label febs-form-item-require">serviceImpl包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="serviceImplPackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                    	<label class="layui-form-label febs-form-item-require">entity包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="entityPackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    	<label class="layui-form-label febs-form-item-require">mapper包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mapperPackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                        <label class="layui-form-label febs-form-item-require">mapperXml包名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mapperXmlPackage" autocomplete="off" maxlength="20"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                    	<label class="layui-form-label febs-form-item-require">html生成根目录：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="htmlRoot" autocomplete="off" maxlength="100"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    	<label class="layui-form-label febs-form-item-require">js生成根目录：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="jsRoot" autocomplete="off" maxlength="100"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    	<label class="layui-form-label febs-form-item-require">css生成根目录：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="cssRoot" autocomplete="off" maxlength="100"
+                                   lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否去除表前缀：</label>
+                        <div class="layui-input-inline">
+                            <input type="radio" name="isTrim" value="1" lay-filter="isTrim" title="是" checked="">
+                            <input type="radio" name="isTrim" value="0" lay-filter="isTrim" title="否">
+                        </div>
+                        <label class="layui-form-label">表前缀：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="trimValue" autocomplete="off" maxlength="20" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" shiro:hasPermission="generator:configure:update">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="generator-configure-form-submit">保存配置
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+	var config = [[${config}]];
+</script>
+<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/generator/configure.js}"></script>

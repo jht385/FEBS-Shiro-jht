@@ -1,0 +1,36 @@
+<link rel="stylesheet" th:href="@{febs/css/system/user/userDetail.css}" media="all">
+<div class="layui-fluid" id="febs-user-detail" lay-title="个人信息">
+    <div id="user-info-wrapper">
+        <div id="user-img">
+            <img alt="头像" title="点我更换头像" data-th-src="@{febs/images/avatar/}+${user.avatar}">
+        </div>
+        <div class="user-info">
+            <div><span class="layui-icon layui-icon-user"></span> 账号：
+                [[${user.username}]]
+            </div>
+            <div><span class="layui-icon layui-icon-trophy"></span> 角色：
+                [[${#strings.defaultString(user.roleName,'暂无角色信息')}]]
+            </div>
+            <div><span class="layui-icon layui-icon-home"></span> 部门：
+                [[${#strings.defaultString(user.deptName,'无部门信息')}]]
+            </div>
+            <div><span class="layui-icon layui-icon-skin"></span> 性别：
+                [[${user.sex}]]
+            </div>
+        </div>
+        <div class="user-info">
+            <div><span class="layui-icon layui-icon-phone"></span> 电话：
+                [[${#strings.defaultString(user.mobile,'无电话信息')}]]
+            </div>
+            <div><span class="layui-icon layui-icon-mail"></span> 邮箱：
+                [[${#strings.defaultString(user.email,'无邮箱信息')}]]
+            </div>
+            <div><span class="layui-icon layui-icon-time-circle"></span> 最后登录时间：
+                [[${#strings.defaultString(lastLoginTime,'从未登录过系统')}]]
+            </div>
+            <div><span class="layui-icon layui-icon-read"></span> 个人简介：
+                [[${#strings.defaultString(user.description,'暂无个人介绍')}]]
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+#febs-avatar img {
+    width: 5rem;
+    border-radius: 50%;
+    margin: .5rem;
+    cursor: pointer;
+}
+
+#febs-avatar .layui-tab-item {
+    margin-left: 1rem;
+}

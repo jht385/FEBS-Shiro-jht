@@ -1,0 +1,50 @@
+<link rel="stylesheet" th:href="@{febs/css/system/user/profileUpdate.css}" media="all">
+<div class="layui-fluid" id="profile-update">
+    <form class="layui-form" action="" lay-filter="profile-update-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" readonly class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机：</label>
+            <div class="layui-input-block">
+                <input type="tel" name="mobile" lay-verify="phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱：</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" lay-verify="email" maxlength="50" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门：</label>
+            <div class="layui-input-block">
+                <input type="text" name="deptId" id="profile-update-dept" lay-filter="profile-update-dept"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">性别：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="男性">
+                <input type="radio" name="sex" value="1" title="女性">
+                <input type="radio" name="sex" value="2" title="保密">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <textarea name="description" maxlength="100" class="layui-textarea">
+                </textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="profile-update-form-submit" id="submit"></button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/system/user/profileUpdate.js}"></script>

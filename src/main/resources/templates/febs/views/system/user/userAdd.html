@@ -1,0 +1,68 @@
+<link rel="stylesheet" th:href="@{febs/css/system/user/userAdd.css}" media="all">
+<div class="layui-fluid" id="user-add">
+    <form class="layui-form" action="" lay-filter="user-add-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">用户名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" minlength="2" maxlength="10" lay-verify="range|username"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机：</label>
+            <div class="layui-input-block">
+                <input type="tel" name="mobile" lay-verify="phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱：</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" lay-verify="email" maxlength="50" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">角色：</label>
+            <div class="layui-input-block">
+                <select name="roleId"
+                        lay-verify="required"
+                        xm-select-direction="down"
+                        xm-select="user-add-role"
+                        xm-select-skin="default">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门：</label>
+            <div class="layui-input-block">
+                <input type="text" name="deptId" id="user-add-dept" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">状态：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value="1" title="有效" checked="">
+                <input type="radio" name="status" value="0" title="禁用">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">性别：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="男性">
+                <input type="radio" name="sex" value="1" title="女性">
+                <input type="radio" name="sex" value="2" title="保密" checked="">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <textarea name="description" maxlength="100" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="user-add-form-submit" id="submit"></button>
+            <button type="reset" class="layui-btn" id="reset"></button>
+        </div>
+    </form>
+</div>
+<script th:src="@{febs/js/system/user/userAdd.js}"></script>

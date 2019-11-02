@@ -1,0 +1,34 @@
+<link rel="stylesheet" th:href="@{febs/css/system/dict/dictUpdate.css}" media="all">
+<div class="layui-fluid" id="dict-update">
+	<form class="layui-form" action="" lay-filter="dict-update-form">
+		<div class="layui-form-item febs-hide">
+			<label class="layui-form-label febs-form-item-require">编号：</label>
+			<div class="layui-input-block">
+				<input type="text" name="id" data-th-value="${dict.id}"
+					lay-verify="required" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label febs-form-item-require">标签名：</label>
+			<div class="layui-input-block">
+				<input type="text" name="name" data-th-id="dict"
+					lay-verify="required" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label febs-form-item-require">数据值：</label>
+			<div class="layui-input-block">
+				<input type="text" name="value" data-th-id="dict"
+					lay-verify="required" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item febs-hide">
+			<button class="layui-btn" lay-submit="" lay-filter="dict-update-form-submit" id="submit"></button>
+		</div>
+	</form>
+</div>
+<script th:inline="javascript">
+	var dict = [[${dict}]];
+	var ac = [[${ac}]];
+</script>
+<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/system/dict/dictUpdate.js}"></script>

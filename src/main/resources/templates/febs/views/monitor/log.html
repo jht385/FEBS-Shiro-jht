@@ -1,0 +1,69 @@
+<div class="layui-fluid layui-anim febs-anim" id="febs-log" lay-title="系统日志">
+    <div class="layui-row febs-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body febs-table-full">
+                    <form class="layui-form layui-table-form" lay-filter="log-table-form">
+                        <div class="layui-row">
+                            <div class="layui-col-md10">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">操作人</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="username" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">操作时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="createTime" id="createTime" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">操作描述</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="operation" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 table-action-area">
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+                                    <i class="layui-icon">&#xe848;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+                                    <i class="layui-icon">&#xe79b;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"
+                                     shiro:hasAnyPermissions="log:delete,log:export">
+                                    <i class="layui-icon">&#xe875;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table lay-filter="logTable" lay-data="{id: 'logTable'}"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="log-time">
+    <div>
+        {{# if (d.time < 500) { }}
+        <span class="layui-badge febs-tag-green">{{d.time}} ms</span>
+        {{# } else if (d.time < 1000) { }}
+        <span class="layui-badge febs-tag-cyan">{{d.time}} ms</span>
+        {{# } else if (d.time < 1500) { }}
+        <span class="layui-badge febs-tag-orange">{{d.time}} ms</span>
+        {{# } else { }}
+        <span class="layui-badge febs-tag-red">{{d.time}} ms</span>
+        {{# } }}
+    </div>
+</script>
+<script type="text/html" id="log-option">
+    <span shiro:lacksPermission="log:delete">
+        <span class="layui-badge-dot febs-bg-orange"></span> 无权限
+    </span>
+    <a lay-event="del" shiro:hasPermission="log:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
+</script>
+<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/monitor/log.js}"></script>
