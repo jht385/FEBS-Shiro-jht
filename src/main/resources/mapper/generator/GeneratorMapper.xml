@@ -25,6 +25,7 @@
 			END isKey,
 			case DATA_TYPE
 				when 'datetime' then 'timestamp'
+				when 'int' then 'integer'
 				else DATA_TYPE
 			end type,
 			COLUMN_COMMENT remark, COLUMN_NAME "field"

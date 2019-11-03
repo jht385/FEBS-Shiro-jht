@@ -55,6 +55,10 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
         var data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'generate') {
+        	if(data.remark == null || data.remark == ''){
+        		febs.alert.error('表描述不能为空');
+        		return;
+        	}
             febs.modal.confirm('代码生成', '确定生成数据表<strong> ' + data.name + ' </strong>对应的前后端代码？', function () {
                 febs.download(ctx + 'generator', data, data.name + '_code.zip');
             });

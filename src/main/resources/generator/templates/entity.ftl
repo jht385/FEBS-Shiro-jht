@@ -25,7 +25,7 @@ public class ${className} {
 	<#if column.type = 'timestamp' || column.type = 'date' || column.type = 'datetime'||column.type = 'TIMESTAMP' || column.type = 'DATE' || column.type = 'DATETIME'>
 	private Date ${column.classField?uncap_first}; // ${column.remark} 
 	</#if>
-	<#if column.type = 'int' || column.type = 'smallint'>
+	<#if column.type = 'int' || column.type = 'smallint' || column.type = 'integer'>
 	private Integer ${column.classField?uncap_first}; // ${column.remark} 
 	</#if>
 	<#if column.type = 'bigint'>
