@@ -1,12 +1,9 @@
 package cc.mrbird.febs.common.aspect;
 
-import cc.mrbird.febs.common.annotation.Limit;
-import cc.mrbird.febs.common.entity.LimitType;
-import cc.mrbird.febs.common.exception.LimitAccessException;
-import cc.mrbird.febs.common.utils.HttpContextUtil;
-import cc.mrbird.febs.common.utils.IPUtil;
-import com.google.common.collect.ImmutableList;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Method;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,9 +15,14 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
-import java.lang.reflect.Method;
+import com.google.common.collect.ImmutableList;
+
+import cc.mrbird.febs.common.annotation.Limit;
+import cc.mrbird.febs.common.entity.LimitType;
+import cc.mrbird.febs.common.exception.LimitAccessException;
+import cc.mrbird.febs.common.utils.HttpContextUtil;
+import cc.mrbird.febs.common.utils.IPUtil;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -33,11 +35,11 @@ import java.lang.reflect.Method;
 @Component
 public class LimitAspect extends AspectSupport {
 
-    private final RedisTemplate<String, Serializable> limitRedisTemplate;
+	private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public LimitAspect(RedisTemplate<String, Serializable> limitRedisTemplate) {
-        this.limitRedisTemplate = limitRedisTemplate;
+    public LimitAspect(RedisTemplate<String, Object> limitRedisTemplate) {
+        this.redisTemplate = limitRedisTemplate;
     }
 
     @Pointcut("@annotation(cc.mrbird.febs.common.annotation.Limit)")
@@ -68,7 +70,7 @@ public class LimitAspect extends AspectSupport {
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix() + "_", key, ip));
         String luaScript = buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
+        Number count = redisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
         log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
         if (count != null && count.intValue() <= limitCount) {
             return point.proceed();

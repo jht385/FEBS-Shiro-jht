@@ -11,10 +11,12 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
         $delete = $view.find('#delete'),
         $searchForm = $view.find('form'),
         sortObject = {field: 'time', type: null},
-        tableIns;
+        tableIns,
+        createTimeFrom,
+        createTimeTo;
 
     laydate.render({
-        elem: '#createTime',
+    	elem: '#log-createTime',
         range: true,
         trigger: 'click'
     });
@@ -86,6 +88,8 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     $reset.on('click', function () {
         $searchForm[0].reset();
         sortObject.type = 'null';
+        createTimeTo = null;
+        createTimeFrom = null;
         tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
     });
 
@@ -117,9 +121,7 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     }
 
     function getQueryParams() {
-        var createTimeFrom,
-            createTimeTo,
-            createTime = $searchForm.find('input[name="createTime"]').val();
+        var createTime = $searchForm.find('input[name="createTime"]').val();
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];

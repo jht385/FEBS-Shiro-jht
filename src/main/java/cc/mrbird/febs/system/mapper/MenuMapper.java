@@ -1,10 +1,10 @@
 package cc.mrbird.febs.system.mapper;
 
-import cc.mrbird.febs.system.entity.Menu;
-import com.baomidou.mybatisplus.annotation.SqlParser;
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+import cc.mrbird.febs.system.entity.Menu;
 
 /**
  * @author MrBird

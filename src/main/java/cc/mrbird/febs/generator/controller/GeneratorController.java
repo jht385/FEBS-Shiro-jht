@@ -1,5 +1,19 @@
 package cc.mrbird.febs.generator.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
+
+import org.apache.commons.lang3.RegExUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
@@ -13,24 +27,10 @@ import cc.mrbird.febs.generator.entity.GeneratorConstant;
 import cc.mrbird.febs.generator.helper.GeneratorHelper;
 import cc.mrbird.febs.generator.service.IGeneratorConfigService;
 import cc.mrbird.febs.generator.service.IGeneratorService;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RegExUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author MrBird
  */
-@Slf4j
 @RestController
 @RequestMapping("generator")
 public class GeneratorController extends BaseController {

@@ -13,6 +13,9 @@ File Encoding         : 65001
 Date: 2019-11-02 23:04:47
 */
 
+CREATE DATABASE IF NOT EXISTS `febs_base`;
+USE `febs_base`;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -475,7 +478,7 @@ CREATE TABLE `t_menu` (
 -- ----------------------------
 INSERT INTO `t_menu` VALUES ('1', '0', '系统管理', null, null, 'layui-icon-setting', '0', '1', '2017-12-27 16:39:07', null);
 INSERT INTO `t_menu` VALUES ('2', '0', '系统监控', '', '', 'layui-icon-alert', '0', '2', '2017-12-27 16:45:51', '2019-06-13 11:20:40');
-INSERT INTO `t_menu` VALUES ('3', '1', '用户管理', '/system/user', 'user:view', 'layui-icon-meh', '0', '1', '2017-12-27 16:47:13', '2019-06-13 11:13:55');
+INSERT INTO `t_menu` VALUES ('3', '1', '用户管理', '/system/user', 'user:view', '', '0', '1', '2017-12-27 16:47:13', '2019-12-04 16:46:50');
 INSERT INTO `t_menu` VALUES ('4', '1', '角色管理', '/system/role', 'role:view', '', '0', '2', '2017-12-27 16:48:09', '2019-06-13 08:57:19');
 INSERT INTO `t_menu` VALUES ('5', '1', '菜单管理', '/system/menu', 'menu:view', '', '0', '3', '2017-12-27 16:48:57', '2019-06-13 08:57:34');
 INSERT INTO `t_menu` VALUES ('6', '1', '部门管理', '/system/dept', 'dept:view', '', '0', '4', '2017-12-27 16:57:33', '2019-06-14 19:56:00');
@@ -505,8 +508,6 @@ INSERT INTO `t_menu` VALUES ('107', '102', '恢复任务', null, 'job:resume', n
 INSERT INTO `t_menu` VALUES ('108', '102', '立即执行任务', null, 'job:run', null, '1', null, '2018-02-24 15:59:45', null);
 INSERT INTO `t_menu` VALUES ('109', '101', '调度日志', '/job/log', 'job:log:view', '', '0', '2', '2018-02-24 16:00:45', '2019-06-09 02:48:19');
 INSERT INTO `t_menu` VALUES ('110', '109', '删除日志', null, 'job:log:delete', null, '1', null, '2018-02-24 16:01:21', null);
-INSERT INTO `t_menu` VALUES ('113', '2', 'Redis监控', '/monitor/redis/info', 'redis:view', '', '0', '4', '2018-06-28 14:29:42', '2019-06-13 14:30:45');
-INSERT INTO `t_menu` VALUES ('114', '2', 'Redis终端', '/monitor/redis/terminal', 'redis:terminal:view', '', '0', '5', '2018-06-28 15:35:21', '2019-06-13 14:30:54');
 INSERT INTO `t_menu` VALUES ('115', '0', '其他模块', null, null, 'layui-icon-gift', '0', '5', '2019-05-27 10:18:07', null);
 INSERT INTO `t_menu` VALUES ('116', '115', 'Apex图表', '', '', null, '0', '2', '2019-05-27 10:21:35', null);
 INSERT INTO `t_menu` VALUES ('117', '116', '线性图表', '/others/apex/line', 'apex:line:view', null, '0', '1', '2019-05-27 10:24:49', null);
@@ -521,7 +522,6 @@ INSERT INTO `t_menu` VALUES ('126', '132', '系统图标', '/others/febs/icon', 
 INSERT INTO `t_menu` VALUES ('127', '2', '请求追踪', '/monitor/httptrace', 'httptrace:view', '', '0', '6', '2019-05-27 19:06:38', '2019-06-13 14:36:43');
 INSERT INTO `t_menu` VALUES ('128', '2', '系统信息', null, null, null, '0', '7', '2019-05-27 19:08:23', null);
 INSERT INTO `t_menu` VALUES ('129', '128', 'JVM信息', '/monitor/jvm', 'jvm:view', '', '0', '1', '2019-05-27 19:08:50', '2019-06-13 14:36:51');
-INSERT INTO `t_menu` VALUES ('130', '128', 'Tomcat信息', '/monitor/tomcat', 'tomcat:view', '', '0', '2', '2019-05-27 19:09:26', '2019-06-13 14:36:57');
 INSERT INTO `t_menu` VALUES ('131', '128', '服务器信息', '/monitor/server', 'server:view', '', '0', '3', '2019-05-27 19:10:07', '2019-06-13 14:37:04');
 INSERT INTO `t_menu` VALUES ('132', '115', 'FEBS组件', '', '', null, '0', '1', '2019-05-27 19:13:54', null);
 INSERT INTO `t_menu` VALUES ('133', '132', '表单组件', '/others/febs/form', 'febs:form:view', null, '0', '1', '2019-05-27 19:14:45', null);
@@ -589,8 +589,6 @@ CREATE TABLE `t_role_menu` (
 -- Records of t_role_menu
 -- ----------------------------
 INSERT INTO `t_role_menu` VALUES ('77', '2');
-INSERT INTO `t_role_menu` VALUES ('77', '113');
-INSERT INTO `t_role_menu` VALUES ('77', '114');
 INSERT INTO `t_role_menu` VALUES ('78', '2');
 INSERT INTO `t_role_menu` VALUES ('78', '8');
 INSERT INTO `t_role_menu` VALUES ('78', '23');
@@ -600,12 +598,9 @@ INSERT INTO `t_role_menu` VALUES ('78', '170');
 INSERT INTO `t_role_menu` VALUES ('78', '136');
 INSERT INTO `t_role_menu` VALUES ('78', '171');
 INSERT INTO `t_role_menu` VALUES ('78', '172');
-INSERT INTO `t_role_menu` VALUES ('78', '113');
-INSERT INTO `t_role_menu` VALUES ('78', '114');
 INSERT INTO `t_role_menu` VALUES ('78', '127');
 INSERT INTO `t_role_menu` VALUES ('78', '128');
 INSERT INTO `t_role_menu` VALUES ('78', '129');
-INSERT INTO `t_role_menu` VALUES ('78', '130');
 INSERT INTO `t_role_menu` VALUES ('78', '131');
 INSERT INTO `t_role_menu` VALUES ('79', '101');
 INSERT INTO `t_role_menu` VALUES ('79', '102');
@@ -642,12 +637,9 @@ INSERT INTO `t_role_menu` VALUES ('2', '10');
 INSERT INTO `t_role_menu` VALUES ('2', '170');
 INSERT INTO `t_role_menu` VALUES ('2', '136');
 INSERT INTO `t_role_menu` VALUES ('2', '172');
-INSERT INTO `t_role_menu` VALUES ('2', '113');
-INSERT INTO `t_role_menu` VALUES ('2', '114');
 INSERT INTO `t_role_menu` VALUES ('2', '127');
 INSERT INTO `t_role_menu` VALUES ('2', '128');
 INSERT INTO `t_role_menu` VALUES ('2', '129');
-INSERT INTO `t_role_menu` VALUES ('2', '130');
 INSERT INTO `t_role_menu` VALUES ('2', '131');
 INSERT INTO `t_role_menu` VALUES ('2', '175');
 INSERT INTO `t_role_menu` VALUES ('2', '101');
@@ -712,12 +704,9 @@ INSERT INTO `t_role_menu` VALUES ('1', '170');
 INSERT INTO `t_role_menu` VALUES ('1', '136');
 INSERT INTO `t_role_menu` VALUES ('1', '171');
 INSERT INTO `t_role_menu` VALUES ('1', '172');
-INSERT INTO `t_role_menu` VALUES ('1', '113');
-INSERT INTO `t_role_menu` VALUES ('1', '114');
 INSERT INTO `t_role_menu` VALUES ('1', '127');
 INSERT INTO `t_role_menu` VALUES ('1', '128');
 INSERT INTO `t_role_menu` VALUES ('1', '129');
-INSERT INTO `t_role_menu` VALUES ('1', '130');
 INSERT INTO `t_role_menu` VALUES ('1', '131');
 INSERT INTO `t_role_menu` VALUES ('1', '175');
 INSERT INTO `t_role_menu` VALUES ('1', '101');

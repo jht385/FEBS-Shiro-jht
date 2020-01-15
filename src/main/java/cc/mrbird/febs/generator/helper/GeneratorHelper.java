@@ -117,7 +117,6 @@ public class GeneratorHelper {
 		generateFileByTemplate(templateName, entityFile, data);
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
 	private void generateFileByTemplate(String templateName, File file, Object data) throws Exception {
 		Template template = getTemplate(templateName);
 		Files.createParentDirs(file);

@@ -1,13 +1,10 @@
 package cc.mrbird.febs.monitor.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.common.utils.DateUtil;
-import cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint;
-import cc.mrbird.febs.monitor.entity.FebsHttpTrace;
-import cc.mrbird.febs.monitor.helper.FebsActuatorHelper;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +13,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint.FebsHttpTraceDescriptor;
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint;
+import cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint.FebsHttpTraceDescriptor;
+import cc.mrbird.febs.monitor.entity.FebsHttpTrace;
 
 /**
  * @author MrBird
  */
-@Slf4j
 @RestController
 @RequestMapping("febs/actuator")
 public class FebsActuatorController {

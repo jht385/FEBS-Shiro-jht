@@ -1,16 +1,11 @@
 package cc.mrbird.febs.system.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.system.entity.Dict;
-import cc.mrbird.febs.system.service.IDictService;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +16,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.wuwenze.poi.ExcelKit;
 
-@Slf4j
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.system.entity.Dict;
+import cc.mrbird.febs.system.service.IDictService;
+
 @Validated
 @Controller
 public class DictController extends BaseController {

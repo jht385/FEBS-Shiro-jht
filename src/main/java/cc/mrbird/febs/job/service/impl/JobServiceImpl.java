@@ -1,18 +1,11 @@
 package cc.mrbird.febs.job.service.impl;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.utils.SortUtil;
-import cc.mrbird.febs.job.entity.Job;
-import cc.mrbird.febs.job.mapper.JobMapper;
-import cc.mrbird.febs.job.service.IJobService;
-import cc.mrbird.febs.job.util.ScheduleUtils;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
@@ -21,15 +14,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.utils.SortUtil;
+import cc.mrbird.febs.job.entity.Job;
+import cc.mrbird.febs.job.mapper.JobMapper;
+import cc.mrbird.febs.job.service.IJobService;
+import cc.mrbird.febs.job.util.ScheduleUtils;
 
 /**
  * @author MrBird
  */
-@Slf4j
 @Service("JobService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobService {

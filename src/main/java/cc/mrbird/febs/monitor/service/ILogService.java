@@ -1,16 +1,17 @@
 package cc.mrbird.febs.monitor.service;
 
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.monitor.entity.SystemLog;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
+import java.lang.reflect.Method;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.scheduling.annotation.Async;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Method;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.monitor.entity.SystemLog;
 
 /**
  * @author MrBird
@@ -43,5 +44,5 @@ public interface ILogService extends IService<SystemLog> {
      * @param start     开始时间
      */
     @Async(FebsConstant.ASYNC_POOL)
-    void saveLog(ProceedingJoinPoint point, Method method, HttpServletRequest request, String operation, long start);
+    void saveLog(ProceedingJoinPoint point, Method method, String ip, String operation, long start);
 }

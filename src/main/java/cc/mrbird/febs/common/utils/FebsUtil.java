@@ -1,24 +1,25 @@
 package cc.mrbird.febs.common.utils;
 
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.system.entity.User;
 
 /**
  * FEBS工具类
  *
  * @author MrBird
  */
-@Slf4j
 public class FebsUtil {
 
     /**

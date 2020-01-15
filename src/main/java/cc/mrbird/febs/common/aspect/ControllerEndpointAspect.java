@@ -1,10 +1,7 @@
 package cc.mrbird.febs.common.aspect;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.common.utils.HttpContextUtil;
-import cc.mrbird.febs.monitor.service.ILogService;
+import java.lang.reflect.Method;
+
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,9 +9,14 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Method;
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.monitor.service.ILogService;
 
 /**
  * @author MrBird
@@ -40,8 +42,13 @@ public class ControllerEndpointAspect extends AspectSupport {
         try {
             result = point.proceed();
             if (StringUtils.isNotBlank(operation)) {
-                HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-                logService.saveLog(point, targetMethod, request, operation, start);
+            	RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
+                ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) attributes;
+                String ip = StringUtils.EMPTY;
+                if (servletRequestAttributes != null) {
+                    ip = servletRequestAttributes.getRequest().getRemoteAddr();
+                }
+                logService.saveLog(point, targetMethod, ip, operation, start);
             }
             return result;
         } catch (Throwable throwable) {

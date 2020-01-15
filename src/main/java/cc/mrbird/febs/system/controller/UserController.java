@@ -1,5 +1,25 @@
 package cc.mrbird.febs.system.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.wuwenze.poi.ExcelKit;
+
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
@@ -8,25 +28,10 @@ import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.utils.MD5Util;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.service.IUserService;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author MrBird
  */
-@Slf4j
 @Validated
 @RestController
 @RequestMapping("user")
@@ -37,7 +42,7 @@ public class UserController extends BaseController {
 
     @GetMapping("{username}")
     public User getUser(@NotBlank(message = "{required}") @PathVariable String username) {
-        return this.userService.findUserDetail(username);
+    	return this.userService.findUserDetailList(username);
     }
 
     @GetMapping("check/{username}")
@@ -48,7 +53,7 @@ public class UserController extends BaseController {
     @GetMapping("list")
     @RequiresPermissions("user:view")
     public FebsResponse userList(User user, QueryRequest request) {
-        Map<String, Object> dataTable = getDataTable(this.userService.findUserDetail(user, request));
+    	Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -130,7 +135,7 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:export")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(QueryRequest queryRequest, User user, HttpServletResponse response) {
-        List<User> users = this.userService.findUserDetail(user, queryRequest).getRecords();
+    	List<User> users = this.userService.findUserDetailList(user, queryRequest).getRecords();
         ExcelKit.$Export(User.class, response).downXlsx(users, false);
     }
 }

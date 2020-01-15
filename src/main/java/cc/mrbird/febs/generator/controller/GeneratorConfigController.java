@@ -1,12 +1,7 @@
 package cc.mrbird.febs.generator.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.generator.entity.GeneratorConfig;
-import cc.mrbird.febs.generator.service.IGeneratorConfigService;
-import lombok.extern.slf4j.Slf4j;
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.generator.entity.GeneratorConfig;
+import cc.mrbird.febs.generator.service.IGeneratorConfigService;
 
 /**
  * @author MrBird
  */
-@Slf4j
 @RestController
 @RequestMapping("generatorConfig")
 public class GeneratorConfigController extends BaseController {
