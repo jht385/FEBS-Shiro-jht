@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements I${className}Service {
 
 	@Override
@@ -36,7 +36,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void create${className}(${className} ${className?uncap_first}) {
 		save(${className?uncap_first});
 	}
@@ -47,20 +47,20 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void update${className}(${className} ${className?uncap_first}) {
 		saveOrUpdate(${className?uncap_first});
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void delete${className}(${className} ${className?uncap_first}) {
 		LambdaQueryWrapper<${className}> wrapper = new LambdaQueryWrapper<>();
 		remove(wrapper);
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void delete${className}s(String[] ids) {
 		List<String> list = Arrays.asList(ids);
 		removeByIds(list);

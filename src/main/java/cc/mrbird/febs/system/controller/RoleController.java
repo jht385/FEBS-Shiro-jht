@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,16 +24,17 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.system.entity.Role;
 import cc.mrbird.febs.system.service.IRoleService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("role")
 public class RoleController extends BaseController {
 
-    @Autowired
-    private IRoleService roleService;
+    private final IRoleService roleService;
 
     @GetMapping
     public FebsResponse getAllRoles(Role role) {

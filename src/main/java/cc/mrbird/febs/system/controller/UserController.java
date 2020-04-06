@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,24 +24,25 @@ import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.common.utils.MD5Util;
+import cc.mrbird.febs.common.utils.Md5Util;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("user")
 public class UserController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
 
     @GetMapping("{username}")
     public User getUser(@NotBlank(message = "{required}") @PathVariable String username) {
-    	return this.userService.findUserDetailList(username);
+        return this.userService.findUserDetailList(username);
     }
 
     @GetMapping("check/{username}")
@@ -53,7 +53,7 @@ public class UserController extends BaseController {
     @GetMapping("list")
     @RequiresPermissions("user:view")
     public FebsResponse userList(User user, QueryRequest request) {
-    	Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
+        Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -78,8 +78,9 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:update")
     @ControllerEndpoint(operation = "修改用户", exceptionMessage = "修改用户失败")
     public FebsResponse updateUser(@Valid User user) {
-        if (user.getUserId() == null)
+        if (user.getUserId() == null) {
             throw new FebsException("用户ID为空");
+        }
         this.userService.updateUser(user);
         return new FebsResponse().success();
     }
@@ -99,7 +100,7 @@ public class UserController extends BaseController {
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) {
         User user = getCurrentUser();
-        if (!StringUtils.equals(user.getPassword(), MD5Util.encrypt(user.getUsername(), oldPassword))) {
+        if (!StringUtils.equals(user.getPassword(), Md5Util.encrypt(user.getUsername(), oldPassword))) {
             throw new FebsException("原密码不正确");
         }
         userService.updatePassword(user.getUsername(), newPassword);
@@ -135,7 +136,7 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:export")
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     public void export(QueryRequest queryRequest, User user, HttpServletResponse response) {
-    	List<User> users = this.userService.findUserDetailList(user, queryRequest).getRecords();
+        List<User> users = this.userService.findUserDetailList(user, queryRequest).getRecords();
         ExcelKit.$Export(User.class, response).downXlsx(users, false);
     }
 }

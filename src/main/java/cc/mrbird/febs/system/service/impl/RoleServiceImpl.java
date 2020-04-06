@@ -15,8 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,70 +30,71 @@ import java.util.List;
  * @author MrBird
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
-    @Autowired
-    private IUserRoleService userRoleService;
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final IRoleMenuService roleMenuService;
+    private final IUserRoleService userRoleService;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public List<Role> findUserRole(String username) {
-        return baseMapper.findUserRole(username);
+        return this.baseMapper.findUserRole(username);
     }
 
     @Override
     public List<Role> findRoles(Role role) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(role.getRoleName()))
+        if (StringUtils.isNotBlank(role.getRoleName())) {
             queryWrapper.lambda().like(Role::getRoleName, role.getRoleName());
-        return baseMapper.selectList(queryWrapper);
+        }
+        return this.baseMapper.selectList(queryWrapper);
     }
 
     @Override
     public IPage<Role> findRoles(Role role, QueryRequest request) {
         Page<Role> page = new Page<>(request.getPageNum(), request.getPageSize());
+        page.setSearchCount(false);
+        page.setTotal(baseMapper.countRole(role));
         SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, false);
-        return baseMapper.findRolePage(page, role);
+        return this.baseMapper.findRolePage(page, role);
     }
 
     @Override
     public Role findByName(String roleName) {
-        return baseMapper.selectOne(new QueryWrapper<Role>().lambda().eq(Role::getRoleName, roleName));
+        return this.baseMapper.selectOne(new QueryWrapper<Role>().lambda().eq(Role::getRoleName, roleName));
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createRole(Role role) {
         role.setCreateTime(new Date());
-        baseMapper.insert(role);
-        saveRoleMenus(role);
+        this.baseMapper.insert(role);
+        this.saveRoleMenus(role);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateRole(Role role) {
         role.setModifyTime(new Date());
-        updateById(role);
+        this.updateById(role);
         List<String> roleIdList = new ArrayList<>();
         roleIdList.add(String.valueOf(role.getRoleId()));
-        roleMenuService.deleteRoleMenusByRoleId(roleIdList);
+        this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
 
         shiroRealm.clearCache();
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String roleIds) {
         List<String> list = Arrays.asList(roleIds.split(StringPool.COMMA));
-        baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));
+        this.baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));
 
-        roleMenuService.deleteRoleMenusByRoleId(list);
-        userRoleService.deleteUserRolesByRoleId(list);
+        this.roleMenuService.deleteRoleMenusByRoleId(list);
+        this.userRoleService.deleteUserRolesByRoleId(list);
     }
 
     private void saveRoleMenus(Role role) {

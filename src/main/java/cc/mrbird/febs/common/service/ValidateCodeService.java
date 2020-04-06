@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,7 @@ import cc.mrbird.febs.common.entity.ImageType;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.properties.FebsProperties;
 import cc.mrbird.febs.common.properties.ValidateCodeProperties;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 验证码服务
@@ -28,12 +28,11 @@ import cc.mrbird.febs.common.properties.ValidateCodeProperties;
  * @author MrBird
  */
 @Service
+@RequiredArgsConstructor
 public class ValidateCodeService {
 
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private FebsProperties properties;
+	private final RedisService redisService;
+    private final FebsProperties properties;
 
 
     public void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -62,7 +61,7 @@ public class ValidateCodeService {
     }
 
     private Captcha createCaptcha(ValidateCodeProperties code) {
-        Captcha captcha = null;
+        Captcha captcha;
         if (StringUtils.equalsIgnoreCase(code.getType(), ImageType.GIF)) {
             captcha = new GifCaptcha(code.getWidth(), code.getHeight(), code.getLength());
         } else {

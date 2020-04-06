@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,16 +24,17 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.system.entity.Dept;
 import cc.mrbird.febs.system.service.IDeptService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("dept")
 public class DeptController {
 
-    @Autowired
-    private IDeptService deptService;
+    private final IDeptService deptService;
 
     @GetMapping("select/tree")
     @ControllerEndpoint(exceptionMessage = "获取部门树失败")

@@ -1,26 +1,25 @@
 package cc.mrbird.febs.system.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.system.entity.Dict;
 import cc.mrbird.febs.system.mapper.DictMapper;
 import cc.mrbird.febs.system.service.IDictService;
+import java.util.Arrays;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
 
 	@Override
@@ -37,7 +36,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void createDict(Dict dict) {
 		save(dict);
 	}
@@ -48,20 +47,20 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void updateDict(Dict dict) {
 		saveOrUpdate(dict);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteDict(Dict dict) {
 		LambdaQueryWrapper<Dict> wrapper = new LambdaQueryWrapper<>();
 		remove(wrapper);
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteDicts(String[] ids) {
 		List<String> list = Arrays.asList(ids);
 		removeByIds(list);

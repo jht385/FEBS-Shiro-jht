@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +22,7 @@ import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.job.entity.JobLog;
 import cc.mrbird.febs.job.service.IJobLogService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
@@ -30,10 +30,10 @@ import cc.mrbird.febs.job.service.IJobLogService;
 @Validated
 @RestController
 @RequestMapping("jobLog")
+@RequiredArgsConstructor
 public class JobLogController extends BaseController {
 
-    @Autowired
-    private IJobLogService jobLogService;
+	private final IJobLogService jobLogService;
 
     @GetMapping
     @RequiresPermissions("job:log:view")

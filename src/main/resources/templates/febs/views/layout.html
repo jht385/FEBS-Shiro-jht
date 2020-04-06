@@ -79,12 +79,15 @@
                     var html = '
                     <dl class="layui-nav-child">';
                         layui.each(data,function(i,child){
-                        var left = index == 0 ? 50 : 50 + index * 20;
-                        html += '
-                        <dd><a style="padding-left:' + left + 'px" target="'+(child.target||'')+'"
-                               lay-href="'+ (child.href||'') +'"><i class="layui-icon '+child.icon+'"></i>' + child.title + '</a>';
+                        	var left = index == 0 ? 50 : 50 + index * 20;
+							var iconStr = '<i class="layui-icon '+child.icon+'"></i>';
+							if(!child.icon)
+								iconStr = '';
+                        	html += '
+                        		<dd><a style="padding-left:' + left + 'px" target="'+(child.target||'')+'"
+                               		lay-href="'+ (child.href||'') +'">' + iconStr + child.title + '</a>';
                             if(child.childs) html += __createSlidebar(child.childs,index+1);
-                            html += '</dd>';
+                            	html += '</dd>';
                         });
                         html = html +'</dl>';
                     return html;

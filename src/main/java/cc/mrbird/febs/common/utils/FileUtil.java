@@ -1,31 +1,25 @@
 package cc.mrbird.febs.common.utils;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Preconditions;
-
-import cc.mrbird.febs.common.entity.FebsConstant;
-
 /**
  * @author MrBird
  */
+@Slf4j
 public class FileUtil {
 
     private static final int BUFFER = 1024 * 8;
@@ -63,8 +57,9 @@ public class FileUtil {
      */
     public static void download(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
         File file = new File(filePath);
-        if (!file.exists())
+        if (!file.exists()) {
             throw new Exception("文件未找到");
+        }
 
         String fileType = getFileType(file);
         if (!fileTypeIsValid(fileType)) {
@@ -80,8 +75,9 @@ public class FileUtil {
                 os.write(b, 0, length);
             }
         } finally {
-            if (delete)
+            if (delete) {
                 delete(filePath);
+            }
         }
     }
 
@@ -94,9 +90,15 @@ public class FileUtil {
         File file = new File(filePath);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files != null) Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            if (files != null) {
+                Arrays.stream(files).forEach(f -> delete(f.getPath()));
+            }
         }
-        file.delete();
+        try {
+            Files.delete(Paths.get(filePath));
+        } catch (IOException e) {
+            log.error("删除失败", e);
+        }
     }
 
     /**

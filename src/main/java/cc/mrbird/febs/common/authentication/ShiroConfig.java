@@ -1,7 +1,11 @@
 package cc.mrbird.febs.common.authentication;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import cc.mrbird.febs.common.properties.FebsProperties;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -15,17 +19,14 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import cc.mrbird.febs.common.properties.FebsProperties;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Shiro 配置类
@@ -33,10 +34,10 @@ import java.util.LinkedHashMap;
  * @author MrBird
  */
 @Configuration
+@RequiredArgsConstructor
 public class ShiroConfig {
 
-	@Autowired
-	private FebsProperties febsProperties;
+	private final FebsProperties febsProperties;
 
 	@Value("${spring.redis.host}")
 	private String host;
@@ -57,8 +58,9 @@ public class ShiroConfig {
 	private RedisManager redisManager() {
 		RedisManager redisManager = new RedisManager();
 		redisManager.setHost(host + ":" + port);
-		if (StringUtils.isNotBlank(password))
+		if (StringUtils.isNotBlank(password)) {
 			redisManager.setPassword(password);
+		}
 		redisManager.setTimeout(timeout);
 		redisManager.setDatabase(database);
 		return redisManager;

@@ -1,22 +1,5 @@
 package cc.mrbird.febs.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import cc.mrbird.febs.common.authentication.ShiroRealm;
 import cc.mrbird.febs.common.entity.MenuTree;
 import cc.mrbird.febs.common.utils.TreeUtil;
@@ -24,120 +7,136 @@ import cc.mrbird.febs.system.entity.Menu;
 import cc.mrbird.febs.system.mapper.MenuMapper;
 import cc.mrbird.febs.system.service.IMenuService;
 import cc.mrbird.febs.system.service.IRoleMenuService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author MrBird
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-	@Autowired
-	private IRoleMenuService roleMenuService;
-	@Autowired
-	private ShiroRealm shiroRealm;
+    private final IRoleMenuService roleMenuService;
+    private final ShiroRealm shiroRealm;
 
-	@Override
-	public List<Menu> findUserPermissions(String username) {
-		return baseMapper.findUserPermissions(username);
-	}
+    @Override
+    public List<Menu> findUserPermissions(String username) {
+        return this.baseMapper.findUserPermissions(username);
+    }
 
-	@Override
-	public MenuTree<Menu> findUserMenus(String username) {
-		List<Menu> menus = baseMapper.findUserMenus(username);
-		List<MenuTree<Menu>> trees = convertMenus(menus);
-		return TreeUtil.buildMenuTree(trees);
-	}
+    @Override
+    public MenuTree<Menu> findUserMenus(String username) {
+        List<Menu> menus = this.baseMapper.findUserMenus(username);
+        List<MenuTree<Menu>> trees = this.convertMenus(menus);
+        return TreeUtil.buildMenuTree(trees);
+    }
 
-	@Override
-	public MenuTree<Menu> findMenus(Menu menu) {
-		QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-		if (StringUtils.isNotBlank(menu.getMenuName())) {
-			queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
-		}
-		queryWrapper.lambda().orderByAsc(Menu::getOrderNum);
-		List<Menu> menus = baseMapper.selectList(queryWrapper);
-		List<MenuTree<Menu>> trees = convertMenus(menus);
+    @Override
+    public MenuTree<Menu> findMenus(Menu menu) {
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(menu.getMenuName())) {
+            queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
+        }
+        queryWrapper.lambda().orderByAsc(Menu::getOrderNum);
+        List<Menu> menus = this.baseMapper.selectList(queryWrapper);
+        List<MenuTree<Menu>> trees = this.convertMenus(menus);
 
-		return TreeUtil.buildMenuTree(trees);
-	}
+        return TreeUtil.buildMenuTree(trees);
+    }
 
-	@Override
-	public List<Menu> findMenuList(Menu menu) {
-		QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-		if (StringUtils.isNotBlank(menu.getMenuName())) {
-			queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
-		}
-		queryWrapper.lambda().orderByAsc(Menu::getMenuId).orderByAsc(Menu::getOrderNum);
-		return baseMapper.selectList(queryWrapper);
-	}
+    @Override
+    public List<Menu> findMenuList(Menu menu) {
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(menu.getMenuName())) {
+            queryWrapper.lambda().like(Menu::getMenuName, menu.getMenuName());
+        }
+        queryWrapper.lambda().orderByAsc(Menu::getMenuId);
+        return this.baseMapper.selectList(queryWrapper);
+    }
 
-	@Override
-	@Transactional
-	public void createMenu(Menu menu) {
-		menu.setCreateTime(new Date());
-		setMenu(menu);
-		baseMapper.insert(menu);
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void createMenu(Menu menu) {
+        menu.setCreateTime(new Date());
+        this.setMenu(menu);
+        this.baseMapper.insert(menu);
+    }
 
-	@Override
-	@Transactional
-	public void updateMenu(Menu menu) {
-		menu.setModifyTime(new Date());
-		setMenu(menu);
-		baseMapper.updateById(menu);
 
-		shiroRealm.clearCache();
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMenu(Menu menu) {
+        menu.setModifyTime(new Date());
+        this.setMenu(menu);
+        this.baseMapper.updateById(menu);
 
-	@Override
-	@Transactional
-	public void deleteMeuns(String menuIds) {
-		String[] menuIdsArray = menuIds.split(StringPool.COMMA);
-		delete(Arrays.asList(menuIdsArray));
+        shiroRealm.clearCache();
+    }
 
-		shiroRealm.clearCache();
-	}
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteMeuns(String menuIds) {
+        String[] menuIdsArray = menuIds.split(StringPool.COMMA);
+        this.delete(Arrays.asList(menuIdsArray));
 
-	private List<MenuTree<Menu>> convertMenus(List<Menu> menus) {
-		List<MenuTree<Menu>> trees = new ArrayList<>();
-		menus.forEach(menu -> {
-			MenuTree<Menu> tree = new MenuTree<>();
-			tree.setId(String.valueOf(menu.getMenuId()));
-			tree.setParentId(String.valueOf(menu.getParentId()));
-			tree.setTitle(menu.getMenuName());
-			tree.setIcon(menu.getIcon());
-			tree.setHref(menu.getUrl());
-			tree.setData(menu);
-			trees.add(tree);
-		});
-		return trees;
-	}
+        shiroRealm.clearCache();
+    }
 
-	private void setMenu(Menu menu) {
-		if (menu.getParentId() == null)
-			menu.setParentId(Menu.TOP_NODE);
-		if (Menu.TYPE_BUTTON.equals(menu.getType())) {
-			menu.setUrl(null);
-			menu.setIcon(null);
-		}
-	}
+    private List<MenuTree<Menu>> convertMenus(List<Menu> menus) {
+        List<MenuTree<Menu>> trees = new ArrayList<>();
+        menus.forEach(menu -> {
+            MenuTree<Menu> tree = new MenuTree<>();
+            tree.setId(String.valueOf(menu.getMenuId()));
+            tree.setParentId(String.valueOf(menu.getParentId()));
+            tree.setTitle(menu.getMenuName());
+            tree.setIcon(menu.getIcon());
+            tree.setHref(menu.getUrl());
+            tree.setData(menu);
+            trees.add(tree);
+        });
+        return trees;
+    }
 
-	private void delete(List<String> menuIds) {
-		List<String> list = new ArrayList<>(menuIds);
-		removeByIds(menuIds);
+    private void setMenu(Menu menu) {
+        if (menu.getParentId() == null) {
+            menu.setParentId(Menu.TOP_NODE);
+        }
+        if (Menu.TYPE_BUTTON.equals(menu.getType())) {
+            menu.setUrl(null);
+            menu.setIcon(null);
+        }
+    }
 
-		LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
-		queryWrapper.in(Menu::getParentId, menuIds);
-		List<Menu> menus = baseMapper.selectList(queryWrapper);
-		if (CollectionUtils.isNotEmpty(menus)) {
-			List<String> menuIdList = new ArrayList<>();
-			menus.forEach(m -> menuIdList.add(String.valueOf(m.getMenuId())));
-			list.addAll(menuIdList);
-			this.roleMenuService.deleteRoleMenusByMenuId(list);
-			this.delete(menuIdList);
-		} else {
-			this.roleMenuService.deleteRoleMenusByMenuId(list);
-		}
-	}
+    private void delete(List<String> menuIds) {
+        List<String> list = new ArrayList<>(menuIds);
+        removeByIds(menuIds);
+
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.in(Menu::getParentId, menuIds);
+        List<Menu> menus = baseMapper.selectList(queryWrapper);
+        if (CollectionUtils.isNotEmpty(menus)) {
+            List<String> menuIdList = new ArrayList<>();
+            menus.forEach(m -> menuIdList.add(String.valueOf(m.getMenuId())));
+            list.addAll(menuIdList);
+            this.roleMenuService.deleteRoleMenusByMenuId(list);
+            this.delete(menuIdList);
+        } else {
+            this.roleMenuService.deleteRoleMenusByMenuId(list);
+        }
+    }
 }

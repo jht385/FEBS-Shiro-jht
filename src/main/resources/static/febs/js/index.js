@@ -72,11 +72,12 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
         var options = {
             chart: {
                 height: 350,
-                type: 'bar',
+                type: 'area',
                 toolbar: {
                     show: false
                 }
             },
+            colors: ['#1890ff', '#0acf97'],
             plotOptions: {
                 bar: {
                     horizontal: false,
@@ -87,9 +88,8 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
                 enabled: false
             },
             stroke: {
-                show: true,
-                width: 1,
-                colors: ['transparent']
+            	width: [3, 3],
+                curve: 'smooth'
             },
             series: [{
                 name: '总数',
@@ -109,7 +109,14 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
                 }
             },
             fill: {
-                opacity: 1
+            	type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0,
+                    stops: [0, 90, 100]
+                }
             },
             title: {
                 text: '近10天系统访问记录',

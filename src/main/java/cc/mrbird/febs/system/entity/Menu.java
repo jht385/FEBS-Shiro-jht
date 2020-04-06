@@ -21,9 +21,18 @@ import java.util.Date;
 @TableName("t_menu")
 @Excel("菜单信息表")
 public class Menu implements Serializable {
+
     private static final long serialVersionUID = 8571011372410167901L;
-    public static final String TYPE_MENU = "0";// 菜单
-    public static final String TYPE_BUTTON = "1";// 按钮
+
+    /**
+     *  菜单
+     */
+    public static final String TYPE_MENU = "0";
+    /**
+     * 按钮
+     */
+    public static final String TYPE_BUTTON = "1";
+
     public static final Long TOP_NODE = 0L;
 
     /**

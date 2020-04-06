@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,22 +26,21 @@ import cc.mrbird.febs.generator.entity.GeneratorConstant;
 import cc.mrbird.febs.generator.helper.GeneratorHelper;
 import cc.mrbird.febs.generator.service.IGeneratorConfigService;
 import cc.mrbird.febs.generator.service.IGeneratorService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @RestController
 @RequestMapping("generator")
+@RequiredArgsConstructor
 public class GeneratorController extends BaseController {
 
     private static final String SUFFIX = "_code.zip";
 
-    @Autowired
-    private IGeneratorService generatorService;
-    @Autowired
-    private IGeneratorConfigService generatorConfigService;
-    @Autowired
-    private GeneratorHelper generatorHelper;
+    private final IGeneratorService generatorService;
+    private final IGeneratorConfigService generatorConfigService;
+    private final GeneratorHelper generatorHelper;
 
     @GetMapping("tables/info")
     @RequiresPermissions("generator:view")

@@ -28,12 +28,22 @@ import java.util.stream.Collectors;
 @Component
 public class ShiroRealm extends AuthorizingRealm {
 
-    @Autowired
     private IUserService userService;
-    @Autowired
     private IRoleService roleService;
-    @Autowired
     private IMenuService menuService;
+
+    @Autowired
+    public void setMenuService(IMenuService menuService) {
+        this.menuService = menuService;
+    }
+    @Autowired
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+    @Autowired
+    public void setRoleService(IRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
      * 授权模块，获取用户角色和权限
@@ -48,10 +58,12 @@ public class ShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 
+        // 获取用户角色集
         List<Role> roleList = this.roleService.findUserRole(userName);
         Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
         simpleAuthorizationInfo.setRoles(roleSet);
 
+        // 获取用户权限集
         List<Menu> permissionList = this.menuService.findUserPermissions(userName);
         Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
         simpleAuthorizationInfo.setStringPermissions(permissionSet);
@@ -68,18 +80,18 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         // 获取用户输入的用户名和密码
-        String userName = (String) token.getPrincipal();
+        String username = (String) token.getPrincipal();
         String password = new String((char[]) token.getCredentials());
 
         // 通过用户名到数据库查询用户信息
-        User user = this.userService.findByName(userName);
-
-        if (user == null)
-            throw new UnknownAccountException("账号未注册！");
-        if (!StringUtils.equals(password, user.getPassword()))
+        User user = this.userService.findByName(username);
+        
+        if (user == null || !StringUtils.equals(password, user.getPassword())) {
             throw new IncorrectCredentialsException("用户名或密码错误！");
-        if (User.STATUS_LOCK.equals(user.getStatus()))
+        }
+        if (User.STATUS_LOCK.equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
+        }
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 

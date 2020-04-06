@@ -1,31 +1,31 @@
 package cc.mrbird.febs.monitor.controller;
 
-import java.util.List;
-
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.monitor.entity.JvmInfo;
+import cc.mrbird.febs.monitor.entity.ServerInfo;
+import cc.mrbird.febs.monitor.entity.TomcatInfo;
+import cc.mrbird.febs.monitor.helper.FebsActuatorHelper;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.monitor.endpoint.FebsMetricsEndpoint.FebsMetricResponse;
-import cc.mrbird.febs.monitor.entity.JvmInfo;
-import cc.mrbird.febs.monitor.entity.ServerInfo;
-import cc.mrbird.febs.monitor.entity.TomcatInfo;
-import cc.mrbird.febs.monitor.helper.FebsActuatorHelper;
+import java.util.List;
+
+import static cc.mrbird.febs.monitor.endpoint.FebsMetricsEndpoint.FebsMetricResponse;
 
 /**
  * @author MrBird
  */
 @Controller("monitorView")
 @RequestMapping(FebsConstant.VIEW_PREFIX + "monitor")
+@RequiredArgsConstructor
 public class ViewController {
 
-    @Autowired
-    private FebsActuatorHelper actuatorHelper;
+    private final FebsActuatorHelper actuatorHelper;
 
     @GetMapping("online")
     @RequiresPermissions("online:view")

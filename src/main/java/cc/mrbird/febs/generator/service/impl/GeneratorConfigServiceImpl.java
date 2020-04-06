@@ -15,7 +15,7 @@ import java.util.List;
  * @author MrBird
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class GeneratorConfigServiceImpl extends ServiceImpl<GeneratorConfigMapper, GeneratorConfig> implements IGeneratorConfigService {
 
     @Override
@@ -25,8 +25,8 @@ public class GeneratorConfigServiceImpl extends ServiceImpl<GeneratorConfigMappe
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateGeneratorConfig(GeneratorConfig generatorConfig) {
-        saveOrUpdate(generatorConfig);
-    }
+		saveOrUpdate(generatorConfig);
+	}
 }

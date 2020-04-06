@@ -1,15 +1,16 @@
 package cc.mrbird.febs.common.controller;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import cc.mrbird.febs.system.entity.User;
 
 /**
  * @author MrBird
@@ -37,7 +38,7 @@ public class BaseController {
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
-        return getDataTable(pageInfo, FebsConstant.DATA_MAP_INITIAL_CAPACITY);
+        return getDataTable(pageInfo, 2);
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo, int dataMapInitialCapacity) {

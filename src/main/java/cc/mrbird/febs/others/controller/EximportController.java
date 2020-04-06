@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,16 +32,17 @@ import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.others.entity.Eximport;
 import cc.mrbird.febs.others.service.IEximportService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @RestController
 @RequestMapping("eximport")
+@RequiredArgsConstructor
 public class EximportController extends BaseController {
 
-    @Autowired
-    private IEximportService eximportService;
+    private final IEximportService eximportService;
 
     @GetMapping
     @RequiresPermissions("others:eximport:view")

@@ -21,10 +21,10 @@
 								</div>
 							</div>
 							<div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
-								<div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+								<div class="layui-btn layui-btn-sm layui-btn-primary febs-button-blue-plain table-action" id="query">
 									<i class="layui-icon">&#xe848;</i>
 								</div>
-								<div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+								<div class="layui-btn layui-btn-sm layui-btn-primary febs-button-blue-plain table-action" id="reset">
 									<i class="layui-icon">&#xe79b;</i>
 								</div>
 								<div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"
@@ -47,7 +47,7 @@
 	0: {title: '禁用', color: 'volcano'}
 	}[d.status];
 	}}
-	<span class="layui-badge febs-tag-{{status.color}}">{{ status.title }}</span>
+	<span class="layui-badge febs-bg-{{status.color}}">{{ status.title }}</span>
 </script>
 <script type="text/html" id="${className?uncap_first}-option">
 	<span shiro:lacksPermission="${className?uncap_first}:view,${className?uncap_first}:update,${className?uncap_first}:delete">

@@ -2,7 +2,6 @@ package cc.mrbird.febs.others.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +15,17 @@ import cc.mrbird.febs.common.properties.FebsProperties;
 import cc.mrbird.febs.others.entity.Eximport;
 import cc.mrbird.febs.others.mapper.EximportMapper;
 import cc.mrbird.febs.others.service.IEximportService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@RequiredArgsConstructor
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> implements IEximportService {
 
-	@Autowired
-    private FebsProperties properties;
+    private final FebsProperties properties;
 
     @Override
     public IPage<Eximport> findEximports(QueryRequest request, Eximport eximport) {
@@ -34,9 +34,9 @@ public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> i
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void batchInsert(List<Eximport> list) {
-    	saveBatch(list, properties.getMaxBatchInsertNum());
+        saveBatch(list, properties.getMaxBatchInsertNum());
     }
 
 }

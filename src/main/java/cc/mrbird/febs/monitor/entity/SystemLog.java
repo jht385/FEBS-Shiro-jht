@@ -1,16 +1,17 @@
 package cc.mrbird.febs.monitor.entity;
 
-import cc.mrbird.febs.common.converter.TimeConverter;
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
-import lombok.Data;
 
-import java.io.Serializable;
-import java.util.Date;
+import cc.mrbird.febs.common.converter.TimeConverter;
+import lombok.Data;
 
 /**
  * @author MrBird
@@ -19,10 +20,9 @@ import java.util.Date;
 @TableName("t_log")
 @Excel("系统日志表")
 public class SystemLog implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
-
-    /**
+	/**
      * 日志ID
      */
     @TableId(value = "ID", type = IdType.AUTO)

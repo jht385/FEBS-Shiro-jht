@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,16 +21,17 @@ import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.monitor.entity.SystemLog;
 import cc.mrbird.febs.monitor.service.ILogService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @RestController
 @RequestMapping("log")
+@RequiredArgsConstructor
 public class LogController extends BaseController {
 
-    @Autowired
-    private ILogService logService;
+    private final ILogService logService;
 
     @GetMapping("list")
     @RequiresPermissions("log:view")

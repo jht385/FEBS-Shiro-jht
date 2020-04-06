@@ -9,7 +9,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -21,7 +20,8 @@ import cc.mrbird.febs.common.annotation.Limit;
 import cc.mrbird.febs.common.entity.LimitType;
 import cc.mrbird.febs.common.exception.LimitAccessException;
 import cc.mrbird.febs.common.utils.HttpContextUtil;
-import cc.mrbird.febs.common.utils.IPUtil;
+import cc.mrbird.febs.common.utils.IpUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -33,14 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Aspect
 @Component
-public class LimitAspect extends AspectSupport {
+@RequiredArgsConstructor
+public class LimitAspect extends BaseAspectSupport {
 
 	private final RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    public LimitAspect(RedisTemplate<String, Object> limitRedisTemplate) {
-        this.redisTemplate = limitRedisTemplate;
-    }
 
     @Pointcut("@annotation(cc.mrbird.febs.common.annotation.Limit)")
     public void pointcut() {
@@ -54,7 +50,7 @@ public class LimitAspect extends AspectSupport {
         LimitType limitType = limitAnnotation.limitType();
         String name = limitAnnotation.name();
         String key;
-        String ip = IPUtil.getIpAddr(request);
+        String ip = IpUtil.getIpAddr(request);
         int limitPeriod = limitAnnotation.period();
         int limitCount = limitAnnotation.count();
         switch (limitType) {
