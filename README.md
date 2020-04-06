@@ -1,4 +1,4 @@
-# FEBS-Shiro-2.0-jht
+# FEBS-Shiro-jht
 FEBS-Shiro 个人适配版
 
 原版地址 https://github.com/wuyouzhuguli/FEBS-Shiro
