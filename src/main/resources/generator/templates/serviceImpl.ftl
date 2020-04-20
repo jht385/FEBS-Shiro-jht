@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -25,7 +24,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
 	@Override
 	public IPage<${className}> find${className}s(QueryRequest request, ${className} ${className?uncap_first}) {
 		Page<${className}> page = new Page<>(request.getPageNum(), request.getPageSize());
-		SortUtil.handlePageSort(request, page, "${columns[0].classField?uncap_first}", FebsConstant.ORDER_ASC, false);
+		SortUtil.handlePageSort(request, page, "${columns[0].classField?uncap_first}", FebsConstant.ORDER_ASC, true);
 		return baseMapper.find${className}Page(page, ${className?uncap_first});
 	}
 
@@ -43,7 +42,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
 	
 	@Override
 	public ${className} findBy${columns[0].classField?cap_first}(String ${columns[0].classField?uncap_first}) {
-		return getBy${columns[0].classField?cap_first}(${columns[0].classField?uncap_first});
+		return getById(${columns[0].classField?uncap_first});
 	}
 
 	@Override
