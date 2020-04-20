@@ -26,3 +26,6 @@ mybatis-plus:
     banner: false
     db-config:
       select-strategy: not_empty
+
+myconfig:
+  database-name: febs_base

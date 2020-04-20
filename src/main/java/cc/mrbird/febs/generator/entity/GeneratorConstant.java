@@ -7,7 +7,6 @@ package cc.mrbird.febs.generator.entity;
  */
 public class GeneratorConstant {
     public static final String DATABASE_TYPE = "mysql"; // 数据库类型
-    public static final String DATABASE_NAME = "febs_base"; // 数据库名称
     public static final String TEMP_PATH = "febs_gen_temp/"; // 生成代码的临时目录
     public static final String JAVA_FILE_SUFFIX = ".java"; // java类型文件后缀
     public static final String MAPPER_FILE_SUFFIX = "Mapper.java"; // mapper文件类型后缀
