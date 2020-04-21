@@ -9,7 +9,7 @@
             AND u.username = #{user.username}
         </if>
         <if test="user.deptId != null and user.deptId != ''">
-            AND d.dept_id = #{user.deptId}
+            AND u.dept_id = #{user.deptId}
         </if>
         <if test="user.sex != null and user.sex != ''">
             AND u.ssex = #{user.sex}

@@ -8,6 +8,7 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
         $query = $view.find('#query'),
         $reset = $view.find('#reset'),
         $searchForm = $view.find('form'),
+        $datasource = $view.find('#datasource'),
         tableIns;
 
     laydate.render({
@@ -16,6 +17,7 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     });
 
     form.render();
+    getDatasource();
     initTable();
 
     $query.on('click', function () {
@@ -26,6 +28,17 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
         $searchForm[0].reset();
         tableIns.reload({where: getQueryParams(), page: {curr: 1}});
     });
+    
+    function getDatasource() {
+        febs.get(ctx + 'generator/datasource', null, function (r) {
+            var options = '<option value="">请选择</option>';
+            for (var item of r.data) {
+                options += '<option value="' + item + '">' + item + '</option>'
+            }
+            $datasource.append(options)
+            form.render();
+        });
+    }
 
     function initTable() {
         tableIns = febs.table.init({
@@ -47,6 +60,7 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     function getQueryParams() {
         return {
             tableName: $searchForm.find("input[name='tableName']").val().trim(),
+            datasource: $searchForm.find("select[name='datasource']").val(),
             invalidate_ie_cache: new Date()
         };
     }
@@ -54,6 +68,7 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     table.on('tool(configureTable)', function (obj) {
         var data = obj.data,
             layEvent = obj.event;
+        data.datasource = $searchForm.find("select[name='datasource']").val();
         if (layEvent === 'generate') {
         	if(data.remark == null || data.remark == ''){
         		febs.alert.error('表描述不能为空');

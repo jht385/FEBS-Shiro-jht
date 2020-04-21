@@ -47,9 +47,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public IPage<User> findUserDetailList(User user, QueryRequest request) {
+    	if (StringUtils.isNotBlank(user.getCreateTimeFrom()) &&
+                StringUtils.equals(user.getCreateTimeFrom(), user.getCreateTimeTo())) {
+            user.setCreateTimeFrom(user.getCreateTimeFrom() + " 00:00:00");
+            user.setCreateTimeTo(user.getCreateTimeTo() + " 23:59:59");
+        }
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
         page.setSearchCount(false);
-        page.setTotal(baseMapper.countUserDetail(user));;
+        page.setTotal(baseMapper.countUserDetail(user));
         SortUtil.handlePageSort(request, page, "userId", FebsConstant.ORDER_ASC, false);
         return this.baseMapper.findUserDetailPage(page, user);
     }
