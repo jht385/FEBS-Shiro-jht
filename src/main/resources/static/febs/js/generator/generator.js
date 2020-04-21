@@ -19,6 +19,10 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     form.render();
     getDatasource();
     initTable();
+    
+    form.on('select(datasource)', function(data){
+    	$query.click();
+    });
 
     $query.on('click', function () {
         tableIns.reload({where: getQueryParams(), page: {curr: 1}});
@@ -35,7 +39,7 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
             for (var item of r.data) {
                 options += '<option value="' + item + '">' + item + '</option>'
             }
-            $datasource.append(options)
+            $datasource.append(options);
             form.render();
         });
     }
