@@ -54,7 +54,9 @@ public class GeneratorController extends BaseController {
 		List<String> datasourcesName = new ArrayList<>();
 		datasources.forEach((k, v) -> {
 			String datasourceName = StringUtils.substringBefore(StringUtils.substringAfterLast(v.getUrl(), "/"), "?");
-			datasourcesName.add(datasourceName);
+			if (!datasourcesName.contains(datasourceName)) {
+				datasourcesName.add(datasourceName);
+			}
 		});
 		return new FebsResponse().success().data(datasourcesName);
 	}

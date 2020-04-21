@@ -1,32 +1,34 @@
 package cc.mrbird.febs.system.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.system.entity.Dict;
 import cc.mrbird.febs.system.mapper.DictMapper;
 import cc.mrbird.febs.system.service.IDictService;
+import lombok.RequiredArgsConstructor;
+import java.util.Arrays;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service
+@RequiredArgsConstructor
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements IDictService {
+
+	private final DictMapper dictMapper;
 
 	@Override
 	public IPage<Dict> findDicts(QueryRequest request, Dict dict) {
 		Page<Dict> page = new Page<>(request.getPageNum(), request.getPageSize());
-		SortUtil.handlePageSort(request, page, "id", FebsConstant.ORDER_ASC, false);
+		SortUtil.handlePageSort(request, page, "id", FebsConstant.ORDER_ASC, true);
 		return baseMapper.findDictPage(page, dict);
 	}
 

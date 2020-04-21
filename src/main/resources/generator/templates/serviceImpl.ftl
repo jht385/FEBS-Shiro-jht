@@ -6,6 +6,7 @@ import cc.mrbird.febs.common.utils.SortUtil;
 import ${basePackage}.${module}.${entityPackage}.${className};
 import ${basePackage}.${module}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${module}.${servicePackage}.I${className}Service;
+import lombok.RequiredArgsConstructor;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.stereotype.Service;
