@@ -9,7 +9,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 		$query = $view.find('#query'),
 		$reset = $view.find('#reset'),
 		$searchForm = $view.find('form'),
-		sortObject = {field: '', type: null},
+		sortObject = {field: '${columns[0].classField?uncap_first}', type: null},
 		tableIns;
 
 	form.render();
