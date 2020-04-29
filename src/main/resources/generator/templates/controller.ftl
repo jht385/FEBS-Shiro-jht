@@ -38,7 +38,7 @@ public class ${className}Controller extends BaseController {
 	}
 	
 	@GetMapping(FebsConstant.VIEW_PREFIX + "${module}/${className?uncap_first}/detail/{${columns[0].classField?uncap_first}}")
-	public String dictDetail(@PathVariable String ${columns[0].classField?uncap_first}, Model model){
+	public String ${className?uncap_first}Detail(@PathVariable String ${columns[0].classField?uncap_first}, Model model){
 		${className} ${className?uncap_first} = ${className?uncap_first}Service.findBy${columns[0].classField?cap_first}(${columns[0].classField?uncap_first});
 		model.addAttribute("${className?uncap_first}", ${className?uncap_first});
 		model.addAttribute("ac", "view");
