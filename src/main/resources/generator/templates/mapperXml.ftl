@@ -23,7 +23,7 @@
 		</#list>
 		<#list columns as column>
 			<#if column.isKey = true>
-		group by ${column.name}
+		order by ${column.name}
 			</#if>
 		</#list>
 	</sql>

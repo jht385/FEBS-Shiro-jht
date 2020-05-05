@@ -37,7 +37,7 @@
 		<if test="dict.remarks != null and dict.remarks != ''"> AND remarks = #{dict.remarks}</if>
 		<if test="dict.delFlag != null and dict.delFlag != ''"> AND del_flag = #{dict.delFlag}</if>
 		<if test="dict.ex1 != null and dict.ex1 != ''"> AND ex1 = #{dict.ex1}</if>
-		group by id
+		order by id
 	</sql>
 	
 	<select id="findDictPage" parameterType="dict" resultType="dict">
