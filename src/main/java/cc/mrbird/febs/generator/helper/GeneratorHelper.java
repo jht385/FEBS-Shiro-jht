@@ -85,7 +85,7 @@ public class GeneratorHelper {
 		generateFile(columns, resourcesPath, configure.getJsRoot(), configure.getModule(), bizName, bizName + "Add",
 				JS_FILE_SUFFIX, ADD_JS_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getCssRoot(), configure.getModule(), bizName, bizName + "Add",
-				CSS_FILE_SUFFIX, ADD_JS_TEMPLATE, configure);
+				CSS_FILE_SUFFIX, UPDATE_CSS_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getHtmlRoot(), configure.getModule(), bizName,
 				bizName + "Update", HTML_FILE_SUFFIX, UPDATE_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getJsRoot(), configure.getModule(), bizName, bizName + "Update",
