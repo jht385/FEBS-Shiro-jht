@@ -13,12 +13,12 @@ layui.use(['jquery', 'table', 'febs', 'form'], function () {
     initTable();
 
     $query.on('click', function () {
-        tableIns.reload({where: getQueryParams(), page: {curr: 1}});
+        tableIns.reload({where: getQueryParams()});
     });
 
     $reset.on('click', function () {
         $searchForm[0].reset();
-        tableIns.reload({where: getQueryParams(), page: {curr: 1}});
+        tableIns.reload({where: getQueryParams()});
     });
 
     function initTable() {

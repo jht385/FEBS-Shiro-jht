@@ -1,5 +1,20 @@
 package cc.mrbird.febs.system.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import cc.mrbird.febs.common.entity.DeptTree;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
@@ -8,26 +23,18 @@ import cc.mrbird.febs.common.utils.TreeUtil;
 import cc.mrbird.febs.system.entity.Dept;
 import cc.mrbird.febs.system.mapper.DeptMapper;
 import cc.mrbird.febs.system.service.IDeptService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import cc.mrbird.febs.system.service.IUserDataPermissionService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
  */
 @Service
+@RequiredArgsConstructor
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
+	
+	private final IUserDataPermissionService userDataPermissionService;
 
     @Override
     public List<DeptTree<Dept>> findDepts() {
@@ -100,6 +107,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
     private void delete(List<String> deptIds) {
         removeByIds(deptIds);
+        userDataPermissionService.deleteByDeptIds(deptIds);
 
         LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(Dept::getParentId, deptIds);

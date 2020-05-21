@@ -1,17 +1,20 @@
-layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect'], function () {
+layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect', 'eleTree'], function () {
     var $ = layui.$,
         febs = layui.febs,
         layer = layui.layer,
         formSelects = layui.formSelects,
         treeSelect = layui.treeSelect,
         form = layui.form,
+        eleTree = layui.eleTree,
         $view = $('#user-add'),
-        validate = layui.validate;
+        validate = layui.validate,
+        _deptTree;
 
     form.verify(validate);
     form.render();
 
     formSelects.render();
+    renderDeptTree();
 
     treeSelect.render({
         elem: $view.find('#user-add-dept'),
@@ -20,6 +23,30 @@ layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect'], function ()
         placeholder: '请选择',
         search: false
     });
+    
+    function renderDeptTree() {
+        _deptTree = eleTree.render({
+            elem: $view.find('.data-permission-tree'),
+            url: ctx + 'dept/tree',
+            accordion: true,
+            highlightCurrent: true,
+            showCheckbox: true,
+            checkStrictly: true,
+            renderAfterExpand: false,
+            request: {
+                name: 'name',
+                key: "id",
+                checked: "checked",
+                data: 'data'
+            },
+            response: {
+                statusName: "code",
+                statusCode: 200,
+                dataName: "data"
+            }
+        });
+        return _deptTree;
+    }
 
     formSelects.config('user-add-role', {
         searchUrl: ctx + 'role',
@@ -45,6 +72,12 @@ layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect'], function ()
     });
 
     form.on('submit(user-add-form-submit)', function (data) {
+    	var checked = _deptTree.getChecked(false, true);
+        var deptIds = [];
+        layui.each(checked, function (key, item) {
+            deptIds.push(item.id)
+        });
+        data.deptIds = deptIds.join(",");
         febs.post(ctx + 'user', data.field, function () {
             layer.closeAll();
             febs.alert.success('新增用户成功，初始密码为 1234qwer');

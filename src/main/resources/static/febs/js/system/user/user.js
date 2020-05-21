@@ -33,6 +33,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect
                 febs.modal.open('新增用户', 'system/user/add', {
                     btn: ['提交', '重置'],
                     area: $(window).width() <= 750 ? '95%' : '50%',
+                    offset: '30px',
                     yes: function (index, layero) {
                         $('#user-add').find('#submit').trigger('click');
                     },
@@ -118,6 +119,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect
         if (layEvent === 'edit') {
             febs.modal.open('修改用户', 'system/user/update/' + data.username, {
                 area: $(window).width() <= 750 ? '90%' : '50%',
+                offset: '30px',
                 btn: ['提交', '取消'],
                 yes: function (index, layero) {
                     $('#user-update').find('#submit').trigger('click');

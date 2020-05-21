@@ -81,4 +81,9 @@
 			u.dept_id, u.last_login_time, u.modify_time,
 			u.description, u.avatar, u.theme, u.is_tab
 	</select>
+	
+	<select id="findUserDataPermissions" parameterType="long" resultType="userDataPermission">
+        select user_id userId, dept_id deptId from t_user_data_permission
+        where user_id = #{userId}
+    </select>
 </mapper>

@@ -96,4 +96,9 @@ public class ViewController {
     public String eximportResult() {
         return FebsUtil.view("others/eximport/eximportResult");
     }
+    
+    @GetMapping("datapermission")
+    public String dataPermissionTest() {
+        return FebsUtil.view("others/datapermission/test");
+    }
 }

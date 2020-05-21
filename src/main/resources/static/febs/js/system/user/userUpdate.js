@@ -1,19 +1,49 @@
-layui.use(['jquery', 'febs', 'form', 'formSelects', 'validate', 'treeSelect'], function () {
+layui.use(['jquery', 'febs', 'form', 'formSelects', 'validate', 'treeSelect', 'eleTree'], function () {
     var $ = layui.jquery,
         febs = layui.febs,
         layer = layui.layer,
         formSelects = layui.formSelects,
         treeSelect = layui.treeSelect,
         form = layui.form,
-        validate = layui.validate;
+        eleTree = layui.eleTree,
+        validate = layui.validate,
+        _deptTree;
     $view = $('#user-update');
 
     form.verify(validate);
     form.render();
-debugger;
+
     initUserValue();
+    renderDeptTree();
 
     formSelects.render();
+    
+    function renderDeptTree() {
+        _deptTree = eleTree.render({
+            elem: $view.find('.data-permission-tree'),
+            url: ctx + 'dept/tree',
+            accordion: true,
+            highlightCurrent: true,
+            showCheckbox: true,
+            checkStrictly: true,
+            renderAfterExpand: false,
+            request: {
+                name: 'name',
+                key: "id",
+                checked: "checked",
+                data: 'data'
+            },
+            response: {
+                statusName: "code",
+                statusCode: 200,
+                dataName: "data"
+            },
+            done: function (r) {
+                _deptTree.setChecked(user.deptIds.split(","), true);
+            }
+        });
+        return _deptTree;
+    }
 
     treeSelect.render({
         elem: $view.find('#user-update-dept'),
@@ -64,6 +94,12 @@ debugger;
     }
 
     form.on('submit(user-update-form-submit)', function (data) {
+    	var checked = _deptTree.getChecked(false, true);
+        var deptIds = [];
+        layui.each(checked, function (key, item) {
+            deptIds.push(item.id)
+        });
+        data.field.deptIds = deptIds.join(",");
         if (febs.nativeEqual(data.field, user)) {
             febs.alert.warn('数据未作任何修改！');
             return false;

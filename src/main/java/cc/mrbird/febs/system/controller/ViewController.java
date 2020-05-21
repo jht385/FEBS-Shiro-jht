@@ -1,13 +1,7 @@
 package cc.mrbird.febs.system.controller;
 
-import cc.mrbird.febs.common.authentication.ShiroHelper;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.utils.DateUtil;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.system.entity.User;
-import cc.mrbird.febs.system.service.IUserService;
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
@@ -19,7 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import cc.mrbird.febs.common.authentication.ShiroHelper;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.system.entity.User;
+import cc.mrbird.febs.system.service.IUserDataPermissionService;
+import cc.mrbird.febs.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
@@ -30,6 +32,7 @@ public class ViewController extends BaseController {
 
     private final IUserService userService;
     private final ShiroHelper shiroHelper;
+    private final IUserDataPermissionService userDataPermissionService;
 
     @GetMapping("login")
     @ResponseBody
@@ -157,6 +160,8 @@ public class ViewController extends BaseController {
 
     private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
+        String deptIds = userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
         model.addAttribute("user", user);
         if (transform) {
             String sex = user.getSex();

@@ -153,7 +153,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('FEBS_Scheduler', 'SKY-20191111HQK1586142377003', 1586144075595, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('FEBS_Scheduler', 'SKY-20191111HQK1590027383730', 1590027582437, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -226,6 +226,33 @@ INSERT INTO `qrtz_triggers` VALUES ('FEBS_Scheduler', 'TASK_1', 'DEFAULT', 'TASK
 INSERT INTO `qrtz_triggers` VALUES ('FEBS_Scheduler', 'TASK_11', 'DEFAULT', 'TASK_11', 'DEFAULT', NULL, 1571974775000, -1, 5, 'PAUSED', 'CRON', 1571974775000, 0, NULL, 2, 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372001D63632E6D72626972642E666562732E6A6F622E656E746974792E4A6F62058D52AC1093A3040200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C000673746174757371007E00097870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000161D01BAC507874000D302F35202A202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B0200007870000000000000000B74000574657374327074000CE6B58BE8AF95E5BC82E5B8B8740001317800);
 INSERT INTO `qrtz_triggers` VALUES ('FEBS_Scheduler', 'TASK_2', 'DEFAULT', 'TASK_2', 'DEFAULT', NULL, 1571974780000, -1, 5, 'PAUSED', 'CRON', 1571974775000, 0, NULL, 2, 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372001D63632E6D72626972642E666562732E6A6F622E656E746974792E4A6F62058D52AC1093A3040200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C000673746174757371007E00097870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000161C71032987874000E302F3130202A202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B02000078700000000000000002740005746573743170740018E697A0E58F82E4BBBBE58AA1E8B083E5BAA6E6B58BE8AF95740001317800);
 INSERT INTO `qrtz_triggers` VALUES ('FEBS_Scheduler', 'TASK_3', 'DEFAULT', 'TASK_3', 'DEFAULT', NULL, 1571974775000, -1, 5, 'PAUSED', 'CRON', 1571974775000, 0, NULL, 2, 0xACED0005737200156F72672E71756172747A2E4A6F62446174614D61709FB083E8BFA9B0CB020000787200266F72672E71756172747A2E7574696C732E537472696E674B65794469727479466C61674D61708208E8C3FBC55D280200015A0013616C6C6F77735472616E7369656E74446174617872001D6F72672E71756172747A2E7574696C732E4469727479466C61674D617013E62EAD28760ACE0200025A000564697274794C00036D617074000F4C6A6176612F7574696C2F4D61703B787001737200116A6176612E7574696C2E486173684D61700507DAC1C31660D103000246000A6C6F6164466163746F724900097468726573686F6C6478703F4000000000000C7708000000100000000174000D4A4F425F504152414D5F4B45597372001D63632E6D72626972642E666562732E6A6F622E656E746974792E4A6F62058D52AC1093A3040200084C00086265616E4E616D657400124C6A6176612F6C616E672F537472696E673B4C000A63726561746554696D657400104C6A6176612F7574696C2F446174653B4C000E63726F6E45787072657373696F6E71007E00094C00056A6F6249647400104C6A6176612F6C616E672F4C6F6E673B4C000A6D6574686F644E616D6571007E00094C0006706172616D7371007E00094C000672656D61726B71007E00094C000673746174757371007E00097870740008746573745461736B7372000E6A6176612E7574696C2E44617465686A81014B5974190300007870770800000161CFB9A6907874000D302F31202A202A202A202A203F7372000E6A6176612E6C616E672E4C6F6E673B8BE490CC8F23DF0200014A000576616C7565787200106A6176612E6C616E672E4E756D62657286AC951D0B94E08B020000787000000000000000037400047465737474000B68656C6C6F20776F726C6474002BE69C89E58F82E4BBBBE58AA1E8B083E5BAA6E6B58BE8AF952CE6AF8FE99A94E4B880E7A792E8A7A6E58F91740001317800);
+
+-- ----------------------------
+-- Table structure for t_data_permission_test
+-- ----------------------------
+DROP TABLE IF EXISTS `t_data_permission_test`;
+CREATE TABLE `t_data_permission_test`  (
+  `FIELD1` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `FIELD2` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `FIELD3` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `FIELD4` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `DEPT_ID` int(11) NOT NULL,
+  `CREATE_TIME` datetime(0) NOT NULL,
+  `ID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户权限测试' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_data_permission_test
+-- ----------------------------
+INSERT INTO `t_data_permission_test` VALUES ('小米', '小米10Pro', '4999', '珍珠白', 1, '2020-04-14 15:00:38', 1);
+INSERT INTO `t_data_permission_test` VALUES ('腾讯', '黑鲨游戏手机3', '3799', '铠甲灰', 2, '2020-04-14 15:01:36', 2);
+INSERT INTO `t_data_permission_test` VALUES ('华为', '华为P30', '3299', '天空之境', 1, '2020-04-14 15:03:11', 3);
+INSERT INTO `t_data_permission_test` VALUES ('华为', '华为P40Pro', '6488', '亮黑色', 3, '2020-04-14 15:04:31', 4);
+INSERT INTO `t_data_permission_test` VALUES ('vivo', 'Vivo iQOO 3', '3998', '拉力橙', 4, '2020-04-14 15:05:55', 5);
+INSERT INTO `t_data_permission_test` VALUES ('一加', '一加7T', '3199', '冰际蓝', 5, '2020-04-14 15:06:53', 6);
+INSERT INTO `t_data_permission_test` VALUES ('三星', '三星Galaxy S10', '4098', '浩玉白', 6, '2020-04-14 15:08:25', 7);
+INSERT INTO `t_data_permission_test` VALUES ('苹果', 'iPhone 11 pro max', '9198', '暗夜绿', 4, '2020-04-14 15:09:20', 8);
 
 -- ----------------------------
 -- Table structure for t_dept
@@ -404,7 +431,23 @@ CREATE TABLE `t_log`  (
   `location` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '操作地点',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `t_log_create_time`(`CREATE_TIME`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1076 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1088 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_log
+-- ----------------------------
+INSERT INTO `t_log` VALUES (1080, 'MrBird', '修改GeneratorConfig', 47, 'com.jht.econtract.generator.controller.GeneratorConfigController.updateGeneratorConfig()', ' generatorConfig: GeneratorConfig(id=1, author=MrBird, basePackage=com.jht.econtract, module=system, controllerPackage=controller, servicePackage=service, serviceImplPackage=service.impl, entityPackage=entity, mapperPackage=mapper, mapperXmlPackage=mapper, htmlRoot=templates/febs/views/, jsRoot=static/febs/js, cssRoot=static/febs/css, isTrim=1, trimValue=t_, javaPath=/src/main/java/, resourcesPath=src/main/resources, date=2020-04-20 14:00:46, tableName=null, tableComment=null, className=null)', '192.168.56.1', '2020-04-20 14:00:46', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1078, 'MrBird', '删除Dict', 12, 'cc.mrbird.febs.system.controller.DictController.deleteDict()', ' ids: \"1\"', '192.168.56.1', '2020-04-18 14:00:28', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1079, 'MrBird', '删除Dict', 22, 'cc.mrbird.febs.system.controller.DictController.deleteDict()', ' ids: \"q\"', '192.168.56.1', '2020-04-18 14:00:31', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1077, 'MrBird', '新增Dict', 7, 'cc.mrbird.febs.system.controller.DictController.addDict()', ' dict: Dict(id=q, name=w, value=e, type=null, description=null, sort=null, parentId=null, createBy=null, createDate=null, updateBy=null, updateDate=null, remarks=null, delFlag=null, ex1=null)', '192.168.56.1', '2020-04-18 14:00:19', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1076, 'MrBird', '新增Dict', 27, 'cc.mrbird.febs.system.controller.DictController.addDict()', ' dict: Dict(id=1, name=2, value=3, type=null, description=null, sort=null, parentId=null, createBy=null, createDate=null, updateBy=null, updateDate=null, remarks=null, delFlag=null, ex1=null)', '192.168.56.1', '2020-04-18 14:00:14', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1081, 'MrBird', '新增Dict', 80, 'cc.mrbird.febs.system.controller.DictController.addDict()', ' dict: Dict(id=11111, name=2222, value=333, type=null, description=null, sort=null, parentId=null, createBy=null, createDate=null, updateBy=null, updateDate=null, remarks=null, delFlag=null, ex1=null)', '192.168.56.1', '2020-04-21 11:02:46', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1082, 'MrBird', '新增Dict', 9, 'cc.mrbird.febs.system.controller.DictController.addDict()', ' dict: Dict(id=qqq, name=www, value=eee, type=null, description=null, sort=null, parentId=null, createBy=null, createDate=null, updateBy=null, updateDate=null, remarks=null, delFlag=null, ex1=null)', '192.168.56.1', '2020-04-21 11:02:52', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1083, 'MrBird', '修改Dict', 20, 'cc.mrbird.febs.system.controller.DictController.updateDict()', ' dict: Dict(id=11111, name=2222, value=3333, type=null, description=null, sort=null, parentId=null, createBy=null, createDate=null, updateBy=null, updateDate=null, remarks=null, delFlag=null, ex1=null)', '192.168.56.1', '2020-04-21 11:03:13', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1084, 'MrBird', '删除Dict', 20, 'cc.mrbird.febs.system.controller.DictController.deleteDict()', ' ids: \"11111\"', '192.168.56.1', '2020-04-21 11:03:16', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1085, 'MrBird', '删除Dict', 9, 'cc.mrbird.febs.system.controller.DictController.deleteDict()', ' ids: \"qqq\"', '192.168.56.1', '2020-04-21 11:03:18', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1086, 'MrBird', '修改角色', 52, 'cc.mrbird.febs.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=2, roleName=注册账户, remark=注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限, createTime=null, modifyTime=Thu May 21 10:19:04 CST 2020, menuIds=1,3,161,4,14,162,5,17,163,6,20,164,2,8,10,170,136,172,127,128,129,131,175,101,102,173,109,174,137,138,139,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125,167,168,169,190)\"', '192.168.56.1', '2020-05-21 10:19:05', '内网IP|0|0|内网IP|内网IP');
+INSERT INTO `t_log` VALUES (1087, 'MrBird', '修改角色', 38, 'cc.mrbird.febs.system.controller.RoleController.updateRole()', ' role: \"Role(roleId=1, roleName=系统管理员, remark=系统管理员，拥有所有操作权限 ^_^, createTime=null, modifyTime=Thu May 21 10:19:08 CST 2020, menuIds=1,3,11,12,13,160,161,4,14,15,16,162,5,17,18,19,163,6,20,21,22,164,186,187,188,189,2,8,23,10,24,170,136,171,172,127,128,129,131,175,101,102,103,104,105,106,107,108,173,109,110,174,137,138,165,139,166,115,132,133,135,134,126,159,116,117,119,120,121,122,123,118,125,167,168,169,190)\"', '192.168.56.1', '2020-05-21 10:19:09', '内网IP|0|0|内网IP|内网IP');
 
 -- ----------------------------
 -- Table structure for t_login_log
@@ -420,7 +463,27 @@ CREATE TABLE `t_login_log`  (
   `BROWSER` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '浏览器',
   PRIMARY KEY (`ID`) USING BTREE,
   INDEX `t_login_log_login_time`(`LOGIN_TIME`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 144 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志表' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 160 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '登录日志表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_login_log
+-- ----------------------------
+INSERT INTO `t_login_log` VALUES (149, 'mrbird', '2020-04-20 14:31:09', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (148, 'mrbird', '2020-04-20 13:58:55', '内网IP|0|0|内网IP|内网IP', '121.31.247.157, 14.116.133.168', 'Linux', 'Chrome 66');
+INSERT INTO `t_login_log` VALUES (147, 'mrbird', '2020-04-20 13:57:12', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (146, 'mrbird', '2020-04-20 11:26:58', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (145, 'mrbird', '2020-04-18 13:58:33', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (144, 'mrbird', '2020-04-07 08:56:01', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (150, 'mrbird', '2020-04-20 14:39:22', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (151, 'mrbird', '2020-04-20 14:49:30', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (152, 'mrbird', '2020-04-21 09:21:46', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (153, 'mrbird', '2020-04-21 09:23:23', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (154, 'mrbird', '2020-04-21 10:59:00', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (155, 'mrbird', '2020-04-21 11:29:32', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (156, 'mrbird', '2020-04-28 16:51:46', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (157, 'mrbird', '2020-04-29 09:17:13', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (158, 'mrbird', '2020-05-21 09:40:31', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
+INSERT INTO `t_login_log` VALUES (159, 'mrbird', '2020-05-21 10:16:33', '内网IP|0|0|内网IP|内网IP', '192.168.56.1', 'Windows ', 'Chrome 80');
 
 -- ----------------------------
 -- Table structure for t_menu
@@ -440,7 +503,7 @@ CREATE TABLE `t_menu`  (
   PRIMARY KEY (`MENU_ID`) USING BTREE,
   INDEX `t_menu_parent_id`(`PARENT_ID`) USING BTREE,
   INDEX `t_menu_menu_id`(`MENU_ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 190 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 191 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_menu
@@ -521,6 +584,7 @@ INSERT INTO `t_menu` VALUES (186, 1, '字典表', '/system/dict/', 'dict:view', 
 INSERT INTO `t_menu` VALUES (187, 186, '新增', NULL, 'dict:add', NULL, '1', 1, '2019-11-02 18:08:22', NULL);
 INSERT INTO `t_menu` VALUES (188, 186, '修改', NULL, 'dict:update', NULL, '1', 2, '2019-11-02 18:08:22', NULL);
 INSERT INTO `t_menu` VALUES (189, 186, '删除', NULL, 'dict:delete', NULL, '1', 3, '2019-11-02 18:08:22', NULL);
+INSERT INTO `t_menu` VALUES (190, 115, '数据权限', '/others/datapermission', 'others:datapermission', '', '0', 5, '2020-04-29 09:34:25', NULL);
 
 -- ----------------------------
 -- Table structure for t_role
@@ -538,8 +602,8 @@ CREATE TABLE `t_role`  (
 -- ----------------------------
 -- Records of t_role
 -- ----------------------------
-INSERT INTO `t_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2019-11-02 18:08:47');
-INSERT INTO `t_role` VALUES (2, '注册账户', '注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限', '2019-06-14 16:00:15', '2019-08-18 17:36:02');
+INSERT INTO `t_role` VALUES (1, '系统管理员', '系统管理员，拥有所有操作权限 ^_^', '2019-06-14 16:23:11', '2020-05-21 10:19:09');
+INSERT INTO `t_role` VALUES (2, '注册账户', '注册账户，拥有查看，新增权限（新增用户除外）和导出Excel权限', '2019-06-14 16:00:15', '2020-05-21 10:19:04');
 INSERT INTO `t_role` VALUES (77, 'Redis监控员', '负责Redis模块', '2019-06-14 20:49:22', NULL);
 INSERT INTO `t_role` VALUES (78, '系统监控员', '负责整个系统监控模块', '2019-06-14 20:50:07', NULL);
 INSERT INTO `t_role` VALUES (79, '跑批人员', '负责任务调度跑批模块', '2019-06-14 20:51:02', NULL);
@@ -640,6 +704,7 @@ INSERT INTO `t_role_menu` VALUES (2, 125);
 INSERT INTO `t_role_menu` VALUES (2, 167);
 INSERT INTO `t_role_menu` VALUES (2, 168);
 INSERT INTO `t_role_menu` VALUES (2, 169);
+INSERT INTO `t_role_menu` VALUES (2, 190);
 INSERT INTO `t_role_menu` VALUES (1, 1);
 INSERT INTO `t_role_menu` VALUES (1, 3);
 INSERT INTO `t_role_menu` VALUES (1, 11);
@@ -716,6 +781,7 @@ INSERT INTO `t_role_menu` VALUES (1, 125);
 INSERT INTO `t_role_menu` VALUES (1, 167);
 INSERT INTO `t_role_menu` VALUES (1, 168);
 INSERT INTO `t_role_menu` VALUES (1, 169);
+INSERT INTO `t_role_menu` VALUES (1, 190);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -745,11 +811,35 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (1, 'MrBird', 'cb62ad1497597283961545d608f80241', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-10-26 14:04:20', '2020-04-06 11:17:37', '0', '1', 'black', 'cnrhVkzwxjPwAaCfPbdc.png', '我是帅比作者。');
+INSERT INTO `t_user` VALUES (1, 'MrBird', 'cb62ad1497597283961545d608f80241', 1, 'mrbird@qq.com', '17788888888', '1', '2019-06-14 20:39:22', '2019-10-26 14:04:20', '2020-05-21 10:16:34', '0', '1', 'black', 'cnrhVkzwxjPwAaCfPbdc.png', '我是帅比作者。');
 INSERT INTO `t_user` VALUES (2, 'Scott', '1d685729d113cfd03872f154939bee1c', 10, 'scott@gmail.com', '17722222222', '1', '2019-06-14 20:55:53', '2019-06-14 21:05:43', '2019-10-26 16:53:26', '0', '1', 'black', 'gaOngJwsRYRaVAuXXcmB.png', '我是scott。');
 INSERT INTO `t_user` VALUES (4, 'Micaela', '9f2daa2c7bed6870fcbb5b9a51d6300e', 10, 'Micaela@163.com', '17733333333', '1', '2019-06-14 21:10:13', '2019-06-14 21:11:26', '2019-10-29 17:07:40', '0', '0', 'white', '20180414165909.jpg', '我叫米克拉');
 INSERT INTO `t_user` VALUES (5, 'Jana', '176679b77b3c3e352bd3b30ddc81083e', 8, 'Jana@126.com', '17744444444', '1', '2019-06-14 21:12:16', '2019-06-14 21:12:52', '2019-06-14 21:12:32', '1', '1', 'white', '20180414165821.jpg', '大家好，我叫简娜');
 INSERT INTO `t_user` VALUES (7, 'Margot', '31379841b9f4bfde22b8b40471e9a6ce', 9, 'Margot@qq.com', '13444444444', '1', '2019-06-14 21:17:53', '2019-06-14 21:18:59', '2019-06-14 21:18:07', '1', '1', 'white', '20180414165834.jpg', '大家好我叫玛戈');
+
+-- ----------------------------
+-- Table structure for t_user_data_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_data_permission`;
+CREATE TABLE `t_user_data_permission`  (
+  `USER_ID` bigint(20) NOT NULL,
+  `DEPT_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`USER_ID`, `DEPT_ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户数据权限关联表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_user_data_permission
+-- ----------------------------
+INSERT INTO `t_user_data_permission` VALUES (1, 1);
+INSERT INTO `t_user_data_permission` VALUES (1, 2);
+INSERT INTO `t_user_data_permission` VALUES (1, 3);
+INSERT INTO `t_user_data_permission` VALUES (1, 4);
+INSERT INTO `t_user_data_permission` VALUES (1, 5);
+INSERT INTO `t_user_data_permission` VALUES (1, 6);
+INSERT INTO `t_user_data_permission` VALUES (2, 1);
+INSERT INTO `t_user_data_permission` VALUES (2, 2);
+INSERT INTO `t_user_data_permission` VALUES (3, 4);
+INSERT INTO `t_user_data_permission` VALUES (4, 5);
 
 -- ----------------------------
 -- Table structure for t_user_role

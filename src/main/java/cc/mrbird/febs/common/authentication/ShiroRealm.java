@@ -1,14 +1,17 @@
 package cc.mrbird.febs.common.authentication;
 
-import cc.mrbird.febs.system.entity.Menu;
-import cc.mrbird.febs.system.entity.Role;
-import cc.mrbird.febs.system.entity.User;
-import cc.mrbird.febs.system.service.IMenuService;
-import cc.mrbird.febs.system.service.IRoleService;
-import cc.mrbird.febs.system.service.IUserService;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -16,9 +19,13 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import cc.mrbird.febs.system.entity.Menu;
+import cc.mrbird.febs.system.entity.Role;
+import cc.mrbird.febs.system.entity.User;
+import cc.mrbird.febs.system.service.IMenuService;
+import cc.mrbird.febs.system.service.IRoleService;
+import cc.mrbird.febs.system.service.IUserDataPermissionService;
+import cc.mrbird.febs.system.service.IUserService;
 
 /**
  * 自定义实现 ShiroRealm，包含认证和授权两大模块
@@ -31,6 +38,7 @@ public class ShiroRealm extends AuthorizingRealm {
     private IUserService userService;
     private IRoleService roleService;
     private IMenuService menuService;
+    private IUserDataPermissionService userDataPermissionService;
 
     @Autowired
     public void setMenuService(IMenuService menuService) {
@@ -43,6 +51,10 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     public void setRoleService(IRoleService roleService) {
         this.roleService = roleService;
+    }
+    @Autowired
+    public void setUserDataPermissionService(IUserDataPermissionService userDataPermissionService) {
+        this.userDataPermissionService = userDataPermissionService;
     }
 
     /**
@@ -92,6 +104,8 @@ public class ShiroRealm extends AuthorizingRealm {
         if (User.STATUS_LOCK.equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
         }
+        String deptIds = this.userDataPermissionService.findByUserId(String.valueOf(user.getUserId()));
+        user.setDeptIds(deptIds);
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 

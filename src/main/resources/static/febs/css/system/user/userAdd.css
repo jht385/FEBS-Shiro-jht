@@ -4,3 +4,8 @@
 #user-add .layui-treeSelect .ztree li a, .ztree li span {
     margin: 0 0 2px 3px !important;
 }
+#user-add #data-permission-tree-block {
+    border: 1px solid #eee;
+    border-radius: 2px;
+    padding: 3px 0;
+}

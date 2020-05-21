@@ -201,6 +201,9 @@ public class User implements Serializable {
     @ExcelField(value = "角色")
     @TableField(exist = false)
     private String roleName;
+    
+    @TableField(exist = false)
+    private String deptIds;
 
     public Long getId() {
         return userId;
