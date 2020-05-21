@@ -1,5 +1,6 @@
 package cc.mrbird.febs.generator.helper;
 
+import static cc.mrbird.febs.generator.entity.GeneratorConstant.ADD_CSS_TEMPLATE;
 import static cc.mrbird.febs.generator.entity.GeneratorConstant.ADD_JS_TEMPLATE;
 import static cc.mrbird.febs.generator.entity.GeneratorConstant.ADD_TEMPLATE;
 import static cc.mrbird.febs.generator.entity.GeneratorConstant.CONTROLLER_FILE_SUFFIX;
@@ -85,25 +86,24 @@ public class GeneratorHelper {
 		generateFile(columns, resourcesPath, configure.getJsRoot(), configure.getModule(), bizName, bizName + "Add",
 				JS_FILE_SUFFIX, ADD_JS_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getCssRoot(), configure.getModule(), bizName, bizName + "Add",
-				CSS_FILE_SUFFIX, UPDATE_CSS_TEMPLATE, configure);
+				CSS_FILE_SUFFIX, ADD_CSS_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getHtmlRoot(), configure.getModule(), bizName,
 				bizName + "Update", HTML_FILE_SUFFIX, UPDATE_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getJsRoot(), configure.getModule(), bizName, bizName + "Update",
 				JS_FILE_SUFFIX, UPDATE_JS_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getCssRoot(), configure.getModule(), bizName, bizName + "Update",
 				CSS_FILE_SUFFIX, UPDATE_CSS_TEMPLATE, configure);
-		generateFile(columns, resourcesPath, "/sql", configure.getModule(), "", bizName, ".sql", "sql.ftl",
-				configure);
+		generateFile(columns, resourcesPath, "/sql", configure.getModule(), "", bizName, ".sql", "sql.ftl", configure);
 	}
 
 	/**
-	 * @param columns 表的各个字段
-	 * @param root 生成文件的根
-	 * @param appPackage 跟下应用包名
-	 * @param module 模块
-	 * @param bizName 业务
-	 * @param fileName 生成文件名
-	 * @param suffix 生成文件的后缀
+	 * @param columns      表的各个字段
+	 * @param root         生成文件的根
+	 * @param appPackage   跟下应用包名
+	 * @param module       模块
+	 * @param bizName      业务
+	 * @param fileName     生成文件名
+	 * @param suffix       生成文件的后缀
 	 * @param templateName 模板文件
 	 * @param configure
 	 */
