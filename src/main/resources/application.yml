@@ -26,3 +26,12 @@ mybatis-plus:
     banner: false
     db-config:
       select-strategy: not_empty
+
+logging:
+  level:
+    com:
+      baomidou:
+        mybatisplus:
+          core:
+            metadata:
+              TableInfoHelper: error

@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.monitor.entity.SystemLog;
+import cc.mrbird.febs.system.entity.User;
 
 /**
  * @author MrBird
@@ -37,6 +38,7 @@ public interface ILogService extends IService<SystemLog> {
     /**
      * 异步保存操作日志
      *
+     * @param user      用户信息
      * @param point     切点
      * @param method    Method
      * @param request   HttpServletRequest
@@ -44,5 +46,5 @@ public interface ILogService extends IService<SystemLog> {
      * @param start     开始时间
      */
     @Async(FebsConstant.ASYNC_POOL)
-    void saveLog(ProceedingJoinPoint point, Method method, String ip, String operation, long start);
+    void saveLog(User user, ProceedingJoinPoint point, Method method, String ip, String operation, long start);
 }

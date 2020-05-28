@@ -1,6 +1,27 @@
 package cc.mrbird.febs.monitor.service.impl;
 
 
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.utils.AddressUtil;
@@ -9,22 +30,7 @@ import cc.mrbird.febs.monitor.entity.SystemLog;
 import cc.mrbird.febs.monitor.mapper.LogMapper;
 import cc.mrbird.febs.monitor.service.ILogService;
 import cc.mrbird.febs.system.entity.User;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.*;
 
 /**
  * @author MrBird
@@ -72,12 +78,10 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SystemLog> implements
     }
 
     @Override
-    public void saveLog(ProceedingJoinPoint point, Method method, String ip, String operation, long start) {
+    public void saveLog(User user, ProceedingJoinPoint point, Method method, String ip, String operation, long start) {
         SystemLog systemLog = new SystemLog();
         // 设置 IP地址
         systemLog.setIp(ip);
-        // 设置操作用户
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user != null) {
             systemLog.setUsername(user.getUsername());
         }

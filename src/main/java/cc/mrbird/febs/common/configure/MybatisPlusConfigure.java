@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 
 import cc.mrbird.febs.common.interceptor.DataPermissionInterceptor;
+import cc.mrbird.febs.common.interceptor.DesensitizationInterceptor;
 
 /**
  * @author MrBird
@@ -22,9 +23,18 @@ public class MybatisPlusConfigure {
 	 * 分页插件
 	 */
 	@Bean
-	@Order(-1)
+	@Order(0)
 	public DataPermissionInterceptor dataPermissionInterceptor() {
 		return new DataPermissionInterceptor();
+	}
+
+	/**
+	 * 数据脱敏
+	 */
+	@Bean
+	@Order(-1)
+	public DesensitizationInterceptor desensitizationInterceptor() {
+		return new DesensitizationInterceptor();
 	}
 
 	/**
