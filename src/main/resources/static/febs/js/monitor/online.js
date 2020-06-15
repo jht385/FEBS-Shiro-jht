@@ -65,8 +65,8 @@ layui.use(['jquery', 'form', 'table', 'febs'], function () {
     }
 
     function getQueryParams() {
-        return {
-            username: $searchForm.find('input[name="username"]').val().trim()
-        };
+    	var params = $searchForm.serializeJson();
+        params.invalidate_ie_cache = new Date();
+        return params;
     }
 })

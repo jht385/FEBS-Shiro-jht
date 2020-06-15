@@ -110,11 +110,8 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
     }
 
     function getQueryParams() {
-        return {
-            status: $searchForm.find("select[name='status']").val(),
-            beanName: $searchForm.find("input[name='beanName']").val().trim(),
-            methodName: $searchForm.find("input[name='methodName']").val().trim(),
-            invalidate_ie_cache: new Date()
-        };
+    	var params = $searchForm.serializeJson();
+        params.invalidate_ie_cache = new Date();
+        return params;
     }
 })

@@ -176,21 +176,16 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect
     }
 
     function getQueryParams() {
-    	var createTime = $searchForm.find('input[name="createTime"]').val();
+    	var params = $searchForm.serializeJson();
+        var createTime = params.time;
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];
         }
-        return {
-            createTimeFrom: createTimeFrom,
-            createTimeTo: createTimeTo,
-            username: $searchForm.find('input[name="username"]').val().trim(),
-            status: $searchForm.find("select[name='status']").val(),
-            sex: $searchForm.find("select[name='sex']").val(),
-            mobile: $searchForm.find("input[name='mobile']").val().trim(),
-            deptId: $searchForm.find("input[name='dept']").val().trim(),
-            invalidate_ie_cache: new Date()
-        };
+        params.invalidate_ie_cache = new Date();
+        params.createTimeFrom = createTimeFrom;
+        params.createTimeTo = createTimeTo;
+        return params;
     }
 
     function deleteUsers(userIds) {

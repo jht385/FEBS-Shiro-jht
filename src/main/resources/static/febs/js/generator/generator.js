@@ -62,11 +62,9 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     }
 
     function getQueryParams() {
-        return {
-            tableName: $searchForm.find("input[name='tableName']").val().trim(),
-            datasource: $searchForm.find("select[name='datasource']").val(),
-            invalidate_ie_cache: new Date()
-        };
+    	var params = $searchForm.serializeJson();
+        params.invalidate_ie_cache = new Date();
+        return params;
     }
 
     table.on('tool(configureTable)', function (obj) {

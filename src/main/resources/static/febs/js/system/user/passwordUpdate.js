@@ -3,8 +3,7 @@ layui.use(['febs', 'form', 'validate', 'layer'], function () {
         validate = layui.validate,
         form = layui.form,
         febs = layui.febs,
-        layer = layui.layer,
-        $view = $('#user-password-update');
+        layer = layui.layer;
 
     form.verify(validate);
     form.render();

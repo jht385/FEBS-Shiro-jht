@@ -41,10 +41,8 @@ layui.use(['jquery', 'table', 'febs', 'form'], function () {
     }
 
     function getQueryParams() {
-        return {
-            method: $searchForm.find('select[name="method"]').val(),
-            url: $searchForm.find('input[name="url"]').val().trim(),
-            invalidate_ie_cache: new Date()
-        };
+    	var params = $searchForm.serializeJson();
+        params.invalidate_ie_cache = new Date();
+        return params;
     }
 });

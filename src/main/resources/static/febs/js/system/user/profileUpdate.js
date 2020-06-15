@@ -41,7 +41,7 @@ layui.use(['febs', 'form', 'validate', 'treeSelect'], function () {
         }
         febs.post(ctx + 'user/profile/update', data.field, function () {
             layer.closeAll();
-            febs.modal.confirm('修改成功','是否马上刷新页面生效？',function () {
+            febs.modal.confirm('修改成功', '是否马上刷新页面生效？', function () {
                 window.location.reload();
             });
         });

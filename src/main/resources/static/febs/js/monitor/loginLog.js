@@ -119,15 +119,15 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     }
 
     function getQueryParams() {
-    	var createTime = $searchForm.find('input[name="createTime"]').val();
+    	var params = $searchForm.serializeJson();
+        var createTime = params.time;
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];
         }
-        return {
-            loginTimeFrom: createTimeFrom,
-            loginTimeTo: createTimeTo,
-            username: $searchForm.find('input[name="username"]').val().trim()
-        };
+        params.invalidate_ie_cache = new Date();
+        params.loginTimeFrom = createTimeFrom;
+        params.loginTimeTo = createTimeTo;
+        return params;
     }
 })

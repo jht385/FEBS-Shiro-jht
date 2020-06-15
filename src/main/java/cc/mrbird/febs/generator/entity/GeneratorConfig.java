@@ -1,6 +1,7 @@
 package cc.mrbird.febs.generator.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -42,5 +43,8 @@ public class GeneratorConfig {
 	private transient String tableName;
 	private transient String tableComment;
 	private transient String className;
+	private transient boolean hasDate;
+    private transient boolean hasBigDecimal;
+    private transient List<Column> columns;
 
 }

@@ -137,10 +137,9 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
     }
 
     function getQueryParams() {
-        return {
-            roleName: $searchForm.find('input[name="roleName"]').val().trim(),
-            invalidate_ie_cache: new Date()
-        };
+    	var params = $searchForm.serializeJson();
+        params.invalidate_ie_cache = new Date();
+        return params;
     }
 
     function resetRoleForm() {

@@ -535,6 +535,9 @@ layui.extend({
                 limitName: 'pageSize'
             },
             parseData: function (res) {
+            	if (res.code !== 200) {
+                    console.error(res)
+                }
                 return {
                     "code": res.code === 200 ? 0 : res.code,
                     "count": res.data.total,
