@@ -33,12 +33,13 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
 import cc.mrbird.febs.common.annotation.Helper;
@@ -111,7 +112,9 @@ public class GeneratorHelper {
 			String fileName, String suffix, String templateName, GeneratorConfig configure) throws Exception {
 		String filePath = root + "/" + appPackage + "/" + module + "/" + bizName + "/" + fileName + suffix;
 		File entityFile = new File(filePath);
-		JSONObject data = JSONObject.parseObject(JSONObject.toJSON(configure).toString());
+		ObjectMapper mapper = new ObjectMapper();
+		@SuppressWarnings("unchecked")
+		Map<String, Object> data = mapper.readValue(mapper.writeValueAsString(configure), Map.class);
 		data.put("module", module);
 		data.put("columns", columns);
 		generateFileByTemplate(templateName, entityFile, data);
