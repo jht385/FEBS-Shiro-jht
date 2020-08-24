@@ -134,7 +134,9 @@ public class GeneratorHelper {
 	}
 
 	private static String packageConvertPath(String packageName) {
-		return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
+		return String.format("%s%s%s", File.separator,
+				packageName.contains(".") ? packageName.replaceAll("\\.", File.separator) : packageName,
+				File.separator);
 	}
 
 	private Template getTemplate(String templateName) throws Exception {

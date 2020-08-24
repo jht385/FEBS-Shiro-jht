@@ -143,7 +143,7 @@ public class FileUtil {
         File[] files = dir.listFiles();
         if (files != null && ArrayUtils.isNotEmpty(files)) {
             for (File file : files) {
-                compress(file, zipOut, baseDir + dir.getName() + "/");
+                compress(file, zipOut, baseDir + dir.getName() + File.separator);
             }
         }
     }
