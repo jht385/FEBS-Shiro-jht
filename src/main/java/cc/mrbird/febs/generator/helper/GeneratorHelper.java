@@ -35,6 +35,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -134,7 +135,10 @@ public class GeneratorHelper {
 	}
 
 	private static String packageConvertPath(String packageName) {
-		return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
+		return String.format("%s%s%s", File.separator,
+				packageName.contains(".") ? packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator))
+						: packageName,
+				File.separator);
 	}
 
 	private Template getTemplate(String templateName) throws Exception {
