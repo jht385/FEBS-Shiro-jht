@@ -40,6 +40,7 @@ import java.util.regex.Matcher;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
@@ -135,10 +136,8 @@ public class GeneratorHelper {
 	}
 
 	private static String packageConvertPath(String packageName) {
-		return String.format("%s%s%s", File.separator,
-				packageName.contains(".") ? packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator))
-						: packageName,
-				File.separator);
+		return File.separator + packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator))
+				+ File.separator;
 	}
 
 	private Template getTemplate(String templateName) throws Exception {
