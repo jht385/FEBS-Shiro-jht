@@ -14,9 +14,8 @@ import java.util.stream.IntStream;
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    private HttpServletRequest orgRequest;
-
-    private boolean isIncludeRichText;
+	private final HttpServletRequest orgRequest;
+    private final boolean isIncludeRichText;
 
     XssHttpServletRequestWrapper(HttpServletRequest request, boolean isIncludeRichText) {
         super(request);

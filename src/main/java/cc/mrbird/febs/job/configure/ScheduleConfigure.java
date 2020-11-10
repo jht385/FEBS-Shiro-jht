@@ -12,6 +12,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 
+import cc.mrbird.febs.common.entity.FebsConstant;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -26,18 +27,18 @@ public class ScheduleConfigure {
 	private final DynamicRoutingDataSource dynamicRoutingDataSource;
 	
     @Bean
-    public ThreadPoolTaskExecutor scheduleJobExecutorService(){
-            ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-            executor.setCorePoolSize(5);
-            executor.setMaxPoolSize(10);
-            executor.setQueueCapacity(20);
-            executor.setKeepAliveSeconds(30);
-            executor.setThreadNamePrefix("Febs-Job-Thread");
-            executor.setWaitForTasksToCompleteOnShutdown(true);
-            executor.setAwaitTerminationSeconds(60);
-            executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-            executor.initialize();
-            return executor;
+    public ThreadPoolTaskExecutor scheduleJobExecutorService() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(20);
+        executor.setKeepAliveSeconds(30);
+        executor.setThreadNamePrefix(FebsConstant.QUARTZ_THREAD_NAME_PREFIX);
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(60);
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        executor.initialize();
+        return executor;
     }
 
     @Bean

@@ -3,6 +3,7 @@ package cc.mrbird.febs.common.configure;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -18,6 +19,7 @@ import cc.mrbird.febs.common.interceptor.DesensitizationInterceptor;
  * @author MrBird
  */
 @Configuration
+@MapperScan("cc.mrbird.febs.*.mapper")
 public class MybatisPlusConfigure {
 	/**
 	 * 分页插件

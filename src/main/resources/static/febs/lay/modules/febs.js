@@ -553,7 +553,7 @@ layui.extend({
                     "data": res.data.rows
                 }
             },
-            done: function(res, curr, count){
+            done: function (res, curr, count) {
                 var noneDiv = $(".layui-table-body").find(".layui-none").first();
                 if (noneDiv.length === 1) {
                     var table = $(".layui-table").first();
@@ -606,12 +606,17 @@ layui.extend({
                         window.navigator.msSaveOrOpenBlob(createFile(base64file.replace('data:' + fileType + ';base64,', ''), fileType), fileName);
                     } else { // chrome，firefox
                         var link = document.createElement('a');
-                        link.style.display = 'none';
-                        link.href = e.target.result;
-                        link.setAttribute('download', fileName);
-                        document.body.appendChild(link);
-                        link.click();
-                        $(link).remove();
+                        link.download = fileName;
+                        link.style.display = "none";
+                        var blobs = new Blob([blob]);
+                        if (blobs.size === 0) {
+                            layer.msg('下载失败，文件内容为空！');
+                        } else {
+                            link.href = URL.createObjectURL(blobs);
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
                     }
                 }
             } else {

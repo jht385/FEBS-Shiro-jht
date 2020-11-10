@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.text.ParseException;
 
 /**
- * Execl导出时间类型字段格式化
+ * Excel导出时间类型字段格式化
  *
  * @author MrBird
  */

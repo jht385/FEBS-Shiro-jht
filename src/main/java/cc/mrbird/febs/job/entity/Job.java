@@ -40,7 +40,7 @@ public class Job implements Serializable {
          */
         PAUSE("1");
 
-        private String value;
+        private final String value;
 
         ScheduleStatus(String value) {
             this.value = value;

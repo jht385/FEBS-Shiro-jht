@@ -42,7 +42,7 @@ public class BaseController {
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo, int dataMapInitialCapacity) {
-        Map<String, Object> data = new HashMap<>(dataMapInitialCapacity);
+        Map<String, Object> data = new HashMap<>(dataMapInitialCapacity,1);
         data.put("rows", pageInfo.getRecords());
         data.put("total", pageInfo.getTotal());
         return data;

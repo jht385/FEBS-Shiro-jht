@@ -21,7 +21,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public class ScheduleJob extends QuartzJobBean {
 
-    private ThreadPoolTaskExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService", ThreadPoolTaskExecutor.class);
+	private final ThreadPoolTaskExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService", ThreadPoolTaskExecutor.class);
 
     @Override
     protected void executeInternal(JobExecutionContext context) {
