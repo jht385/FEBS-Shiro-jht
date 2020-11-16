@@ -3,17 +3,20 @@ layui.use(['febs', 'form'], function () {
         febs = layui.febs,
         form = layui.form,
         $view = $('#febs-generator-configure'),
-        $trimValue = $view.find('input[name="trimValue"]'),
-        $trimValueItem = $trimValue.parents('.layui-form-item');
+        $trimValue = $view.find('input[name="trimValue"]');
 
     form.render();
     initFormValue();
 
     form.on("radio(isTrim)", function (data) {
         if (data.value === '1') {
-            trimValueItemShow();
+        	$trimValue.show();
+        	$trimValue.val(config.trimValue);
         } else {
-            trimValueItemHide();
+        	form.val("generator-configure-form", {
+                "trimValue": ''
+            });
+            $trimValue.hide();
         }
     });
 
@@ -37,21 +40,14 @@ layui.use(['febs', 'form'], function () {
         });
 
         if (config.isTrim === '1') {
-            trimValueItemShow();
+        	$trimValue.show();
+        	$trimValue.val(config.trimValue);
         } else {
-            trimValueItemHide();
+        	form.val("generator-configure-form", {
+                "trimValue": ''
+            });
+            $trimValue.hide();
         }
-    }
-
-    function trimValueItemShow() {
-        $trimValueItem.show();
-    }
-
-    function trimValueItemHide() {
-        form.val("generator-configure-form", {
-            "trimValue": ''
-        });
-        $trimValueItem.hide();
     }
 
     form.on('submit(generator-configure-form-submit)', function (data) {
