@@ -21,11 +21,6 @@
 		<#list columns as column>
 		<if test="${className?uncap_first}.${column.classField?uncap_first} != null and ${className?uncap_first}.${column.classField?uncap_first} != ''"> AND ${column.name} = ${"#{"}${className?uncap_first}.${column.classField?uncap_first}}</if>
 		</#list>
-		<#list columns as column>
-			<#if column.isKey = true>
-		order by ${column.name}
-			</#if>
-		</#list>
 	</sql>
 	
 	<select id="find${className}Page" parameterType="${className?uncap_first}" resultType="${className?uncap_first}">
