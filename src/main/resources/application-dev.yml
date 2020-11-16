@@ -51,3 +51,6 @@ spring:
 logging:
   level:
     cc.mrbird.febs.common.handler: debug
+
+mybatis:
+  refreshMapper: true
