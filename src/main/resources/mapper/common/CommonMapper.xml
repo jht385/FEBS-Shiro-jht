@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.common.mapper.CommonMapper">
+
+	<select id="list" parameterType="map" resultType="map">
+		select ${columns}
+		from ${table}
+		where 1 = 1
+			<if test="k1 != null and k1 != ''"> AND ${k1} = #{v1}</if>
+			<if test="k2 != null and k2 != ''"> AND ${k2} = #{v2}</if>
+			<if test="k3 != null and k3 != ''"> AND ${k3} = #{v3}</if>
+			<if test="k4 != null and k4 != ''"> AND ${k4} = #{v4}</if>
+			<if test="k5 != null and k5 != ''"> AND ${k5} = #{v5}</if>
+		<if test="orderStr != null and orderStr != ''"> order by ${orderStr} </if>
+	</select>
+	
+	<select id="cnt" parameterType="map" resultType="int">
+		select count(1)
+		from ${table}
+		where 1 = 1
+			<if test="k1 != null and k1 != ''"> AND ${k1} = #{v1}</if>
+			<if test="k2 != null and k2 != ''"> AND ${k2} = #{v2}</if>
+			<if test="k3 != null and k3 != ''"> AND ${k3} = #{v3}</if>
+			<if test="k4 != null and k4 != ''"> AND ${k4} = #{v4}</if>
+			<if test="k5 != null and k5 != ''"> AND ${k5} = #{v5}</if>
+	</select>
+</mapper>
