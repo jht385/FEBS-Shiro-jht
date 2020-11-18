@@ -9,12 +9,6 @@
 							<div class="layui-col-md10">
 								<div class="layui-form-item">
 									<div class="layui-inline">
-										<label class="layui-form-label layui-form-label-sm">编号</label>
-										<div class="layui-input-inline">
-											<input type="text" name="id" autocomplete="off" class="layui-input">
-										</div>
-									</div>
-									<div class="layui-inline">
 										<label class="layui-form-label layui-form-label-sm">标签名</label>
 										<div class="layui-input-inline">
 											<input type="text" name="name" autocomplete="off" class="layui-input">
@@ -24,6 +18,12 @@
 										<label class="layui-form-label layui-form-label-sm">数据值</label>
 										<div class="layui-input-inline">
 											<input type="text" name="value" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-inline">
+										<label class="layui-form-label layui-form-label-sm">类型</label>
+										<div class="layui-input-inline">
+											<div id="type"></div>
 										</div>
 									</div>
 								</div>
@@ -48,21 +48,15 @@
 		</div>
 	</div>
 </div>
-<script type="text/html" id="dict-status">
-	{{#
-	var status = {
-	1: {title: '有效', color: 'green'},
-	0: {title: '禁用', color: 'volcano'}
-	}[d.status];
-	}}
-	<span class="layui-badge febs-bg-{{status.color}}">{{ status.title }}</span>
-</script>
 <script type="text/html" id="dict-option">
 	<span shiro:lacksPermission="dict:view,dict:update,dict:delete">
 		<span class="layui-badge-dot febs-bg-orange"></span> 无权限
 	</span>
-	<a lay-event="detail" shiro:hasPermission="dict:view"><i class="layui-icon febs-edit-area febs-green">&#xe7a5;</i></a>
+	<a lay-event="plus" shiro:hasPermission="dict:update"><i class="layui-icon febs-edit-area febs-green">&#xe891;</i></a>
 	<a lay-event="edit" shiro:hasPermission="dict:update"><i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
 	<a lay-event="del" shiro:hasPermission="dict:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
+</script>
+<script th:inline="javascript">
+	var dictType = [[${dictType}]];
 </script>
 <script th:src="@{febs/js/system/dict/dict.js}"></script>

@@ -2,9 +2,16 @@
 <div class="layui-fluid" id="dict-add">
 	<form class="layui-form" action="" lay-filter="dict-add-form">
 		<div class="layui-form-item">
-			<label class="layui-form-label febs-form-item-require">编号：</label>
+			<label class="layui-form-label febs-form-item-require">类型：</label>
 			<div class="layui-input-block">
-				<input type="text" name="id" lay-verify="required"
+				<input type="text" name="type" lay-verify="required"
+					autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label febs-form-item-require">描述：</label>
+			<div class="layui-input-block">
+				<input type="text" name="description" lay-verify="required"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -28,4 +35,7 @@
 		</div>
 	</form>
 </div>
+<script th:inline="javascript">
+	var dict = [[${dict}]];
+</script>
 <script th:src="@{febs/js/system/dict/dictAdd.js}"></script>

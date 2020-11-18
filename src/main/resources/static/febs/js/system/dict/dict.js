@@ -1,10 +1,11 @@
-layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
+layui.use(['dropdown', 'jquery', 'form', 'table', 'febs', 'xmSelect'], function () {
 	var $ = layui.jquery,
 		laydate = layui.laydate,
 		febs = layui.febs,
 		form = layui.form,
 		table = layui.table,
 		dropdown = layui.dropdown,
+		xmSelect = layui.xmSelect,
 		$view = $('#febs-dict'),
 		$query = $view.find('#query'),
 		$reset = $view.find('#reset'),
@@ -12,7 +13,18 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 		sortObject = {field: 'id', type: null},
 		tableIns;
 
+	let dictTypeData = [];
+	dictTypeData[0] = {name: '所有', value: ''};
+	for(let i = 0; i < dictType.length; i++){
+		dictTypeData[i + 1] = {name: dictType[i].description, value: dictType[i].type};
+	}
+	
 	form.render();
+	
+	var vmType = xmSelect.render({
+		el: '#type', radio: true, clickClose: true,
+		data: dictTypeData
+	})
 
 	initTable();
 
@@ -42,9 +54,16 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 	table.on('tool(dictTable)', function (obj) {
 		var data = obj.data,
 			layEvent = obj.event;
-		if (layEvent === 'detail') {
-			febs.modal.view('信息', 'system/dict/detail/' + data.id, {
-				area: $(window).width() <= 750 ? '95%' : '660px'
+		if (layEvent === 'plus') {
+			febs.modal.open('修改', 'system/dict/plus/' + data.id, {
+				area: $(window).width() <= 750 ? '90%' : '50%',
+				btn: ['提交', '取消'],
+				yes: function (index, layero) {
+					$('#dict-add').find('#submit').trigger('click');
+				},
+				btn2: function () {
+					layer.closeAll();
+				}
 			});
 		}
 		if (layEvent === 'del') {
@@ -85,6 +104,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 	$reset.on('click', function () {
 		$searchForm[0].reset();
 		sortObject.type = 'null';
+		vmType.setValue([ ]);
 		tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
 	});
 
@@ -95,11 +115,11 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 			url: ctx + 'system/dict/list',
 			cols: [[
 				{type: 'checkbox'},
-				{field: 'id', title: '编号', minWidth: 100, sort: true},
+				{field: 'id', title: '编号', minWidth: 100, hide: true},
+				{field: 'type', title: '类型', minWidth: 100, sort: true},
+				{field: 'description', title: '描述', minWidth: 100, sort: true},
 				{field: 'name', title: '标签名', minWidth: 100, sort: true},
 				{field: 'value', title: '数据值', minWidth: 100, sort: true},
-				{field: 'type', title: '类型', minWidth: 100, sort: true},
-				{field: 'description', title: '描述', minWidth: 100, sort: true, hide: true},
 				{field: 'sort', title: '排序', minWidth: 100, sort: true, hide: true},
 				{field: 'parentId', title: '父级编号', minWidth: 100, sort: true, hide: true},
 				{field: 'createBy', title: '创建者', minWidth: 100, sort: true, hide: true},
@@ -116,9 +136,9 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 
 	function getQueryParams() {
 		return {
-			id : $searchForm.find('input[name="id"]').val().trim(),
 			name : $searchForm.find('input[name="name"]').val().trim(),
-			value : $searchForm.find('input[name="value"]').val().trim()
+			value : $searchForm.find('input[name="value"]').val().trim(),
+			type : vmType.getValue('value')[0]
 		};
 	}
 

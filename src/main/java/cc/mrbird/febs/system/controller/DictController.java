@@ -1,16 +1,12 @@
 package cc.mrbird.febs.system.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.system.entity.Dict;
-import cc.mrbird.febs.system.service.IDictService;
-import lombok.RequiredArgsConstructor;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.wuwenze.poi.ExcelKit;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +16,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.wuwenze.poi.ExcelKit;
+
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.service.CommonService;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.system.entity.Dict;
+import cc.mrbird.febs.system.service.IDictService;
+import lombok.RequiredArgsConstructor;
 
 @Validated
 @Controller
@@ -31,9 +36,15 @@ import java.util.Map;
 public class DictController extends BaseController {
 
 	private final IDictService dictService;
+	private final CommonService commonService;
 
 	@GetMapping(FebsConstant.VIEW_PREFIX + "system/dict")
-	public String dict(){
+	public String dict(Model model){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("columns", "DISTINCT type, description");
+		map.put("table", "t_dict");
+		List<Map<String, Object>> dictType = commonService.list(map);
+		model.addAttribute("dictType", dictType);
 		return FebsUtil.view("system/dict/dict");
 	}
 	
@@ -47,6 +58,13 @@ public class DictController extends BaseController {
 	
 	@GetMapping(FebsConstant.VIEW_PREFIX + "system/dict/add")
 	public String dictAdd(){
+		return FebsUtil.view("system/dict/dictAdd");
+	}
+	
+	@GetMapping(FebsConstant.VIEW_PREFIX + "system/dict/plus/{id}")
+	public String dictPlus(@PathVariable String id, Model model){
+		Dict dict = dictService.findById(id);
+		model.addAttribute("dict", dict);
 		return FebsUtil.view("system/dict/dictAdd");
 	}
 	

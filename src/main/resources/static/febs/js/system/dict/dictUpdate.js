@@ -14,6 +14,8 @@ layui.use(['jquery', 'febs', 'form', 'validate'], function () {
 	function initDictValue() {
 		form.val("dict-update-form", {
 			"id": dict.id,
+			"type": dict.type,
+			"description": dict.description,
 			"name": dict.name,
 			"value": dict.value
 		});

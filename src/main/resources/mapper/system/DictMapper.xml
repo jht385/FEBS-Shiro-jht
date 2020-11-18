@@ -3,19 +3,19 @@
 <mapper namespace="cc.mrbird.febs.system.mapper.DictMapper">
 
 	<resultMap id="dict" type="cc.mrbird.febs.system.entity.Dict">
-		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<id column="id" jdbcType="BIGINT" property="id"/>
 		<result column="name" jdbcType="VARCHAR" property="name"/>
 		<result column="value" jdbcType="VARCHAR" property="value"/>
 		<result column="type" jdbcType="VARCHAR" property="type"/>
 		<result column="description" jdbcType="VARCHAR" property="description"/>
-		<result column="sort" jdbcType="DECIMAL" property="sort"/>
-		<result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
-		<result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+		<result column="sort" jdbcType="TINYINT" property="sort"/>
+		<result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+		<result column="create_by" jdbcType="BIGINT" property="createBy"/>
 		<result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-		<result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+		<result column="update_by" jdbcType="BIGINT" property="updateBy"/>
 		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
 		<result column="remarks" jdbcType="VARCHAR" property="remarks"/>
-		<result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+		<result column="del_flag" jdbcType="TINYINT" property="delFlag"/>
 		<result column="ex1" jdbcType="VARCHAR" property="ex1"/>
 	</resultMap>
 	
@@ -24,7 +24,7 @@
 		from t_dict
 		where 1=1
 		<if test="dict.id != null and dict.id != ''"> AND id = #{dict.id}</if>
-		<if test="dict.name != null and dict.name != ''"> AND name = #{dict.name}</if>
+		<if test="dict.name != null and dict.name != ''"> AND name like '%${dict.name}%'</if>
 		<if test="dict.value != null and dict.value != ''"> AND value = #{dict.value}</if>
 		<if test="dict.type != null and dict.type != ''"> AND type = #{dict.type}</if>
 		<if test="dict.description != null and dict.description != ''"> AND description = #{dict.description}</if>
@@ -37,7 +37,7 @@
 		<if test="dict.remarks != null and dict.remarks != ''"> AND remarks = #{dict.remarks}</if>
 		<if test="dict.delFlag != null and dict.delFlag != ''"> AND del_flag = #{dict.delFlag}</if>
 		<if test="dict.ex1 != null and dict.ex1 != ''"> AND ex1 = #{dict.ex1}</if>
-		order by id
+		order by type asc, LPAD(value, 8, '0') asc
 	</sql>
 	
 	<select id="findDictPage" parameterType="dict" resultType="dict">

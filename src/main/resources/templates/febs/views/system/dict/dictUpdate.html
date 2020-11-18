@@ -1,25 +1,29 @@
 <link rel="stylesheet" th:href="@{febs/css/system/dict/dictUpdate.css}" media="all">
 <div class="layui-fluid" id="dict-update">
 	<form class="layui-form" action="" lay-filter="dict-update-form">
-		<div class="layui-form-item febs-hide">
-			<label class="layui-form-label febs-form-item-require">编号：</label>
+		<input type="hidden" name="id" data-th-value="${dict.id}">
+		<div class="layui-form-item">
+			<label class="layui-form-label febs-form-item-require">类型：</label>
 			<div class="layui-input-block">
-				<input type="text" name="id" data-th-value="${dict.id}"
-					lay-verify="required" autocomplete="off" class="layui-input">
+				<input type="text" name="type" lay-verify="required" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label febs-form-item-require">描述：</label>
+			<div class="layui-input-block">
+				<input type="text" name="description" lay-verify="required" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label febs-form-item-require">标签名：</label>
 			<div class="layui-input-block">
-				<input type="text" name="name" data-th-id="dict"
-					lay-verify="required" autocomplete="off" class="layui-input">
+				<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label febs-form-item-require">数据值：</label>
 			<div class="layui-input-block">
-				<input type="text" name="value" data-th-id="dict"
-					lay-verify="required" autocomplete="off" class="layui-input">
+				<input type="text" name="value" lay-verify="required" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item febs-hide">

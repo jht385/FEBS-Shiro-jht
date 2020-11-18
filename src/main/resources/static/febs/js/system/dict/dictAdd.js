@@ -8,6 +8,19 @@ layui.use(['febs', 'form', 'validate'], function () {
 
 	form.verify(validate);
 	form.render();
+	
+	if(dict){
+		initDictValue();
+	}
+
+	function initDictValue() {
+		form.val("dict-add-form", {
+			"type": dict.type,
+			"description": dict.description,
+			"name": dict.name,
+			"value": dict.value
+		});
+	}
 
 	form.on('submit(dict-add-form-submit)', function (data) {
 		febs.post(ctx + 'system/dict', data.field, function () {
