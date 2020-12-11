@@ -5,12 +5,12 @@
 layui.extend({
 	validate: './febs/lay/modules/validate'
 }).use(['form', 'layer', 'validate'], function (form, layer) {
-    var $ = layui.jquery, // layui内置了jquery，想要使用jq的$需要这样定义一下
+    let $ = layui.jquery, // layui内置了jquery，想要使用jq的$需要这样定义一下
         validate = layui.validate,
         $view = $('#febs-login'),
         type = 'login',
         $loginDiv = $view.find('#login-div'),
-        $registDiv = $view.find('#regist-div');
+        $registerDiv = $view.find('#register-div');
 
     form.verify(validate);
     form.render();
@@ -18,7 +18,7 @@ layui.extend({
 
     //提交登录表单
     form.on('submit(login-submit)', function (data) {
-        var loading = $(this).find('.layui-icon');
+        let loading = $(this).find('.layui-icon');
         if (loading.is(":visible")) return;
         loading.show();
         $.post(ctx + 'login', data.field, function (r) {
@@ -34,15 +34,15 @@ layui.extend({
     });
 
     //提交注册表单
-    form.on('submit(regist-submit)', function (data) {
+    form.on('submit(register-submit)', function (data) {
         if (data.field.password !== data.field.passwordB) {
             layer.msg('两次密码输入不一致！');
             return;
         }
-        var loading = $(this).find('.layui-icon');
+        let loading = $(this).find('.layui-icon');
         if (loading.is(":visible")) return;
         loading.show();
-        $.post(ctx + 'regist', data.field, function (r) {
+        $.post(ctx + 'register', data.field, function (r) {
             if (r.code === 200) {
                 layer.msg('注册成功，请登录');
                 loading.hide();
@@ -63,22 +63,22 @@ layui.extend({
         initCode();
     });
 
-    $view.find('#regist-href').on('click', function () {
+    $view.find('#register-href').on('click', function () {
         resetForm();
-        type = 'regist';
+        type = 'register';
         $loginDiv.hide();
-        $registDiv.show();
+        $registerDiv.show();
     });
 
     $view.find('#login-href').on('click', function () {
         resetForm();
         type = 'login';
         $loginDiv.show();
-        $registDiv.hide();
+        $registerDiv.hide();
     });
 
     function resetForm() {
-        $registDiv.find('input[name="username"]').val('')
+        $registerDiv.find('input[name="username"]').val('')
             .end().find('input[name="password"]').val('')
             .end().find('input[name="passwordB"]').val('');
         $loginDiv.find('input[name="username"]').val('')
@@ -88,8 +88,10 @@ layui.extend({
 
     $(document).on('keydown', function (e) {
         if (e.keyCode === 13) {
-            if (type === 'login') $view.find('#login').trigger("click");
-            if (type === 'regist') $view.find('#regist').trigger("click");
+            if (type === 'login')
+            	$view.find('#login').trigger("click");
+            if (type === 'register')
+            	$view.find('#register').trigger("click");
         }
     });
 });

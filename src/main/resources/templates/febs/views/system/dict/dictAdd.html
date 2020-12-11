@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/system/dict/dictAdd.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/dict/dictAdd.css')}" media="all">
 <div class="layui-fluid" id="dict-add">
 	<form class="layui-form" action="" lay-filter="dict-add-form">
 		<div class="layui-form-item">
@@ -38,4 +38,4 @@
 <script th:inline="javascript">
 	var dict = [[${dict}]];
 </script>
-<script th:src="@{febs/js/system/dict/dictAdd.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/dict/dictAdd.js')}"></script>

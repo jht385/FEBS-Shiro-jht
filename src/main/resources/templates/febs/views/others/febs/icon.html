@@ -4279,19 +4279,19 @@
 </div>
 <script>
     layui.use(['jquery', 'febs'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             febs = layui.febs,
             $view = $('#febs-icon'),
             $iconBody = $view.find('.icon-body');
 
         $iconBody.each(function () {
-            var $this = $(this);
+            let $this = $(this);
             $this.on('click', function () {
                 $view.find('.icon-active').each(function () {
                     $(this).removeClass('icon-active');
                 });
                 $this.addClass('icon-active');
-                var iconName = 'layui-icon-' + $this.find('.icon-name').text();
+                let iconName = 'layui-icon-' + $this.find('.icon-name').text();
             });
         });
     });

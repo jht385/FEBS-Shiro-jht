@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;

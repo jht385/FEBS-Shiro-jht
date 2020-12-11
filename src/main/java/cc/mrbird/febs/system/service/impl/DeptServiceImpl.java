@@ -1,30 +1,28 @@
 package cc.mrbird.febs.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
+import cc.mrbird.febs.common.entity.DeptTree;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.util.TreeUtil;
+import cc.mrbird.febs.system.entity.Dept;
+import cc.mrbird.febs.system.mapper.DeptMapper;
+import cc.mrbird.febs.system.service.IDeptService;
+import cc.mrbird.febs.system.service.IUserDataPermissionService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
-import cc.mrbird.febs.common.entity.DeptTree;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.utils.SortUtil;
-import cc.mrbird.febs.common.utils.TreeUtil;
-import cc.mrbird.febs.system.entity.Dept;
-import cc.mrbird.febs.system.mapper.DeptMapper;
-import cc.mrbird.febs.system.service.IDeptService;
-import cc.mrbird.febs.system.service.IUserDataPermissionService;
-import lombok.RequiredArgsConstructor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author MrBird
@@ -33,18 +31,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
-	
-	private final IUserDataPermissionService userDataPermissionService;
+
+    private final IUserDataPermissionService userDataPermissionService;
 
     @Override
-    public List<DeptTree<Dept>> findDepts() {
-        List<Dept> depts = this.baseMapper.selectList(new QueryWrapper<>());
-        List<DeptTree<Dept>> trees = this.convertDepts(depts);
+    public List<DeptTree<Dept>> findDept() {
+        List<Dept> deptList = this.baseMapper.selectList(new QueryWrapper<>());
+        List<DeptTree<Dept>> trees = this.convertDept(deptList);
         return TreeUtil.buildDeptTree(trees);
     }
 
     @Override
-    public List<DeptTree<Dept>> findDepts(Dept dept) {
+    public List<DeptTree<Dept>> findDept(Dept dept) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
         if (StringUtils.isNotBlank(dept.getDeptName())) {
@@ -52,13 +50,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
         }
         queryWrapper.lambda().orderByAsc(Dept::getOrderNum);
 
-        List<Dept> depts = this.baseMapper.selectList(queryWrapper);
-        List<DeptTree<Dept>> trees = this.convertDepts(depts);
+        List<Dept> deptList = this.baseMapper.selectList(queryWrapper);
+        List<DeptTree<Dept>> trees = this.convertDept(deptList);
         return TreeUtil.buildDeptTree(trees);
     }
 
     @Override
-    public List<Dept> findDepts(Dept dept, QueryRequest request) {
+    public List<Dept> findDept(Dept dept, QueryRequest request) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
 
         if (StringUtils.isNotBlank(dept.getDeptName())) {
@@ -88,13 +86,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteDepts(String[] deptIds) {
+    public void deleteDept(String[] deptIds) {
         this.delete(Arrays.asList(deptIds));
     }
 
-    private List<DeptTree<Dept>> convertDepts(List<Dept> depts) {
+    private List<DeptTree<Dept>> convertDept(List<Dept> Dept) {
         List<DeptTree<Dept>> trees = new ArrayList<>();
-        depts.forEach(dept -> {
+        Dept.forEach(dept -> {
             DeptTree<Dept> tree = new DeptTree<>();
             tree.setId(String.valueOf(dept.getDeptId()));
             tree.setParentId(String.valueOf(dept.getParentId()));
@@ -111,10 +109,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
 
         LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(Dept::getParentId, deptIds);
-        List<Dept> depts = baseMapper.selectList(queryWrapper);
-        if (CollectionUtils.isNotEmpty(depts)) {
+        List<Dept> Dept = baseMapper.selectList(queryWrapper);
+        if (CollectionUtils.isNotEmpty(Dept)) {
             List<String> deptIdList = new ArrayList<>();
-            depts.forEach(d -> deptIdList.add(String.valueOf(d.getDeptId())));
+            Dept.forEach(d -> deptIdList.add(String.valueOf(d.getDeptId())));
             this.delete(deptIdList);
         }
     }

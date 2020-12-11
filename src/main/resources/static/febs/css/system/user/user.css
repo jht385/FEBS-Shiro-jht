@@ -1,0 +1,8 @@
+#febs-user xm-select {
+	min-height: 30px;
+	line-height: 30px;
+}
+#febs-user xm-select > .xm-label .scroll .label-content {
+	display: flex;
+	padding: 0 30px 0 10px;
+}

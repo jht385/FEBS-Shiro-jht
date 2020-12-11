@@ -1,5 +1,5 @@
 layui.use(['jquery', 'table', 'febs', 'form'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         table = layui.table,
         febs = layui.febs,
         $view = $('#febs-httptrace'),
@@ -41,7 +41,7 @@ layui.use(['jquery', 'table', 'febs', 'form'], function () {
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }

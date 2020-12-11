@@ -1,5 +1,5 @@
 layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 'validate'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
@@ -25,7 +25,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
         range: true
     });
 
-    var menuTree = eleTree.render({
+    let menuTree = eleTree.render({
         elem: '.menu-tree',
         url: ctx + 'menu/tree',
         showCheckbox: true,
@@ -52,16 +52,17 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
     dropdown.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('roleTable');
+            let checkStatus = table.checkStatus('roleTable');
             if (name === 'add') {
                 resetRoleForm();
+                febs.alert.info("请在表单中填写相关信息");
             }
             if (name === 'delete') {
                 if (!checkStatus.data.length) {
                     febs.alert.warn('请选择需要删除的角色');
                 } else {
                     febs.modal.confirm('删除角色', '确定删除所选角色？', function () {
-                        var roleIds = [];
+                        let roleIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             roleIds.push(item.roleId);
                         });
@@ -70,7 +71,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
                 }
             }
             if (name === 'export') {
-                var params = getQueryParams();
+                let params = getQueryParams();
                 params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                 params.pageNum = $view.find(".layui-laypage-em").next().html();
                 febs.download(ctx + 'role/excel', params, '角色信息表.xlsx');
@@ -84,7 +85,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
     });
 
     table.on('tool(roleTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'edit') {
             $header.text('修改角色');
@@ -137,7 +138,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }
@@ -150,8 +151,8 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
     }
 
     form.on('submit(role-form-submit)', function (data) {
-        var selected = menuTree.getChecked(false, true);
-        var menuIds = [];
+        let selected = menuTree.getChecked(false, true);
+        let menuIds = [];
         layui.each(selected, function (key, item) {
             menuIds.push(item.id)
         });
@@ -173,7 +174,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
         })
     }
 
-    var addOrUpdateRole = function (data) {
+    let addOrUpdateRole = function (data) {
         if (data.roleId && $header.text() === '修改角色') {
             febs.post(ctx + 'role/update', data, function () {
                 febs.alert.success('修改角色成功');

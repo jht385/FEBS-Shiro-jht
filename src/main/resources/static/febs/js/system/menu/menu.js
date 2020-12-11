@@ -1,10 +1,11 @@
-layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate'], function () {
-    var $ = layui.jquery,
+layui.use(['dropdown', 'jquery', 'febs', 'form', 'eleTree', 'validate', 'xmSelect'], function () {
+	let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
         validate = layui.validate,
         eleTree = layui.eleTree,
+        xmSelect = layui.xmSelect,
         dropdown = layui.dropdown,
         $view = $('#febs-menu'),
         $query = $view.find('#query'),
@@ -21,12 +22,42 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
         $order_parent = $order.parents('.layui-form-item'),
         $header = $view.find('#form-header'),
         _currentMenuData,
-        _selectNode,
-        _menuTree,
-        tableIns;
+        menuXmlSelect,
+        _menuTree;
 
     form.verify(validate);
     form.render();
+    
+    menuXmlSelect = xmSelect.render({
+        el: '#parent-menu-id',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'parentId',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id',
+            name: 'title',
+            children: 'childs'
+        },
+        height: 'auto',
+        on: function (data) {
+            if (data.isAdd) {
+                return data.change.slice(0, 1)
+            }
+        }
+    });
+
+    febs.get(ctx + 'menu/tree', null, function (data) {
+        menuXmlSelect.update(data)
+    });
 
     dropdown.render({
         elem: $view.find('#action-more'),
@@ -36,26 +67,15 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
             }
             if(name == 'addChildren'){
             	reset();
-            	var selected = _menuTree.getChecked(false, true);
-                if (selected.length > 1) {
-                    febs.alert.warn('只能选择一个节点作为父级！');
-                    return;
-                }
-                if (selected[0] && selected[0].type === '1') {
-                    febs.alert.warn('不能选择按钮作为父级！');
-                    return;
-                }
-                form.val("menu-form", {
-                    "parentId": selected[0] ? selected[0].id : ''
-                });
+                febs.alert.info("请在表单中填写相关信息");
             }
             if (name === 'delete') {
-                var checked = _menuTree.getChecked(false, true);
+            	let checked = _menuTree.getChecked(false, true);
                 if (checked.length < 1) {
                     febs.alert.warn('请勾选需要删除的菜单或按钮');
                     return;
                 }
-                var menuIds = [];
+                let menuIds = [];
                 layui.each(checked, function (key, item) {
                     menuIds.push(item.id)
                 });
@@ -84,10 +104,10 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
     _menuTree = renderMenuTree();
 
     eleTree.on("nodeClick(menuTree)", function (d) {
-        var data = d.data.currentData.data;
+    	let data = d.data.currentData.data;
         _currentMenuData = data;
         $type.attr("disabled", true);
-        var type = data.type;
+        let type = data.type;
         handleTypeChange(type);
         if (type === '0') { // 菜单
             $header.text('修改菜单');
@@ -104,6 +124,11 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
             "parentId": data.parentId,
             "menuId": data.menuId
         });
+        if (data.parentId) {
+            menuXmlSelect.setValue([data.parentId]);
+        } else {
+            menuXmlSelect.setValue([])
+        }
     });
 
     form.on("radio(menu-type)", function (data) {
@@ -129,7 +154,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
         febs.modal.open('图标选择', 'others/febs/icon', {
             btn: ['确定'],
             yes: function () {
-                var icon = $('#febs-icon').find('.icon-active .icon-name').text();
+                let icon = $('#febs-icon').find('.icon-active .icon-name').text();
                 if (icon) {
                     form.val("menu-form", {
                         "icon": 'layui-icon-' + icon
@@ -179,7 +204,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'validate
         _menuTree = renderMenuTree();
     }
 
-    var handleTypeChange = function (type) {
+    let handleTypeChange = function (type) {
         form.val("menu-form", {
             "icon": '', "url": '', "orderNum": ''
         });

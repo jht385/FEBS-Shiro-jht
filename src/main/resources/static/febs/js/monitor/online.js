@@ -1,5 +1,5 @@
 layui.use(['jquery', 'form', 'table', 'febs'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
@@ -15,7 +15,7 @@ layui.use(['jquery', 'form', 'table', 'febs'], function () {
     initTable();
 
     table.on('tool(onlineTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'del') {
             febs.modal.confirm('踢出用户', '确定将该用户踢出？', function () {
@@ -65,7 +65,7 @@ layui.use(['jquery', 'form', 'table', 'febs'], function () {
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }

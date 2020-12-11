@@ -1,5 +1,5 @@
 layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
@@ -28,12 +28,12 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
             if (name === 'delete') {
-                var checkStatus = table.checkStatus('loginLogTable');
+                let checkStatus = table.checkStatus('loginLogTable');
                 if (!checkStatus.data.length) {
                     febs.alert.warn('请勾选需要删除的日志');
                 } else {
                     febs.modal.confirm('删除日志', '确定删除所选日志？', function () {
-                        var logIds = [];
+                        let logIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             logIds.push(item.id)
                         });
@@ -42,7 +42,7 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
                 }
             }
             if (name === 'export') {
-                var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+                let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
                 params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                 params.pageNum = $view.find(".layui-laypage-em").next().html();
                 febs.download(ctx + 'loginLog/excel', params, '登录日志表.xlsx');
@@ -60,7 +60,7 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     });
 
     table.on('tool(loginLogTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'del') {
             febs.modal.confirm('删除日志', '确定删除该条登录日志？', function () {
@@ -81,7 +81,7 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     });
 
     $query.on('click', function () {
-        var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+        let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
         tableIns.reload({where: params, page: {curr: 1}});
     });
 
@@ -119,8 +119,8 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
-        var createTime = params.time;
+    	let params = $searchForm.serializeJson();
+        let createTime = params.time;
         if (createTime) {
             createTimeFrom = createTime.split(' - ')[0];
             createTimeTo = createTime.split(' - ')[1];

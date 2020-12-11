@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * @author MrBird
  */
-public class HttpContextUtil {
+public abstract class HttpContextUtil {
 
 	private HttpContextUtil(){
 

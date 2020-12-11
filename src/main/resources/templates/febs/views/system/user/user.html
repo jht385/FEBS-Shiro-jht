@@ -1,3 +1,4 @@
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/user/user.css')}" media="all">
 <div class="layui-fluid layui-anim febs-anim" id="febs-user" lay-title="用户管理">
     <div class="layui-row febs-container">
         <div class="layui-col-md12">
@@ -37,8 +38,7 @@
                                     </div>
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">部门</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="deptId" id="dept" lay-filter="dept" class="layui-input">
+                                        <div class="layui-input-inline" id="dept">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
@@ -76,7 +76,7 @@
 </div>
 <script type="text/html" id="user-status">
     {{#
-    var status = {
+    let status = {
     1: {title: '有效', color: 'green'},
     0: {title: '禁用', color: 'volcano'}
     }[d.status];
@@ -85,7 +85,7 @@
 </script>
 <script type="text/html" id="user-sex">
     {{#
-    var sex = {
+    let sex = {
     2: {title: '保密'},
     1: {title: '女'},
     0: {title: '男'}
@@ -101,4 +101,4 @@
     <a lay-event="edit" shiro:hasPermission="user:update"><i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
     <a lay-event="del" shiro:hasPermission="user:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
 </script>
-<script th:src="@{febs/js/system/user/user.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/user/user.js')}"></script>

@@ -1,5 +1,5 @@
 layui.use(['febs', 'form', 'validate', 'layer'], function () {
-    var $ = layui.$,
+    let $ = layui.$,
         validate = layui.validate,
         form = layui.form,
         febs = layui.febs,

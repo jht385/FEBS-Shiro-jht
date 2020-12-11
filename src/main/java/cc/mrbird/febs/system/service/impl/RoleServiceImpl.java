@@ -1,9 +1,9 @@
 package cc.mrbird.febs.system.service.impl;
 
-import cc.mrbird.febs.common.authentication.ShiroRealm;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.utils.SortUtil;
+import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
+import cc.mrbird.febs.common.util.SortUtil;
 import cc.mrbird.febs.system.entity.Role;
 import cc.mrbird.febs.system.entity.RoleMenu;
 import cc.mrbird.febs.system.mapper.RoleMapper;
@@ -15,16 +15,18 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author MrBird
@@ -36,7 +38,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     private final IRoleMenuService roleMenuService;
     private final IUserRoleService userRoleService;
-    private final ShiroRealm shiroRealm;
+    private final UserAuthenticationUpdatedEventPublisher publisher;
 
     @Override
     public List<Role> findUserRole(String username) {
@@ -79,12 +81,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     public void updateRole(Role role) {
         role.setModifyTime(new Date());
         this.updateById(role);
-        List<String> roleIdList = new ArrayList<>();
-        roleIdList.add(String.valueOf(role.getRoleId()));
+        List<String> roleIdList = Lists.newArrayList(String.valueOf(role.getRoleId()));
         this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
-
-        shiroRealm.clearCache();
+        Set<Long> userIds = this.userRoleService.findUserIdByRoleId(role.getRoleId());
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     @Override
@@ -95,12 +98,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
         this.roleMenuService.deleteRoleMenusByRoleId(list);
         this.userRoleService.deleteUserRolesByRoleId(list);
+
+        Set<Long> userIds = this.userRoleService.findUserIdByRoleIds(list);
+        if (CollectionUtils.isNotEmpty(userIds)) {
+            publisher.publishEvent(userIds);
+        }
     }
 
     private void saveRoleMenus(Role role) {
         if (StringUtils.isNotBlank(role.getMenuIds())) {
             String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
-            List<RoleMenu> roleMenus = new ArrayList<>();
+            List<RoleMenu> roleMenus = Lists.newArrayList();
             Arrays.stream(menuIds).forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();
                 roleMenu.setMenuId(Long.valueOf(menuId));

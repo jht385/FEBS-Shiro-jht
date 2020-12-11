@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * @author MrBird
  */
 @Slf4j
-public class AddressUtil {
+public abstract class AddressUtil {
 
     @SuppressWarnings("all")
     public static String getCityInfo(String ip) {

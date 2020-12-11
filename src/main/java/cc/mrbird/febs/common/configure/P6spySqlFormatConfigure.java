@@ -1,7 +1,9 @@
 package cc.mrbird.febs.common.configure;
 
-import cc.mrbird.febs.common.utils.DateUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
+
+import cc.mrbird.febs.common.util.DateUtil;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

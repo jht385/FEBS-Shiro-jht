@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/system/user/userAdd.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/user/userAdd.css')}" media="all">
 <div class="layui-fluid" id="user-add">
     <form class="layui-form" action="" lay-filter="user-add-form">
         <div class="layui-form-item">
@@ -23,20 +23,11 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">角色：</label>
-            <div class="layui-input-block">
-                <select name="roleId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-role"
-                        xm-select-skin="default">
-                </select>
-            </div>
+            <div class="layui-input-block" id="user-add-role"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">部门：</label>
-            <div class="layui-input-block">
-                <input type="text" name="deptId" id="user-add-dept" class="layui-input">
-            </div>
+            <div class="layui-input-block" id="user-add-dept"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">状态：</label>
@@ -55,9 +46,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据权限：</label>
-            <div class="layui-input-block" id="data-permission-tree-block">
-                <div class="data-permission-tree" lay-filter="dataPermissionTree" style="margin-left: 1rem"></div>
-            </div>
+            <div class="layui-input-block" id="user-add-data-permission"></div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注：</label>
@@ -71,4 +60,4 @@
         </div>
     </form>
 </div>
-<script th:src="@{febs/js/system/user/userAdd.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/user/userAdd.js')}"></script>

@@ -4,8 +4,9 @@ import cc.mrbird.febs.common.annotation.Limit;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.exception.FebsException;
+import cc.mrbird.febs.common.properties.FebsProperties;
 import cc.mrbird.febs.common.service.ValidateCodeService;
-import cc.mrbird.febs.common.utils.Md5Util;
+import cc.mrbird.febs.common.util.Md5Util;
 import cc.mrbird.febs.monitor.entity.LoginLog;
 import cc.mrbird.febs.monitor.service.ILoginLogService;
 import cc.mrbird.febs.system.entity.User;
@@ -38,6 +39,7 @@ public class LoginController extends BaseController {
     private final IUserService userService;
     private final ValidateCodeService validateCodeService;
     private final ILoginLogService loginLogService;
+    private final FebsProperties properties;
 
     @PostMapping("login")
     @Limit(key = "login", period = 60, count = 10, name = "登录接口", prefix = "limit")
@@ -56,19 +58,18 @@ public class LoginController extends BaseController {
         loginLog.setUsername(username);
         loginLog.setSystemBrowserInfo();
         this.loginLogService.saveLoginLog(loginLog);
-
-        return new FebsResponse().success();
+        return new FebsResponse().success().data(properties.getShiro().getSuccessUrl());
     }
 
-    @PostMapping("regist")
-    public FebsResponse regist(
+    @PostMapping("register")
+    public FebsResponse register(
             @NotBlank(message = "{required}") String username,
             @NotBlank(message = "{required}") String password) throws FebsException {
         User user = userService.findByName(username);
         if (user != null) {
             throw new FebsException("该用户名已存在");
         }
-        this.userService.regist(username, password);
+        this.userService.register(username, password);
         return new FebsResponse().success();
     }
 

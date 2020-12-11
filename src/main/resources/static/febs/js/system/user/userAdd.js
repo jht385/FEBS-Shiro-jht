@@ -1,83 +1,93 @@
-layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect', 'eleTree'], function () {
-    var $ = layui.$,
+layui.use(['febs', 'form', 'validate', 'xmSelect'], function () {
+    let $ = layui.$,
         febs = layui.febs,
         layer = layui.layer,
-        formSelects = layui.formSelects,
-        treeSelect = layui.treeSelect,
         form = layui.form,
-        eleTree = layui.eleTree,
-        $view = $('#user-add'),
+        xmSelect = layui.xmSelect,
         validate = layui.validate,
-        _deptTree;
+        dataPermissionXmlSelect,
+        roleXmSelect,
+        deptXmlSelect;
 
     form.verify(validate);
     form.render();
 
-    formSelects.render();
-    renderDeptTree();
-
-    treeSelect.render({
-        elem: $view.find('#user-add-dept'),
-        type: 'get',
-        data: ctx + 'dept/select/tree',
-        placeholder: '请选择',
-        search: false
-    });
-    
-    function renderDeptTree() {
-        _deptTree = eleTree.render({
-            elem: $view.find('.data-permission-tree'),
-            url: ctx + 'dept/tree',
-            accordion: true,
-            highlightCurrent: true,
-            showCheckbox: true,
-            checkStrictly: true,
-            renderAfterExpand: false,
-            request: {
-                name: 'name',
-                key: "id",
-                checked: "checked",
-                data: 'data'
-            },
-            response: {
-                statusName: "code",
-                statusCode: 200,
-                dataName: "data"
-            }
-        });
-        return _deptTree;
-    }
-
-    formSelects.config('user-add-role', {
-        searchUrl: ctx + 'role',
-        response: {
-            statusCode: 200
+    deptXmlSelect = xmSelect.render({
+        el: '#user-add-dept',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
         },
-        beforeSuccess: function (id, url, searchVal, result) {
-            var data = result.data;
-            var tranData = [];
-            for (var i = 0; i < data.length; i++) {
-                tranData.push({
-                    name: data[i].roleName,
-                    value: data[i].roleId
-                })
-            }
-            result.data = tranData;
-            return result;
+        name: 'deptId',
+        theme: {
+            color: '#52c41a',
         },
-        error: function (id, url, searchVal, err) {
-            console.error(err);
-            febs.alert.error('获取角色列表失败');
+        prop: {
+            value: 'id'
+        },
+        height: 'auto',
+        on: function (data) {
+            if (data.isAdd) {
+                return data.change.slice(0, 1)
+            }
         }
     });
 
+    dataPermissionXmlSelect = xmSelect.render({
+        el: '#user-add-data-permission',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'deptIds',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id'
+        },
+        height: 'auto'
+    });
+    
+    febs.get(ctx + 'dept/select/tree', null, function (data) {
+        deptXmlSelect.update(data)
+        dataPermissionXmlSelect.update(data)
+    });
+
+    roleXmSelect = xmSelect.render({
+        el: '#user-add-role',
+        toolbar: {show: true},
+        name: 'roleId',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            name: 'roleName',
+            value: 'roleId'
+        },
+        data: []
+    });
+
+    febs.get(ctx + 'role', null, function (data) {
+        roleXmSelect.update({
+            data: data.data,
+            autoRow: true,
+        })
+    });
+
     form.on('submit(user-add-form-submit)', function (data) {
-    	var checked = _deptTree.getChecked(false, true);
-        var deptIds = [];
-        layui.each(checked, function (key, item) {
-            deptIds.push(item.id)
-        });
-        data.deptIds = deptIds.join(",");
+    	if (!data.field.roleId) {
+            febs.alert.warn('请选择用户角色');
+            return false;
+        }
         febs.post(ctx + 'user', data.field, function () {
             layer.closeAll();
             febs.alert.success('新增用户成功，初始密码为 1234qwer');

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.common.util.DateUtil;
 import lombok.Data;
 
 /**

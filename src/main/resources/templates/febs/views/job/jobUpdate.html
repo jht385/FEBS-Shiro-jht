@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/job/jobUpdate.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/job/jobUpdate.css')}" media="all">
 <div class="layui-fluid" id="job-update">
     <form class="layui-form" action="" lay-filter="job-update-form">
         <div class="layui-form-item febs-hide">
@@ -56,4 +56,4 @@
 <script th:inline="javascript">
 	var job = [[${job}]];
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/job/jobUpdate.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/job/jobUpdate.js')}"></script>

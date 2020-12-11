@@ -1,27 +1,46 @@
-layui.use(['febs', 'form', 'validate', 'treeSelect'], function () {
-    var $ = layui.$,
+layui.use(['febs', 'form', 'validate', 'xmSelect'], function () {
+    let $ = layui.$,
         febs = layui.febs,
         layer = layui.layer,
-        treeSelect = layui.treeSelect,
+        xmSelect = layui.xmSelect,
         form = layui.form,
         user = currentUser,
-        $view = $('#profile-update'),
-        validate = layui.validate;
+        validate = layui.validate,
+        deptXmlSelect;
 
     form.verify(validate);
     form.render();
 
     initUserValue();
 
-    treeSelect.render({
-        elem: $view.find('#profile-update-dept'),
-        type: 'get',
-        data: ctx + 'dept/select/tree',
-        placeholder: '请选择',
-        search: false,
-        success: function () {
-            treeSelect.checkNode('profile-update-dept', user.deptId);
+    deptXmlSelect = xmSelect.render({
+        el: '#profile-update-dept',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'deptId',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id'
+        },
+        height: 'auto',
+        on: function (data) {
+            if (data.isAdd) {
+                return data.change.slice(0, 1)
+            }
         }
+    });
+    
+    febs.get(ctx + 'dept/select/tree', null, function (data) {
+        deptXmlSelect.update(data);
+        user.deptId && deptXmlSelect.setValue([user.deptId]);
     });
 
     function initUserValue() {

@@ -82,4 +82,4 @@
     <a lay-event="edit" shiro:hasPermission="role:update"><i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
     <a lay-event="del" shiro:hasPermission="role:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
 </script>
-<script th:src="@{febs/js/system/role/role.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/role/role.js')}"></script>

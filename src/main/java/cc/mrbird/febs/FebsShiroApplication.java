@@ -3,12 +3,12 @@ package cc.mrbird.febs;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import cc.mrbird.febs.common.annotation.FEBS权限系统;
+import cc.mrbird.febs.common.annotation.FebsShiro;
 
 /**
  * @author MrBird
  */
-@FEBS权限系统
+@FebsShiro
 public class FebsShiroApplication {
 
 	public static void main(String[] args) {

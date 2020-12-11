@@ -1,5 +1,5 @@
 layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
-	var $ = layui.jquery,
+	let $ = layui.jquery,
 		laydate = layui.laydate,
 		febs = layui.febs,
 		form = layui.form,
@@ -19,7 +19,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 	dropdown.render({
 		elem: $view.find('.action-more'),
 		click: function (name, elem, event) {
-			var checkStatus = table.checkStatus('${className?uncap_first}Table');
+			let checkStatus = table.checkStatus('${className?uncap_first}Table');
 			if (name === 'add') {
 				febs.modal.open('新增', '${module}/${className?uncap_first}/add', {
 					btn: ['提交', '重置'],
@@ -40,7 +40,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 	});
 
 	table.on('tool(${className?uncap_first}Table)', function (obj) {
-		var data = obj.data,
+		let data = obj.data,
 			layEvent = obj.event;
 		if (layEvent === 'detail') {
 			febs.modal.view('信息', '${module}/${className?uncap_first}/detail/' + data.${columns[0].classField?uncap_first}, {
@@ -78,7 +78,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 	});
 
 	$query.on('click', function () {
-		var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+		let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
 		tableIns.reload({where: params, page: {curr: 1}});
 	});
 

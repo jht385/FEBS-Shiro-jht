@@ -15,7 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.common.util.FebsUtil;
 import cc.mrbird.febs.monitor.service.ILogService;
 import cc.mrbird.febs.system.entity.User;
 import lombok.RequiredArgsConstructor;

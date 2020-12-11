@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.common.util.FebsUtil;
 import cc.mrbird.febs.generator.entity.GeneratorConfig;
 import cc.mrbird.febs.generator.service.IGeneratorConfigService;
 import lombok.RequiredArgsConstructor;

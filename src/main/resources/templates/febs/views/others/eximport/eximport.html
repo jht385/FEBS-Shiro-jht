@@ -23,7 +23,7 @@
 </div>
 <script data-th-inline="none" type="text/javascript">
     layui.use(['jquery', 'table', 'febs', 'upload'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             febs = layui.febs,
             upload = layui.upload,
             table = layui.table,
@@ -46,7 +46,7 @@
                 if (res.code === 200) {
                     // 刷新 table
                     tableIns.reload({page: {curr: 1}});
-                    var data = res.data;
+                    let data = res.data;
                     // 弹出导入结果
                     febs.modal.open('导入结果', 'others/eximport/result', {
                         area: $(window).width() <= 750 ? '95%' : '1000px',
@@ -66,7 +66,7 @@
         });
 
         $view.on('click', '#export', function () {
-            var params = {};
+            let params = {};
             params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
             params.pageNum = $view.find(".layui-laypage-em").next().html();
             febs.download(ctx + 'eximport/excel', params, 'Excel导出结果.xlsx');

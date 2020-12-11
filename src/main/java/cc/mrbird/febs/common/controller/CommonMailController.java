@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cc.mrbird.febs.common.configure.FebsConfig;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.service.CommonService;
-import cc.mrbird.febs.common.utils.MailUtils;
+import cc.mrbird.febs.common.util.MailUtils;
 import lombok.RequiredArgsConstructor;
 
 @RestController

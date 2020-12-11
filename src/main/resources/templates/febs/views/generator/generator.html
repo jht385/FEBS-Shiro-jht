@@ -46,4 +46,4 @@
     </span>
     <a lay-event="generate" shiro:hasPermission="generator:generate"><i class="layui-icon febs-edit-area febs-blue">&#xe82a;</i></a>
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/generator/generator.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/generator/generator.js')}"></script>

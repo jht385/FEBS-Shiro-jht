@@ -10,7 +10,7 @@ import org.quartz.*;
  * @author MrBird
  */
 @Slf4j
-public class ScheduleUtils {
+public abstract class ScheduleUtil {
 
     private static final String JOB_NAME_PREFIX = "TASK_";
 

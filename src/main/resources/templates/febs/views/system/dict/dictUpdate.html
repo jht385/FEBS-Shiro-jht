@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/system/dict/dictUpdate.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/dict/dictUpdate.css')}" media="all">
 <div class="layui-fluid" id="dict-update">
 	<form class="layui-form" action="" lay-filter="dict-update-form">
 		<input type="hidden" name="id" data-th-value="${dict.id}">
@@ -35,4 +35,4 @@
 	var dict = [[${dict}]];
 	var ac = [[${ac}]];
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/system/dict/dictUpdate.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/dict/dictUpdate.js')}"></script>

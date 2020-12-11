@@ -1,7 +1,8 @@
 package cc.mrbird.febs.others.controller;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.common.util.FebsUtil;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

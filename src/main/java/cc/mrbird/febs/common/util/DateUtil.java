@@ -1,4 +1,7 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
+
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +17,7 @@ import java.util.Locale;
  *
  * @author MrBird
  */
-public class DateUtil {
+public abstract class DateUtil {
 
     public static final String FULL_TIME_PATTERN = "yyyyMMddHHmmss";
 
@@ -45,5 +48,18 @@ public class DateUtil {
     public static String formatInstant(Instant instant, String format) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return localDateTime.format(DateTimeFormatter.ofPattern(format));
+    }
+
+    public static String formatUtcTime(String utcTime) {
+        try {
+            String t = StringUtils.replace(utcTime, "T", StringPool.SPACE);
+            String z = StringUtils.replace(t, "Z", StringPool.EMPTY);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FULL_TIME_SPLIT_PATTERN);
+            LocalDateTime localDateTime = LocalDateTime.parse(z, formatter);
+            LocalDateTime now = localDateTime.plusHours(8);
+            return formatFullTime(now, FULL_TIME_SPLIT_PATTERN);
+        } catch (Exception ignore) {
+            return StringPool.EMPTY;
+        }
     }
 }

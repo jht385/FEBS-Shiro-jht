@@ -1,5 +1,5 @@
 layui.use(['jquery', 'form', 'febs'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         febs = layui.febs,
         form = layui.form,
         _currentData = {
@@ -38,7 +38,7 @@ layui.use(['jquery', 'form', 'febs'], function () {
     }
 
     form.on("radio(theme)", function (data) {
-        var $sidebar = $('#app-sidebar');
+        let $sidebar = $('#app-sidebar');
         if (data.value === 'black') {
             $sidebar.removeClass('febs-theme-white');
         }

@@ -82,7 +82,7 @@ $('a').on('click', function () {
 <a>点击切换</a>
 // js
 $('a').on('click', function () {
-    var currentUrl = window.location.hash.replace('#', '');
+    let currentUrl = window.location.hash.replace('#', '');
     febs.view.tab.del(currentUrl);
     febs.view.tab.change("/index");
 }
@@ -105,7 +105,7 @@ febs.routeLeave(function (route, nextPath, next) {
                     </pre>
                     <p>获取当前路由地址：</p>
                     <pre class="layui-code" lay-title="JavaScript">
-var url = febs.route.href;
+let url = febs.route.href;
                     </pre>
                 </div>
             </div>
@@ -125,7 +125,7 @@ var url = febs.route.href;
 </div>
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['febs', 'code'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             febs = layui.febs,
             $view = $("#febs-tools");
 
@@ -204,7 +204,7 @@ var url = febs.route.href;
 
         //  ------------------- tab操作 ---------------------------
         $view.find('a#refresh-tab').on('click', function () {
-            var isTab = currentUser.isTab;
+            let isTab = currentUser.isTab;
             if (isTab === '1') {
                 febs.view.tab.refresh();
             } else {
@@ -216,7 +216,7 @@ var url = febs.route.href;
             febs.view.tab.change("/index");
         });
         $view.find('a#del-tab').on('click', function () {
-            var currentUrl = window.location.hash.replace('#', '');
+            let currentUrl = window.location.hash.replace('#', '');
             febs.view.tab.change("/index");
             febs.view.tab.del(currentUrl);
         });

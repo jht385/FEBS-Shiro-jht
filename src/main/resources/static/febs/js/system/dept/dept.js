@@ -1,36 +1,70 @@
-layui.use(['dropdown', 'jquery', 'validate', 'febs', 'form', 'eleTree'], function () {
-    var $ = layui.jquery,
+layui.use(['dropdown', 'jquery', 'validate', 'febs', 'form', 'eleTree', 'xmSelect'], function () {
+    let $ = layui.jquery,
         febs = layui.febs,
         form = layui.form,
         validate = layui.validate,
         eleTree = layui.eleTree,
+        xmSelect = layui.xmSelect,
         dropdown = layui.dropdown,
         $view = $('#febs-dept'),
         $query = $view.find('#query'),
         $reset = $view.find('#reset'),
-        $submit = $view.find('#submit'),
         $header = $view.find('#form-header'),
         $searchForm = $view.find('#dept-table-form'),
         $deptName = $searchForm.find('input[name="deptName"]'),
         _currentDeptData,
+        deptXmlSelect,
         _deptTree;
 
     form.verify(validate);
     form.render();
 
     renderDeptTree();
+    
+    deptXmlSelect = xmSelect.render({
+        el: '#parent-dept-id',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'parentId',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id',
+        },
+        height: 'auto',
+        on: function (data) {
+            if (data.isAdd) {
+                return data.change.slice(0, 1)
+            }
+        }
+    });
+
+    febs.get(ctx + 'dept/tree', null, function (data) {
+        deptXmlSelect.update(data)
+    });
 
     eleTree.on("nodeClick(deptTree)", function (d) {
         $header.text('修改部门');
-        var data = d.data.currentData.data;
+        let data = d.data.currentData.data;
         _currentDeptData = data;
         form.val("dept-form", {
             "deptName": data.deptName,
             "orderNum": data.orderNum,
             "createTime": data.createTime,
-            "parentId": data.parentId,
             "deptId": data.deptId
         });
+        if (data.parentId) {
+            deptXmlSelect.setValue([data.parentId]);
+        } else {
+            deptXmlSelect.setValue([])
+        }
     });
 
     dropdown.render({
@@ -38,22 +72,15 @@ layui.use(['dropdown', 'jquery', 'validate', 'febs', 'form', 'eleTree'], functio
         click: function (name, elem, event) {
             if (name === 'add') {
                 reset();
-                var selected = _deptTree.getChecked(false, true);
-                if (selected.length > 1) {
-                    febs.alert.warn('只能选择一个节点作为父级！');
-                    return;
-                }
-                form.val("dept-form", {
-                    "parentId": selected[0] ? selected[0].id : ''
-                });
+                febs.alert.info("请在表单中填写相关信息");
             }
             if (name === 'delete') {
-                var checked = _deptTree.getChecked(false, true);
+                let checked = _deptTree.getChecked(false, true);
                 if (checked.length < 1) {
                     febs.alert.warn('请勾选需要删除的部门');
                     return;
                 }
-                var deptIds = [];
+                let deptIds = [];
                 layui.each(checked, function (key, item) {
                     deptIds.push(item.id)
                 });

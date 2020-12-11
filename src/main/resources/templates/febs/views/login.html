@@ -7,10 +7,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" th:href="@{layui/css/layui.css(t=2)}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/febs.css(t=2)}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/login.css(t=2)}" media="all">
-    <link rel="icon" th:href="@{febs/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/layui/css/layui.css')}" media="all">
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/febs.css')}" media="all">
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/login.css')}" media="all">
+    <link rel="icon" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/images/favicon.ico')}" type="image/x-icon"/>
 </head>
 <body>
 <div id="febs-login" lay-title="登录">
@@ -60,14 +60,14 @@
                                 </div>
                             </div>
                             <div class="layui-form-item febs-tr">
-                                <a id="regist-href">注册账号</a>
+                                <a id="register-href">注册账号</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 febs-hide" id="regist-div">
-                    <div class="layui-form" lay-filter="regist-form">
+                <div class="layui-col-xs12 layui-col-lg4 layui-col-lg-offset4 febs-hide" id="register-div">
+                    <div class="layui-form" lay-filter="register-form">
                         <div class="layui-anim layui-anim-upbit">
                             <ul class="login-type-tab">
                                 <li class="active">账号注册</li>
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="layui-form-item">
                                     <button class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit
-                                            lay-filter="regist-submit" id="regist">
+                                            lay-filter="register-submit" id="register">
                                         <i style="display: none"
                                            class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>立即注册
                                     </button>
@@ -110,6 +110,6 @@
     ctx = [[@{/}]];
 </script>
 <script th:src="@{layui/layui.js}"></script>
-<script type="text/javascript" th:src="@{febs/js/login.js}"></script>
+<script type="text/javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/login.js')}"></script>
 </body>
 </html>

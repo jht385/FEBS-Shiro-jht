@@ -1,85 +1,92 @@
-layui.use(['jquery', 'febs', 'form', 'formSelects', 'validate', 'treeSelect', 'eleTree'], function () {
-    var $ = layui.jquery,
+layui.use(['febs', 'form', 'xmSelect', 'validate'], function () {
+    let $ = layui.jquery,
         febs = layui.febs,
         layer = layui.layer,
-        formSelects = layui.formSelects,
-        treeSelect = layui.treeSelect,
         form = layui.form,
-        eleTree = layui.eleTree,
+        xmSelect = layui.xmSelect,
         validate = layui.validate,
-        _deptTree;
-    $view = $('#user-update');
+        dataPermissionXmlSelect,
+        roleXmSelect,
+        deptXmlSelect;
 
     form.verify(validate);
     form.render();
 
     initUserValue();
-    renderDeptTree();
-
-    formSelects.render();
     
-    function renderDeptTree() {
-        _deptTree = eleTree.render({
-            elem: $view.find('.data-permission-tree'),
-            url: ctx + 'dept/tree',
-            accordion: true,
-            highlightCurrent: true,
-            showCheckbox: true,
-            checkStrictly: true,
-            renderAfterExpand: false,
-            request: {
-                name: 'name',
-                key: "id",
-                checked: "checked",
-                data: 'data'
-            },
-            response: {
-                statusName: "code",
-                statusCode: 200,
-                dataName: "data"
-            },
-            done: function (r) {
-                _deptTree.setChecked(user.deptIds.split(","), true);
+    deptXmlSelect = xmSelect.render({
+        el: '#user-update-dept',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'deptId',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id'
+        },
+        height: 'auto',
+        on: function (data) {
+            if (data.isAdd) {
+                return data.change.slice(0, 1)
             }
         });
         return _deptTree;
     }
 
-    treeSelect.render({
-        elem: $view.find('#user-update-dept'),
-        type: 'get',
-        data: ctx + 'dept/select/tree',
-        placeholder: '请选择',
-        search: false,
-        success: function () {
-            treeSelect.checkNode('user-update-dept', user.deptId);
-        }
+    dataPermissionXmlSelect = xmSelect.render({
+        el: '#user-update-data-permission',
+        model: {label: {type: 'text'}},
+        tree: {
+            show: true,
+            strict: false,
+            showLine: false,
+            clickCheck: true,
+            expandedKeys: [-1],
+        },
+        name: 'deptIds',
+        theme: {
+            color: '#52c41a',
+        },
+        prop: {
+            value: 'id'
+        },
+        height: 'auto'
     });
 
-    formSelects.config('user-update-role', {
-        searchUrl: ctx + 'role',
-        response: {
-            statusCode: 200
+    febs.get(ctx + 'dept/select/tree', null, function (data) {
+        deptXmlSelect.update(data)
+        dataPermissionXmlSelect.update(data)
+        user.deptId && deptXmlSelect.setValue([user.deptId]);
+        user.deptIds && dataPermissionXmlSelect.setValue(user.deptIds.split(","));
+    });
+
+    roleXmSelect = xmSelect.render({
+        el: '#user-update-role',
+        toolbar: {show: true},
+        name: 'roleId',
+        theme: {
+            color: '#32c787',
         },
-        beforeSuccess: function (id, url, searchVal, result) {
-            var data = result.data;
-            var tranData = [];
-            for (var i = 0; i < data.length; i++) {
-                tranData.push({
-                    name: data[i].roleName,
-                    value: data[i].roleId
-                })
-            }
-            result.data = tranData;
-            return result;
+        prop: {
+            name: 'roleName',
+            value: 'roleId'
         },
-        success: function () {
-            formSelects.value('user-update-role', user.roleId.split(','));
-        },
-        error: function (id, url, searchVal, err) {
-            console.error(err);
-            febs.alert.error('获取角色列表失败');
-        }
+        data: []
+    });
+
+    febs.get(ctx + 'role', null, function (data) {
+        roleXmSelect.update({
+            data: data.data,
+            autoRow: true,
+        })
+        roleXmSelect.setValue(user.roleId.split(','));
     });
 
     function initUserValue() {
@@ -94,12 +101,10 @@ layui.use(['jquery', 'febs', 'form', 'formSelects', 'validate', 'treeSelect', 'e
     }
 
     form.on('submit(user-update-form-submit)', function (data) {
-    	var checked = _deptTree.getChecked(false, true);
-        var deptIds = [];
-        layui.each(checked, function (key, item) {
-            deptIds.push(item.id)
-        });
-        data.field.deptIds = deptIds.join(",");
+    	if (!data.field.roleId) {
+            febs.alert.warn('请选择用户角色');
+            return false;
+        }
         if (febs.nativeEqual(data.field, user)) {
             febs.alert.warn('数据未作任何修改！');
             return false;

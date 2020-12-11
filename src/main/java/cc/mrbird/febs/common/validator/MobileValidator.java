@@ -2,7 +2,8 @@ package cc.mrbird.febs.common.validator;
 
 import cc.mrbird.febs.common.annotation.IsMobile;
 import cc.mrbird.febs.common.entity.Regexp;
-import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.common.util.FebsUtil;
+
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;

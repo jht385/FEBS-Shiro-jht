@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 
 import java.util.regex.Matcher;
@@ -20,7 +20,7 @@ import cc.mrbird.febs.system.entity.User;
  *
  * @author MrBird
  */
-public class FebsUtil {
+public abstract class FebsUtil {
 
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
 

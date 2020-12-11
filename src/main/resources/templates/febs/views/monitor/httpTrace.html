@@ -83,4 +83,4 @@
         {{# } }}
     </div>
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/monitor/httpTrace.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/monitor/httpTrace.js')}"></script>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/${module}/${className?uncap_first}/${className?uncap_first}.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/${module}/${className?uncap_first}/${className?uncap_first}.css')}" media="all">
 <div class="layui-fluid layui-anim febs-anim" id="febs-${className?uncap_first}" lay-title="${tableComment}">
 	<div class="layui-row febs-container">
 		<div class="layui-col-md12">
@@ -57,4 +57,4 @@
 	<a lay-event="edit" shiro:hasPermission="${className?uncap_first}:update"><i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
 	<a lay-event="del" shiro:hasPermission="${className?uncap_first}:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
 </script>
-<script th:src="@{febs/js/${module}/${className?uncap_first}/${className?uncap_first}.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/${module}/${className?uncap_first}/${className?uncap_first}.js')}"></script>

@@ -47,4 +47,4 @@
     </span>
     <a lay-event="del" shiro:hasPermission="loginlog:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/monitor/loginLog.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/monitor/loginLog.js')}"></script>

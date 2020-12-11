@@ -1,5 +1,5 @@
 layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
@@ -16,7 +16,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
     initTable();
 
     $query.on('click', function () {
-        var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+        let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
         tableIns.reload({where: params, page: {curr: 1}});
     });
 
@@ -29,7 +29,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
     dropdown.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('jobTable');
+            let checkStatus = table.checkStatus('jobTable');
             if (name === 'add') {
                 febs.modal.open('新增任务', 'job/job/add', {
                     btn: ['提交', '重置'],
@@ -48,7 +48,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
                     febs.alert.warn('请勾选需要删除的任务');
                 } else {
                     febs.modal.confirm('删除任务', '确定删除所选任务？', function () {
-                        var jobIds = [];
+                        let jobIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             jobIds.push(item.jobId)
                         });
@@ -61,7 +61,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
                     febs.alert.warn('请勾选需要暂停的任务');
                 } else {
                     febs.modal.confirm('暂停任务', '确定暂停所选任务？', function () {
-                        var jobIds = [];
+                        let jobIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             jobIds.push(item.jobId)
                         });
@@ -77,7 +77,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
                     febs.alert.warn('请勾选需要恢复的任务');
                 } else {
                     febs.modal.confirm('恢复任务', '确定恢复所选任务？', function () {
-                        var jobIds = [];
+                        let jobIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             jobIds.push(item.jobId)
                         });
@@ -93,7 +93,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
                     febs.alert.warn('请勾选需要执行的任务');
                 } else {
                     febs.modal.confirm('执行任务', '确定执行所选任务？', function () {
-                        var jobIds = [];
+                        let jobIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             jobIds.push(item.jobId)
                         });
@@ -105,7 +105,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
                 }
             }
             if (name === 'export') {
-                var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+                let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
                 params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                 params.pageNum = $view.find(".layui-laypage-em").next().html();
                 febs.download(ctx + 'job/excel', params, '任务表.xlsx');
@@ -139,7 +139,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
     });
 
     table.on('tool(jobTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'del') {
             febs.modal.confirm('删除任务', '确定删除该任务？', function () {
@@ -199,7 +199,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }

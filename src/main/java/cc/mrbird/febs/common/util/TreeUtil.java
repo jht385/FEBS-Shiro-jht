@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 
 import cc.mrbird.febs.common.entity.DeptTree;
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @author MrBird
  */
-public class TreeUtil {
+public abstract class TreeUtil {
 
     private static final String TOP_NODE_ID = "0";
 

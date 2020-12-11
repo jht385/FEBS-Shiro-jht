@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+@SuppressWarnings("all")
 public class RedisService {
 
 	private final RedisTemplate<String, Object> redisTemplate;

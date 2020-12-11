@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/system/dict/dict.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/dict/dict.css')}" media="all">
 <div class="layui-fluid layui-anim febs-anim" id="febs-dict" lay-title="字典表">
 	<div class="layui-row febs-container">
 		<div class="layui-col-md12">
@@ -59,4 +59,4 @@
 <script th:inline="javascript">
 	var dictType = [[${dictType}]];
 </script>
-<script th:src="@{febs/js/system/dict/dict.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/dict/dict.js')}"></script>

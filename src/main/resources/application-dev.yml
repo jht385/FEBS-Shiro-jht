@@ -9,7 +9,7 @@ spring:
   datasource:
     dynamic:
       # 是否开启 SQL日志输出，生产环境建议关闭，有性能损耗
-      p6spy: true
+      p6spy: false
       hikari:
         connection-timeout: 30000
         max-lifetime: 1800000

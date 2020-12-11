@@ -48,7 +48,7 @@
 </script>
 <script type="text/html" id="online-status">
     {{#
-    var status = {
+    let status = {
     1: {title: '在线', color: 'green'},
     0: {title: '离线', color: 'volcano'}
     }[d.status];
@@ -61,4 +61,4 @@
     </span>
     <a lay-event="del" shiro:hasPermission="user:kickout"><i class="layui-icon febs-edit-area febs-red">&#xe7a1;</i></a>
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/monitor/online.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/monitor/online.js')}"></script>

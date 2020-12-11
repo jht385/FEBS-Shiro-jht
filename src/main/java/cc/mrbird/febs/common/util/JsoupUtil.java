@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.utils;
+package cc.mrbird.febs.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;

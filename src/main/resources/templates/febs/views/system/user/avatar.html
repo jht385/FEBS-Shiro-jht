@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/system/user/avatar.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/system/user/avatar.css')}" media="all">
 <div class="layui-tab layui-tab-brief" id="febs-avatar" lay-filter="avatar-tab">
     <ul class="layui-tab-title">
         <li class="layui-this">后田花子</li>
@@ -55,4 +55,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/system/user/avatar.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/user/avatar.js')}"></script>

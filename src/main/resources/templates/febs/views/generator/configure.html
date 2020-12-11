@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/generator/configure.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/generator/configure.css')}" media="all">
 <div class="layui-fluid layui-anim febs-anim" id="febs-generator-configure" lay-title="生成配置">
     <div class="layui-row febs-container">
         <div class="layui-card">
@@ -103,4 +103,4 @@
 <script th:inline="javascript">
 	var config = [[${config}]];
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/generator/configure.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/generator/configure.js')}"></script>

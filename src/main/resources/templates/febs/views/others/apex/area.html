@@ -59,7 +59,7 @@
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['apexcharts'], function () {
         // ------------- basicAreaChart -------------------
-        var basicAreaChartOptions = {
+        let basicAreaChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',
@@ -106,7 +106,7 @@
             basicAreaChartOptions
         ).render();
 
-        var splineAreaChartOptions = {
+        let splineAreaChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',
@@ -153,7 +153,7 @@
         ).render();
 
         // ------------- negativeAreaChart -----------------
-        var negativeAreaChartOptions = {
+        let negativeAreaChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',
@@ -393,7 +393,7 @@
         ).render();
 
         // ------------- stackedAreaChart ----------------
-        var stackedAreaChartOptions = {
+        let stackedAreaChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',
@@ -468,11 +468,11 @@
         ).render();
 
         function generateDayWiseTimeSeries(baseval, count, yrange) {
-            var i = 0;
-            var series = [];
+            let i = 0;
+            let series = [];
             while (i < count) {
-                var x = baseval;
-                var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+                let x = baseval;
+                let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
                 series.push([x, y]);
                 baseval += 86400000;
@@ -483,31 +483,31 @@
 
         // ------------------ irregularTimeseriesAreaChart ---------------
 
-        var ts1 = 1388534400000;
-        var ts2 = 1388620800000;
-        var ts3 = 1389052800000;
+        let ts1 = 1388534400000;
+        let ts2 = 1388620800000;
+        let ts3 = 1389052800000;
 
-        var dataSet1 = [];
-        var dataSet2 = [];
-        var dataSet3 = [];
+        let dataSet1 = [];
+        let dataSet2 = [];
+        let dataSet3 = [];
 
-        for (var j = 0; j < 12; j++) {
+        for (let j = 0; j < 12; j++) {
             ts1 = ts1 + 86400000;
-            var innerArr1 = [ts1, dataSeries[2][j].value];
+            let innerArr1 = [ts1, dataSeries[2][j].value];
             dataSet1.push(innerArr1)
         }
-        for (var k = 0; k < 18; k++) {
+        for (let k = 0; k < 18; k++) {
             ts2 = ts2 + 86400000;
-            var innerArr2 = [ts2, dataSeries[1][k].value];
+            let innerArr2 = [ts2, dataSeries[1][k].value];
             dataSet2.push(innerArr2)
         }
-        for (var l = 0; l < 12; l++) {
+        for (let l = 0; l < 12; l++) {
             ts3 = ts3 + 86400000;
-            var innerArr3 = [ts3, dataSeries[0][l].value];
+            let innerArr3 = [ts3, dataSeries[0][l].value];
             dataSet3.push(innerArr3)
         }
 
-        var irregularTimeseriesAreaChartOptions = {
+        let irregularTimeseriesAreaChartOptions = {
             chart: {
                 type: 'area',
                 stacked: false,
@@ -604,7 +604,7 @@
         ).render();
 
         // ------------- nullValuesAreaChart -------------------
-        var nullValuesAreaChartOptions = {
+        let nullValuesAreaChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',

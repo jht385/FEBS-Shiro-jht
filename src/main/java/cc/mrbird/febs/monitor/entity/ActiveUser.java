@@ -14,6 +14,9 @@ public class ActiveUser implements Serializable {
 
     private static final long serialVersionUID = -1277171780468841527L;
 
+    public static final String ONLINE = "1";
+    public static final String OFFLINE = "0";
+
     /**
      * session id
      */

@@ -1,7 +1,8 @@
 package cc.mrbird.febs.common.xss;
 
-import cc.mrbird.febs.common.utils.JsoupUtil;
 import org.apache.commons.lang3.StringUtils;
+
+import cc.mrbird.febs.common.util.JsoupUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

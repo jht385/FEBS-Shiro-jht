@@ -9,13 +9,13 @@
 </div>
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['jquery', 'febs'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             febs = layui.febs,
             $view = $('#febs-map-demo');
 
         $view.find('#container').css({"height": document.documentElement.clientHeight - 97 + 'px'});
 
-        var map = new AMap.Map("container", {
+        let map = new AMap.Map("container", {
             resizeEnable: true,
             zoom: 14 //初始地图级别
         });

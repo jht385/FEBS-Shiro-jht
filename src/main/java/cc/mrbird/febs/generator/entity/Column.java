@@ -1,6 +1,6 @@
 package cc.mrbird.febs.generator.entity;
 
-import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.common.util.FebsUtil;
 import lombok.Data;
 
 /**

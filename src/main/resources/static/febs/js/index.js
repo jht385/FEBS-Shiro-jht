@@ -1,5 +1,5 @@
 layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         util = layui.util,
         $view = $('#febs-index'),
         febs = layui.febs;
@@ -9,9 +9,9 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
     });
 
     function handleSuccess(data) {
-        var hour = new Date().getHours();
-        var time = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
-        var welcomeArr = [
+    	let hour = new Date().getHours();
+    	let time = hour < 6 ? '早上好' : (hour <= 11 ? '上午好' : (hour <= 13 ? '中午好' : (hour <= 18 ? '下午好' : '晚上好')));
+    	let welcomeArr = [
             '喝杯咖啡休息下吧☕',
             '要不要和朋友打局LOL',
             '今天又写了几个Bug呢',
@@ -22,8 +22,8 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
             '准备吃些什么呢',
             '周末要不要去看电影？'
         ];
-        var index = Math.floor((Math.random() * welcomeArr.length));
-        var welcomeMessage = time + '，<a id="febs-index-user">' + currentUser.username + '</a>，' + welcomeArr[index];
+    	let index = Math.floor((Math.random() * welcomeArr.length));
+        let welcomeMessage = time + '，<a id="febs-index-user">' + currentUser.username + '</a>，' + welcomeArr[index];
         $view.find('#today-ip').text(data.todayIp).end()
             .find('#today-visit-count').text(data.todayVisitCount).end()
             .find('#total-visit-count').text(data.totalVisitCount).end()
@@ -33,10 +33,10 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
             .find('#welcome-message').html(welcomeMessage).end()
             .find('#user-avatar').attr('src', ctx + "febs/images/avatar/" + currentUser.avatar);
 
-        var currentTime = new Date().getTime();
-        var yourVisitCount = [];
-        var totalVisitCount = [];
-        var lastTenDays = [
+        let currentTime = new Date().getTime();
+        let yourVisitCount = [];
+        let totalVisitCount = [];
+        let lastTenDays = [
             util.toDateString(new Date(currentTime - 1000 * 9 * 86400), 'MM-dd'),
             util.toDateString(new Date(currentTime - 1000 * 8 * 86400), 'MM-dd'),
             util.toDateString(new Date(currentTime - 1000 * 7 * 86400), 'MM-dd'),
@@ -51,7 +51,7 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
 
 
         layui.each(lastTenDays, function (k, i) {
-            var contain = false;
+        	let contain = false;
             layui.each(data.lastSevenUserVisitCount, function (key, item) {
                 if (i === item.days) {
                     yourVisitCount.push(item.count);
@@ -69,7 +69,7 @@ layui.use(['apexcharts', 'febs', 'jquery', 'util'], function () {
             if (!contain) totalVisitCount.push(0);
         });
 
-        var options = {
+        let options = {
             chart: {
                 height: 350,
                 type: 'area',

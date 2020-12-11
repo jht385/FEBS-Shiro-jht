@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="@{febs/css/${module}/${className?uncap_first}/${className?uncap_first}Update.css}" media="all">
+<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/${module}/${className?uncap_first}/${className?uncap_first}Update.css')}" media="all">
 <div class="layui-fluid" id="${className?uncap_first}-update">
 	<form class="layui-form" action="" lay-filter="${className?uncap_first}-update-form">
 		<div class="layui-form-item febs-hide">
@@ -28,4 +28,4 @@
 	var ${className?uncap_first} = [[${"$"}{${className?uncap_first}}]];
 	var ac = [[${"$"}{ac}]];
 </script>
-<script type="text/javascript" data-th-inline="javascript" th:src="@{febs/js/${module}/${className?uncap_first}/${className?uncap_first}Update.js}"></script>
+<script type="text/javascript" data-th-inline="javascript" th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/${module}/${className?uncap_first}/${className?uncap_first}Update.js')}"></script>

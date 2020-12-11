@@ -79,7 +79,7 @@ public interface IUserService extends IService<User> {
      * @param username 用户名
      * @param password 密码
      */
-    void regist(String username, String password);
+    void register(String username, String password);
 
     /**
      * 修改密码
@@ -112,4 +112,11 @@ public interface IUserService extends IService<User> {
      * @param user 个人信息
      */
     void updateProfile(User user);
+
+    /**
+     * 获取用户角色和权限集
+     *
+     * @param user 用户
+     */
+    void doGetUserAuthorizationInfo(User user);
 }

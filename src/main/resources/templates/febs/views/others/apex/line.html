@@ -91,9 +91,9 @@
 <script data-th-src="@{febs/lay/data/dataSeries.js}"></script>
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['apexcharts', 'febs'], function () {
-        var febs = layui.febs;
+        let febs = layui.febs;
         // ------------ basicLineChart -------------------
-        var basicLineChartOptions = {
+        let basicLineChartOptions = {
             chart: {
                 height: 320,
                 type: 'line',
@@ -138,7 +138,7 @@
         ).render();
 
         // --------------- lineChartDatalabels ----------------
-        var lineChartDatalabelsOptions = {
+        let lineChartDatalabelsOptions = {
             chart: {
                 height: 320,
                 type: 'line',
@@ -220,14 +220,14 @@
         ).render();
 
         // ---------------- lineChartZoomable -------------------
-        var ts2 = 14844186e5;
-        var dates = [];
-        for (var i = 0; i < 120; i++) {
-            var innerArr = [ts2 += 864e5, dataSeries[1][i].value];
+        let ts2 = 14844186e5;
+        let dates = [];
+        for (let i = 0; i < 120; i++) {
+            let innerArr = [ts2 += 864e5, dataSeries[1][i].value];
             dates.push(innerArr);
         }
 
-        var lineChartZoomableOptions = {
+        let lineChartZoomableOptions = {
             chart: {
                 type: 'area',
                 stacked: false,
@@ -301,7 +301,7 @@
 
         // ------------- lineChartAnnotations ----------------
 
-        var lineChartAnnotationsOptions = {
+        let lineChartAnnotationsOptions = {
             annotations: {
                 yaxis: [{
                     y: 8200,
@@ -457,7 +457,7 @@
 
         // ------------- syncingChart ---------------------
 
-        var syncChartOption1 = {
+        let syncChartOption1 = {
             chart: {
                 id: 'fb',
                 group: 'social',
@@ -505,7 +505,7 @@
             syncChartOption1
         ).render();
 
-        var syncChartOption2 = {
+        let syncChartOption2 = {
             chart: {
                 id: 'tw',
                 group: 'social',
@@ -554,11 +554,11 @@
         ).render();
 
         function generateDayWiseTimeSeries(baseval, count, yrange) {
-            var i = 0;
-            var series = [];
+            let i = 0;
+            let series = [];
             while (i < count) {
-                var x = baseval;
-                var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+                let x = baseval;
+                let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
                 series.push([x, y]);
                 baseval += 86400000;
@@ -568,7 +568,7 @@
         }
 
         // ----------------- stepLineChart ---------------------
-        var stepLineChartOptions = {
+        let stepLineChartOptions = {
             chart: {
                 type: 'line',
                 height: 335,
@@ -608,7 +608,7 @@
         ).render();
 
         // ----------------- gradientLineChart ---------------------
-        var gradientLineChartOptions = {
+        let gradientLineChartOptions = {
             chart: {
                 height: 320,
                 type: 'line',
@@ -672,13 +672,13 @@
             }
         };
 
-        var chart = new ApexCharts(
+        let chart = new ApexCharts(
             document.querySelector("#gradientLineChart"),
             gradientLineChartOptions
         ).render();
 
         // ------------ missNullChart -----------------------
-        var missNullChartOptions = {
+        let missNullChartOptions = {
             chart: {
                 height: 320,
                 type: 'line',
@@ -725,7 +725,7 @@
         ).render();
 
         // -------------- dashedChart -----------------
-        var dashedChartOptions = {
+        let dashedChartOptions = {
             chart: {
                 height: 320,
                 type: 'line',
@@ -803,16 +803,16 @@
 
         // ------------ realTimeChart -------------------
 
-        var lastDate = 0;
-        var data = [];
-        var TICKINTERVAL = 86400000;
-        var XAXISRANGE = 777600000;
+        let lastDate = 0;
+        let data = [];
+        let TICKINTERVAL = 86400000;
+        let XAXISRANGE = 777600000;
 
         function getDayWiseTimeSeries(baseval, count, yrange) {
-            var i = 0;
+            let i = 0;
             while (i < count) {
-                var x = baseval;
-                var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+                let x = baseval;
+                let y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
                 data.push({x: x, y: y});
                 lastDate = baseval;
@@ -827,10 +827,10 @@
         });
 
         function getNewSeries(baseval, yrange) {
-            var newDate = baseval + TICKINTERVAL;
+            let newDate = baseval + TICKINTERVAL;
             lastDate = newDate;
 
-            for (var i = 0; i < data.length - 10; i++) {
+            for (let i = 0; i < data.length - 10; i++) {
                 data[i].x = newDate - XAXISRANGE - TICKINTERVAL;
                 data[i].y = 0
             }
@@ -845,7 +845,7 @@
             data = data.slice(data.length - 10, data.length);
         }
 
-        var realTimeChartOptions = {
+        let realTimeChartOptions = {
             chart: {
                 height: 320,
                 type: 'area',
@@ -895,15 +895,15 @@
             }
         };
 
-        var realTimeChart = new ApexCharts(
+        let realTimeChart = new ApexCharts(
             document.querySelector("#realTimeChart"),
             realTimeChartOptions
         );
 
         realTimeChart.render();
 
-        var interval = setInterval(function () {
-            var urlHash = window.location.hash;
+        let interval = setInterval(function () {
+            let urlHash = window.location.hash;
             if (urlHash.indexOf('apex/line') !== -1) {
                 getNewSeries(lastDate, {
                     min: 10,

@@ -45,10 +45,8 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">上级ID：</label>
-                            <div class="layui-input-block">
-                                <input type="text" value="" name="parentId" readonly autocomplete="off"
-                                       class="layui-input">
+                            <label class="layui-form-label">上级部门：</label>
+                            <div class="layui-input-block" id="parent-dept-id">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -77,4 +75,4 @@
         </div>
     </div>
 </div>
-<script th:src="@{febs/js/system/dept/dept.js}"></script>
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/system/dept/dept.js')}"></script>

@@ -1,7 +1,7 @@
 package cc.mrbird.febs.monitor.helper;
 
 import cc.mrbird.febs.common.annotation.Helper;
-import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.common.util.DateUtil;
 import cc.mrbird.febs.monitor.endpoint.FebsMetricsEndpoint;
 import cc.mrbird.febs.monitor.entity.JvmInfo;
 import cc.mrbird.febs.monitor.entity.ServerInfo;

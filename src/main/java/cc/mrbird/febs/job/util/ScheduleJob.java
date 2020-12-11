@@ -1,6 +1,6 @@
 package cc.mrbird.febs.job.util;
 
-import cc.mrbird.febs.common.utils.SpringContextUtil;
+import cc.mrbird.febs.common.util.SpringContextUtil;
 import cc.mrbird.febs.job.entity.Job;
 import cc.mrbird.febs.job.entity.JobLog;
 import cc.mrbird.febs.job.service.IJobLogService;

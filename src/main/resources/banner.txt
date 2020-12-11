@@ -4,6 +4,6 @@
 |    |_|   |_|__ |_|_) _)_)               |
 |                                         |
 |    Shiro edition v2.0                   |
-|    Spring-Boot-Version: ${spring-boot.version}   |
+|    Spring-Boot-Version: ${spring-boot.version}           |
 |    QQ group : 715689981                 |
 |-----------------------------------------|

@@ -21,11 +21,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.utils.SortUtil;
+import cc.mrbird.febs.common.util.SortUtil;
 import cc.mrbird.febs.job.entity.Job;
 import cc.mrbird.febs.job.mapper.JobMapper;
 import cc.mrbird.febs.job.service.IJobService;
-import cc.mrbird.febs.job.util.ScheduleUtils;
+import cc.mrbird.febs.job.util.ScheduleUtil;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -47,11 +47,11 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
         List<Job> scheduleJobList = this.baseMapper.queryList();
         // 如果不存在，则创建
         scheduleJobList.forEach(scheduleJob -> {
-            CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
+            CronTrigger cronTrigger = ScheduleUtil.getCronTrigger(scheduler, scheduleJob.getJobId());
             if (cronTrigger == null) {
-                ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+                ScheduleUtil.createScheduleJob(scheduler, scheduleJob);
             } else {
-                ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
+                ScheduleUtil.updateScheduleJob(scheduler, scheduleJob);
             }
         });
     }
@@ -97,13 +97,13 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
         job.setCreateTime(new Date());
         job.setStatus(Job.ScheduleStatus.PAUSE.getValue());
         this.save(job);
-        ScheduleUtils.createScheduleJob(scheduler, job);
+        ScheduleUtil.createScheduleJob(scheduler, job);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateJob(Job job) {
-        ScheduleUtils.updateScheduleJob(scheduler, job);
+        ScheduleUtil.updateScheduleJob(scheduler, job);
         this.baseMapper.updateById(job);
     }
 
@@ -111,7 +111,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
     @Transactional(rollbackFor = Exception.class)
     public void deleteJobs(String[] jobIds) {
         List<String> list = Arrays.asList(jobIds);
-        list.forEach(jobId -> ScheduleUtils.deleteScheduleJob(scheduler, Long.valueOf(jobId)));
+        list.forEach(jobId -> ScheduleUtil.deleteScheduleJob(scheduler, Long.valueOf(jobId)));
         this.baseMapper.deleteBatchIds(list);
     }
 
@@ -128,14 +128,14 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
     @Transactional(rollbackFor = Exception.class)
     public void run(String jobIds) {
         String[] list = jobIds.split(StringPool.COMMA);
-        Arrays.stream(list).forEach(jobId -> ScheduleUtils.run(scheduler, this.findJob(Long.valueOf(jobId))));
+        Arrays.stream(list).forEach(jobId -> ScheduleUtil.run(scheduler, this.findJob(Long.valueOf(jobId))));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void pause(String jobIds) {
         String[] list = jobIds.split(StringPool.COMMA);
-        Arrays.stream(list).forEach(jobId -> ScheduleUtils.pauseJob(scheduler, Long.valueOf(jobId)));
+        Arrays.stream(list).forEach(jobId -> ScheduleUtil.pauseJob(scheduler, Long.valueOf(jobId)));
         this.updateBatch(jobIds, Job.ScheduleStatus.PAUSE.getValue());
     }
 
@@ -143,7 +143,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements IJobS
     @Transactional(rollbackFor = Exception.class)
     public void resume(String jobIds) {
         String[] list = jobIds.split(StringPool.COMMA);
-        Arrays.stream(list).forEach(jobId -> ScheduleUtils.resumeJob(scheduler, Long.valueOf(jobId)));
+        Arrays.stream(list).forEach(jobId -> ScheduleUtil.resumeJob(scheduler, Long.valueOf(jobId)));
         this.updateBatch(jobIds, Job.ScheduleStatus.NORMAL.getValue());
     }
 }

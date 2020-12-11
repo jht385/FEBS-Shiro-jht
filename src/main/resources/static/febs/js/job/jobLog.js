@@ -1,5 +1,5 @@
 layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
@@ -18,13 +18,13 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
     dropdown.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
-            var checkStatus = table.checkStatus('jobLogTable');
+            let checkStatus = table.checkStatus('jobLogTable');
             if (name === 'delete') {
                 if (!checkStatus.data.length) {
                     febs.alert.warn('请选择需要删除的调度日志');
                 } else {
                     febs.modal.confirm('删除日志', '确定删除该调度日志？', function () {
-                        var jobLogIds = [];
+                        let jobLogIds = [];
                         layui.each(checkStatus.data, function (key, item) {
                             jobLogIds.push(item.logId)
                         });
@@ -33,7 +33,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
                 }
             }
             if (name === 'export') {
-                var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+                let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
                 params.pageSize = $view.find(".layui-laypage-limits option:selected").val();
                 params.pageNum = $view.find(".layui-laypage-em").next().html();
                 febs.download(ctx + 'jobLog/excel', params, '调度日志表.xlsx');
@@ -51,7 +51,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
     });
 
     $query.on('click', function () {
-        var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+        let params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
         tableIns.reload({where: params, page: {curr: 1}});
     });
 
@@ -62,7 +62,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
     });
 
     table.on('tool(jobLogTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         if (layEvent === 'del') {
             febs.modal.confirm('删除调度日志', '确定删除调度日志？', function () {
@@ -110,7 +110,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }

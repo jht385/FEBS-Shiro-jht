@@ -1,5 +1,5 @@
 layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         form = layui.form,
         table = layui.table,
         febs = layui.febs,
@@ -35,8 +35,8 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     
     function getDatasource() {
         febs.get(ctx + 'generator/datasource', null, function (r) {
-            var options = '<option value="">请选择</option>';
-            for (var item of r.data) {
+            let options = '<option value="">请选择</option>';
+            for (let item of r.data) {
                 options += '<option value="' + item + '">' + item + '</option>'
             }
             $datasource.append(options);
@@ -62,13 +62,13 @@ layui.use(['jquery', 'form', 'table', 'febs', 'laydate'], function () {
     }
 
     function getQueryParams() {
-    	var params = $searchForm.serializeJson();
+    	let params = $searchForm.serializeJson();
         params.invalidate_ie_cache = new Date();
         return params;
     }
 
     table.on('tool(configureTable)', function (obj) {
-        var data = obj.data,
+        let data = obj.data,
             layEvent = obj.event;
         data.datasource = $searchForm.find("select[name='datasource']").val();
         if (layEvent === 'generate') {

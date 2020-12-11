@@ -12,9 +12,9 @@
             <div class="layui-card">
                 <script type="text/html" template>
                     {{#
-                    var successL = POPUP_DATA.data.length;
-                    var failL = POPUP_DATA.error.length;
-                    var time = POPUP_DATA.time;
+                    let successL = POPUP_DATA.data.length;
+                    let failL = POPUP_DATA.error.length;
+                    let time = POPUP_DATA.time;
                     if(successL === 0 && failL === 0) {
                     }}
                     <span class="febs-alert-base febs-alert-info">暂无导入记录</span>
@@ -72,7 +72,7 @@
 </script>
 <script data-th-inline="none" type="text/javascript">
     layui.use(['jquery', 'table', 'upload'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             table = layui.table,
             element = layui.element,
             $view = $('#febs-eximport-result'),
@@ -98,9 +98,9 @@
         }
 
         function renderFailTable() {
-            var data = [];
+            let data = [];
             layui.each(result.error, function (key, item) {
-                var row = item.row;
+                let row = item.row;
                 layui.each(item.errorFields, function (k, v) {
                     v.row = row;
                     data.push(v);

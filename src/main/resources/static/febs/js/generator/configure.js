@@ -1,5 +1,5 @@
 layui.use(['febs', 'form'], function () {
-    var $ = layui.$,
+    let $ = layui.$,
         febs = layui.febs,
         form = layui.form,
         $view = $('#febs-generator-configure'),

@@ -9,8 +9,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" th:href="@{layui/css/layui.css}" media="all">
-    <link rel="stylesheet" th:href="@{febs/css/febs.css}" media="all">
-    <link rel="icon" th:href="@{febs/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/febs.css')}" media="all">
+    <link rel="icon" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/images/favicon.ico')}" type="image/x-icon"/>
 </head>
 <body>
 <div class="layui-fluid" id="febs-error-500" lay-title="500">
@@ -30,7 +30,7 @@
 <script th:src="@{layui/layui.js}"></script>
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['jquery'], function () {
-        var $ = layui.jquery,
+        let $ = layui.jquery,
             ctx = [[@{/}]],
             $view = $('#febs-error-500');
         $view.on('click', 'button', function () {
