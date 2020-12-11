@@ -1,4 +1,4 @@
-<link rel="stylesheet" th:href="${@mvcResourceUrlProvider.getForLookupPath('/febs/css/${module}/${className?uncap_first}/${className?uncap_first}Add.css')}" media="all">
+<link rel="stylesheet" th:href="${'$'}{@mvcResourceUrlProvider.getForLookupPath('/febs/css/${module}/${className?uncap_first}/${className?uncap_first}Add.css')}" media="all">
 <div class="layui-fluid" id="${className?uncap_first}-add">
 	<form class="layui-form" action="" lay-filter="${className?uncap_first}-add-form">
 		<#list columns as column>
@@ -18,4 +18,4 @@
 		</div>
 	</form>
 </div>
-<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/febs/js/${module}/${className?uncap_first}/${className?uncap_first}Add.js')}"></script>
+<script th:src="${'$'}{@mvcResourceUrlProvider.getForLookupPath('/febs/js/${module}/${className?uncap_first}/${className?uncap_first}Add.js')}"></script>
