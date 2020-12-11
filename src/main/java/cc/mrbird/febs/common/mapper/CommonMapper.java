@@ -9,4 +9,6 @@ public interface CommonMapper {
 
 	int cnt(Map<String, Object> map);
 	
+	int delete(Map<String, Object> map);
+	
 }
