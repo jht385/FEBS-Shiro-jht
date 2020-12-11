@@ -1,3 +1,10 @@
+febs:
+  appServer: ip:${server.port}
+  uploadPath: D:\env\prod\
+  # dev环境都到测试邮箱
+  devMailTo: xxx@qq.com
+  mailFrom: ${spring.mail.username}
+
 spring:
   datasource:
     dynamic:

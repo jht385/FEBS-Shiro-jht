@@ -16,6 +16,18 @@ spring:
 
   aop:
     proxy-target-class: true
+  
+  # 企业邮箱
+  mail:
+    host: smtp.exmail.qq.com
+    username: xxx
+    password: xxx
+    default-encoding: UTF-8
+    smtp:
+      auth: true
+      starttls:
+        enable: false
+        required: false
 
 mybatis-plus:
   type-aliases-package: cc.mrbird.febs.*.entity
@@ -35,3 +47,5 @@ logging:
           core:
             metadata:
               TableInfoHelper: error
+febs:
+  active: ${spring.profiles.active}
