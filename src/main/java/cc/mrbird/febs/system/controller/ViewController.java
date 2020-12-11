@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,9 @@ public class ViewController extends BaseController {
     private final IUserService userService;
     private final ShiroHelper shiroHelper;
     private final IUserDataPermissionService userDataPermissionService;
+    
+    @Value("${spring.profiles.active}")
+    private String active;
 
     @GetMapping("login")
     @ResponseBody
@@ -40,7 +44,11 @@ public class ViewController extends BaseController {
         if (FebsUtil.isAjaxRequest(request)) {
             throw new ExpiredSessionException();
         } else {
-            ModelAndView mav = new ModelAndView();
+        	ModelAndView mav = new ModelAndView();
+            if("dev".equals(active)) {
+            	mav.addObject("username", "mrbird");
+            	mav.addObject("password", "1234qwer");
+            }
             mav.setViewName(FebsUtil.view("login"));
             return mav;
         }
