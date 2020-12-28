@@ -1,6 +1,23 @@
 package cc.mrbird.febs.system.service.impl;
 
-import cc.mrbird.febs.common.authentication.ShiroRealm;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+
 import cc.mrbird.febs.common.entity.MenuTree;
 import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
 import cc.mrbird.febs.common.util.TreeUtil;
@@ -8,19 +25,7 @@ import cc.mrbird.febs.system.entity.Menu;
 import cc.mrbird.febs.system.mapper.MenuMapper;
 import cc.mrbird.febs.system.service.IMenuService;
 import cc.mrbird.febs.system.service.IRoleMenuService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
 
 /**
  * @author MrBird
@@ -30,7 +35,6 @@ import java.util.*;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
-    private final ShiroRealm shiroRealm;
     private final IRoleMenuService roleMenuService;
     private final UserAuthenticationUpdatedEventPublisher publisher;
 

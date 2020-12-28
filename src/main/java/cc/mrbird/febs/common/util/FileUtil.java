@@ -1,20 +1,28 @@
 package cc.mrbird.febs.common.util;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import com.google.common.base.Preconditions;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.FileSystemUtils;
+
+import com.google.common.base.Preconditions;
+
+import cc.mrbird.febs.common.entity.FebsConstant;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author MrBird
@@ -75,29 +83,7 @@ public abstract class FileUtil {
                 os.write(b, 0, length);
             }
         } finally {
-            if (delete) {
-                delete(filePath);
-            }
-        }
-    }
-
-    /**
-     * 递归删除文件或目录
-     *
-     * @param filePath 文件或目录
-     */
-    public static void delete(String filePath) {
-        File file = new File(filePath);
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-                Arrays.stream(files).forEach(f -> delete(f.getPath()));
-            }
-        }
-        try {
-            Files.delete(Paths.get(filePath));
-        } catch (IOException e) {
-            log.error("删除失败", e);
+        	FileSystemUtils.deleteRecursively(file);
         }
     }
 

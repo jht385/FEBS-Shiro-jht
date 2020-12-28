@@ -1,5 +1,6 @@
 package cc.mrbird.febs.generator.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -96,6 +98,6 @@ public class GeneratorController extends BaseController {
 		String zipFile = System.currentTimeMillis() + SUFFIX;
 		FileUtil.compress(GeneratorConstant.TEMP_PATH + "src", zipFile);
 		FileUtil.download(zipFile, name + SUFFIX, true, response);// 下载
-		FileUtil.delete(GeneratorConstant.TEMP_PATH);// 删除临时目录
+		FileSystemUtils.deleteRecursively(new File(GeneratorConstant.TEMP_PATH));
 	}
 }
