@@ -37,4 +37,22 @@
 			<if test="in1 != null and in1 != ''"> AND ${in1} in ${inv1}</if>
 			<if test="in2 != null and in2 != ''"> AND ${in2} in ${inv2}</if>
 	</delete>
+	
+	<update id="update" parameterType="map">
+		update ${table}
+		set
+			<if test="k1 != null and k1 != ''">${k1} = #{v1}</if>
+			<if test="k2 != null and k2 != ''">,${k2} = #{v2}</if>
+			<if test="k3 != null and k3 != ''">,${k3} = #{v3}</if>
+			<if test="k4 != null and k4 != ''">,${k4} = #{v4}</if>
+			<if test="k5 != null and k5 != ''">,${k5} = #{v5}</if>
+		where 1 = 1
+			<if test="wk1 != null and wk1 != ''"> AND ${wk1} = #{wv1}</if>
+			<if test="wk2 != null and wk2 != ''"> AND ${wk2} = #{wv2}</if>
+			<if test="wk3 != null and wk3 != ''"> AND ${wk3} = #{wv3}</if>
+			<if test="wk4 != null and wk4 != ''"> AND ${wk4} = #{wv4}</if>
+			<if test="wk5 != null and wk5 != ''"> AND ${wk5} = #{wv5}</if>
+			<if test="in1 != null and in1 != ''"> AND ${in1} in ${inv1}</if>
+			<if test="in2 != null and in2 != ''"> AND ${in2} in ${inv2}</if>
+	</update>
 </mapper>

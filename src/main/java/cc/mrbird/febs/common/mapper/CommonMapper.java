@@ -11,4 +11,6 @@ public interface CommonMapper {
 	
 	int delete(Map<String, Object> map);
 	
+	int update(Map<String, Object> map);
+	
 }
