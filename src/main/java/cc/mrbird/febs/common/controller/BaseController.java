@@ -38,11 +38,11 @@ public class BaseController {
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
-        return getDataTable(pageInfo, 2);
+        return getDataTable(pageInfo, 3);
     }
 
     protected Map<String, Object> getDataTable(IPage<?> pageInfo, int dataMapInitialCapacity) {
-        Map<String, Object> data = new HashMap<>(dataMapInitialCapacity,1);
+        Map<String, Object> data = new HashMap<>(dataMapInitialCapacity);
         data.put("rows", pageInfo.getRecords());
         data.put("total", pageInfo.getTotal());
         return data;
