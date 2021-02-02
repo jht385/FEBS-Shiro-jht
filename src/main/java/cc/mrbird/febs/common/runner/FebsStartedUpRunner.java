@@ -5,6 +5,8 @@ import cc.mrbird.febs.common.properties.FebsProperties;
 import cc.mrbird.febs.common.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -12,6 +14,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 
 /**
@@ -23,45 +27,60 @@ import java.net.InetAddress;
 @RequiredArgsConstructor
 public class FebsStartedUpRunner implements ApplicationRunner {
 
-    private final ConfigurableApplicationContext context;
-    private final FebsProperties febsProperties;
+	private final ConfigurableApplicationContext context;
+	private final FebsProperties febsProperties;
 
-    @Value("${server.port:8080}")
-    private String port;
-    @Value("${server.servlet.context-path:}")
-    private String contextPath;
-    @Value("${spring.profiles.active}")
-    private String active;
-    @Value("${spring.application.package-time:'1970-01-01T00:00:00Z'}")
-    private String packageTime;
+	@Value("${server.port:8080}")
+	private String port;
+	@Value("${server.servlet.context-path:}")
+	private String contextPath;
+	@Value("${spring.profiles.active}")
+	private String active;
+	@Value("${spring.application.package-time:'1970-01-01T00:00:00Z'}")
+	private String packageTime;
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        if (context.isActive()) {
-            InetAddress address = InetAddress.getLocalHost();
-            String url = String.format("http://%s:%s", address.getHostAddress(), port);
-            String loginUrl = febsProperties.getShiro().getLoginUrl();
-            if (StringUtils.isNotBlank(contextPath)) {
-                url += contextPath;
-            }
-            if (StringUtils.isNotBlank(loginUrl)) {
-                url += loginUrl;
-            }
-            log.info(" __    ___   _      ___   _     ____ _____  ____ ");
-            log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
-            log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
-            log.info("                                                      ");
-            log.info("FEBS权限系统启动完毕，系统编译打包时间：{}，地址：{}", DateUtil.formatUtcTime(packageTime), url);
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		String pid = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
+		File dir = new File(".");
+		File[] files = dir.listFiles();
+		for (File file : files) {
+			if (file.isDirectory()) {
+				continue;
+			}
 
-            boolean auto = febsProperties.isAutoOpenBrowser();
-            if (auto && StringUtils.equalsIgnoreCase(active, FebsConstant.DEVELOP)) {
-                String os = System.getProperty("os.name");
-                // 默认为 windows时才自动打开页面
-                if (StringUtils.containsIgnoreCase(os, FebsConstant.SYSTEM_WINDOWS)) {
-                    //使用默认浏览器打开系统登录页
-                    Runtime.getRuntime().exec("cmd  /c  start " + url);
-                }
-            }
-        }
-    }
+			if (file.getName().endsWith(".pid")) {
+				file.delete();
+			}
+		}
+		File file = new File(pid + ".pid");
+		file.createNewFile();
+
+		if (context.isActive()) {
+			InetAddress address = InetAddress.getLocalHost();
+			String url = String.format("http://%s:%s", address.getHostAddress(), port);
+			String loginUrl = febsProperties.getShiro().getLoginUrl();
+			if (StringUtils.isNotBlank(contextPath)) {
+				url += contextPath;
+			}
+			if (StringUtils.isNotBlank(loginUrl)) {
+				url += loginUrl;
+			}
+			log.info(" __    ___   _      ___   _     ____ _____  ____ ");
+			log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
+			log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
+			log.info("                                                      ");
+			log.info("FEBS权限系统启动完毕，系统编译打包时间：{}，地址：{}", DateUtil.formatUtcTime(packageTime), url);
+
+			boolean auto = febsProperties.isAutoOpenBrowser();
+			if (auto && StringUtils.equalsIgnoreCase(active, FebsConstant.DEVELOP)) {
+				String os = System.getProperty("os.name");
+				// 默认为 windows时才自动打开页面
+				if (StringUtils.containsIgnoreCase(os, FebsConstant.SYSTEM_WINDOWS)) {
+					// 使用默认浏览器打开系统登录页
+					Runtime.getRuntime().exec("cmd  /c  start " + url);
+				}
+			}
+		}
+	}
 }
