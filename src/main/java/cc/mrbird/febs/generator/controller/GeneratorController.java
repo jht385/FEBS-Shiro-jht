@@ -23,6 +23,7 @@ import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.util.FebsUtil;
 import cc.mrbird.febs.common.util.FileUtil;
@@ -52,15 +53,13 @@ public class GeneratorController extends BaseController {
 	@GetMapping("datasource")
 	@RequiresPermissions("generator:view")
 	public FebsResponse datasource() {
-		Map<String, DataSourceProperty> datasources = properties.getDatasource();
-		List<String> datasourcesName = new ArrayList<>();
-		datasources.forEach((k, v) -> {
-			String datasourceName = StringUtils.substringBefore(StringUtils.substringAfterLast(v.getUrl(), "/"), "?");
-			if (!datasourcesName.contains(datasourceName)) {
-				datasourcesName.add(datasourceName);
-			}
+		Map<String, DataSourceProperty> datasource = properties.getDatasource();
+		List<String> datasourceNames = new ArrayList<>();
+		datasource.forEach((k, v) -> {
+			String datasourceName = StringUtils.substringBefore(StringUtils.substringAfterLast(v.getUrl(), Strings.SLASH), Strings.QUESTION_MARK);
+            datasourceNames.add(datasourceName);
 		});
-		return new FebsResponse().success().data(datasourcesName);
+		return new FebsResponse().success().data(datasourceNames);
 	}
 
 	@GetMapping("tables/info")

@@ -2,6 +2,18 @@ server:
   port: 8080
   tomcat:
     uri-encoding: utf-8
+    basedir: "log/tomcat"
+    accesslog:
+      enabled: true
+      directory: "logs"
+      encoding: utf-8
+      file-date-format: _yyyy-MM-dd
+      locale: zh_CN
+      max-days: 30
+      prefix: "tomcat_access_log"
+      suffix: ".log"
+      pattern: "[${spring.application.name}] ===> 请求时间-%t 客户端IP-%a 客户端Host-%h
+      客户端协议-%H 线程名称-%I SessionId-%S 请求URL-%U 请求方法-%m 请求状态码-%s 耗时(ms)-%D 连接状态-%X"
   shutdown: graceful
 
 spring:
@@ -17,7 +29,7 @@ spring:
   config:
     import: classpath:febs.yml
   application:
-    name: febs-shiro
+    name: "@artifactId@"
     package-time: "@package-time@"
   web:
     resources:
@@ -56,6 +68,5 @@ logging:
           core:
             metadata:
               TableInfoHelper: error
-
 febs:
   active: ${spring.profiles.active}

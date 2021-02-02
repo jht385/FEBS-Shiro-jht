@@ -1,6 +1,7 @@
 package cc.mrbird.febs.common.annotation;
 
 import cc.mrbird.febs.common.entity.DesensitizationType;
+import cc.mrbird.febs.common.entity.Strings;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,5 +23,5 @@ public @interface Desensitization {
 	/**
 	 * 附加值, 自定义正则表达式等
 	 */
-	String[] attach() default "";
+	String[] attach() default Strings.EMPTY;
 }

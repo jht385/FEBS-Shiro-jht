@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 /**
  * @author MrBird
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class RedisConfigure {
 
     @Bean

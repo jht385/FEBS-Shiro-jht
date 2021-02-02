@@ -1,6 +1,8 @@
 package cc.mrbird.febs.common.authentication;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -28,15 +30,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 
 /**
  * Shiro 配置类
  *
  * @author MrBird
  */
-@Configuration
 @RequiredArgsConstructor
-public class ShiroConfig {
+@Configuration(proxyBeanMethods = false)
+public class ShiroConfigure {
 
     private final FebsProperties febsProperties;
     private final RedisProperties redisProperties;
@@ -48,7 +51,7 @@ public class ShiroConfig {
      */
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost(redisProperties.getHost() + ":" + redisProperties.getPort());
+        redisManager.setHost(redisProperties.getHost() + Strings.COLON + redisProperties.getPort());
         if (StringUtils.isNotBlank(redisProperties.getPassword())) {
             redisManager.setPassword(redisProperties.getPassword());
         }
@@ -78,26 +81,25 @@ public class ShiroConfig {
         // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(febsProperties.getShiro().getUnauthorizedUrl());
         // 设置免认证 url
-        LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperties.getShiro().getAnonUrl(), ",");
-        for (String url : anonUrls) {
-            filterChainDefinitionMap.put(url, "anon");
-        }
+        LinkedHashMap<String, String> filterChainDefinitionMap;
+        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperties.getShiro().getAnonUrl(), Strings.COMMA);
+        filterChainDefinitionMap = Arrays.stream(anonUrls).collect(Collectors.toMap(url -> url, url -> "anon", (a, b) -> b, LinkedHashMap::new));
         // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");
         // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        filterChainDefinitionMap.put("/**", "user");
+        filterChainDefinitionMap.put(FebsConstant.REQUEST_ALL, "user");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager) {
+    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager,
+            DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm);
         // 配置 shiro session管理器
-        securityManager.setSessionManager(sessionManager());
+        securityManager.setSessionManager(sessionManager);
         // 配置 缓存管理类 cacheManager
         securityManager.setCacheManager(cacheManager);
         // 配置 rememberMeCookie
@@ -164,14 +166,14 @@ public class ShiroConfig {
      * @return DefaultWebSessionManager
      */
     @Bean
-    public DefaultWebSessionManager sessionManager() {
+    public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         Collection<SessionListener> listeners = new ArrayList<>();
         listeners.add(new ShiroSessionListener());
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(febsProperties.getShiro().getSessionTimeout().toMillis());
         sessionManager.setSessionListeners(listeners);
-        sessionManager.setSessionDAO(redisSessionDAO());
+        sessionManager.setSessionDAO(redisSessionDAO);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }

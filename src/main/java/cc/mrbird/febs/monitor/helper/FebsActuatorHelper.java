@@ -1,6 +1,7 @@
 package cc.mrbird.febs.monitor.helper;
 
 import cc.mrbird.febs.common.annotation.Helper;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.util.DateUtil;
 import cc.mrbird.febs.monitor.endpoint.FebsMetricsEndpoint;
 import cc.mrbird.febs.monitor.entity.JvmInfo;
@@ -198,7 +199,7 @@ public class FebsActuatorHelper {
                     NumberFormat numberFormat = NumberFormat.getInstance();
                     numberFormat.setMaximumFractionDigits(20);
                     numberFormat.setGroupingUsed(false);
-                    long timeMillis = Long.parseLong(StringUtils.replace(numberFormat.format(value), ".", ""));
+                    long timeMillis = Long.parseLong(StringUtils.replace(numberFormat.format(value), Strings.DOT, Strings.EMPTY));
                     String startTime = DateUtil.getDateFormat(new Date(timeMillis), DateUtil.FULL_TIME_SPLIT_PATTERN);
                     serverInfo.setProcessStartTime(startTime);
                 default:

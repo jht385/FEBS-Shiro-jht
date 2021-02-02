@@ -32,11 +32,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
-    private IUserService userService;
     private final CacheManager cacheManager;
     private final ISessionService sessionService;
     private final ShiroLogoutService shiroLogoutService;
     private final IUserDataPermissionService userDataPermissionService;
+    private IUserService userService;
 
     @PostConstruct
     private void initConfig() {

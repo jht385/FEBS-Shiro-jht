@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.job.entity.JobLog;
 import cc.mrbird.febs.job.service.IJobLogService;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class JobLogController extends BaseController {
     @RequiresPermissions("job:log:delete")
     @ControllerEndpoint(exceptionMessage = "删除调度日志失败")
     public FebsResponse deleteJobLog(@NotBlank(message = "{required}") @PathVariable String jobIds) {
-        String[] ids = jobIds.split(StringPool.COMMA);
+        String[] ids = jobIds.split(Strings.COMMA);
         this.jobLogService.deleteJobLogs(ids);
         return new FebsResponse().success();
     }

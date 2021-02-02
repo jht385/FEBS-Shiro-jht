@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.monitor.entity.SystemLog;
 import cc.mrbird.febs.monitor.service.ILogService;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class LogController extends BaseController {
     @RequiresPermissions("log:delete")
     @ControllerEndpoint(exceptionMessage = "删除日志失败")
     public FebsResponse deleteLogs(@NotBlank(message = "{required}") @PathVariable String ids) {
-        String[] logIds = ids.split(StringPool.COMMA);
+        String[] logIds = ids.split(Strings.COMMA);
         this.logService.deleteLogs(logIds);
         return new FebsResponse().success();
     }

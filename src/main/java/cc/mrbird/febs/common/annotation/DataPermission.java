@@ -2,6 +2,8 @@ package cc.mrbird.febs.common.annotation;
 
 import java.lang.annotation.*;
 
+import cc.mrbird.febs.common.entity.Strings;
+
 /**
  * @author MrBird
  */
@@ -22,7 +24,7 @@ public @interface DataPermission {
 	 *
 	 * @return 方法名前缀
 	 */
-	String methodPrefix() default "";
+	String methodPrefix() default Strings.EMPTY;
 
 	/**
 	 * 数据权限关联字段 目前系统数据权限通过dept_id关联

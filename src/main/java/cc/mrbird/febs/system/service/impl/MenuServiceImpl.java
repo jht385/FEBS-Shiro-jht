@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 
 import cc.mrbird.febs.common.entity.MenuTree;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
 import cc.mrbird.febs.common.util.TreeUtil;
 import cc.mrbird.febs.system.entity.Menu;
@@ -98,7 +98,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenus(String menuIds) {
-        List<String> menuIdList = Arrays.asList(menuIds.split(StringPool.COMMA));
+        List<String> menuIdList = Arrays.asList(menuIds.split(Strings.COMMA));
         this.delete(menuIdList);
         Set<Long> userIds = roleMenuService.findUserIdByMenuIds(menuIdList);
         if (CollectionUtils.isNotEmpty(userIds)) {

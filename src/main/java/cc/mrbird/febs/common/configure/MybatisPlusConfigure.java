@@ -1,16 +1,13 @@
 package cc.mrbird.febs.common.configure;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
-import com.baomidou.mybatisplus.core.parser.ISqlParser;
-import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
 import cc.mrbird.febs.common.interceptor.DataPermissionInterceptor;
 import cc.mrbird.febs.common.interceptor.DesensitizationInterceptor;
@@ -18,8 +15,8 @@ import cc.mrbird.febs.common.interceptor.DesensitizationInterceptor;
 /**
  * @author MrBird
  */
-@Configuration
 @MapperScan("cc.mrbird.febs.*.mapper")
+@Configuration(proxyBeanMethods = false)
 public class MybatisPlusConfigure {
 	/**
 	 * 分页插件
@@ -44,11 +41,10 @@ public class MybatisPlusConfigure {
 	 */
 	@Bean
 	@Order(-2)
-	public PaginationInterceptor paginationInterceptor() {
-		PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-		List<ISqlParser> sqlParserList = new ArrayList<>();
-		sqlParserList.add(new BlockAttackSqlParser());
-		paginationInterceptor.setSqlParserList(sqlParserList);
-		return paginationInterceptor;
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
+		interceptor.addInnerInterceptor(paginationInnerInterceptor);
+		return interceptor;
 	}
 }

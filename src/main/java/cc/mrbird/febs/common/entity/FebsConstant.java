@@ -50,7 +50,7 @@ public interface FebsConstant {
     /**
      * 任务调度线程前缀
      */
-    String QUARTZ_THREAD_NAME_PREFIX= "febs-job-thread-";
+    String QUARTZ_THREAD_NAME_PREFIX = "febs-job-thread-";
 
     /**
      * 开发环境
@@ -61,4 +61,9 @@ public interface FebsConstant {
      * Windows 操作系统
      */
     String SYSTEM_WINDOWS = "windows";
+
+    String REQUEST_ALL = "/**";
+
+    String DAY_START_PATTERN_SUFFIX = " 00:00:00";
+    String DAY_END_PATTERN_SUFFIX = " 23:59:59";
 }

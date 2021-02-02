@@ -2,6 +2,7 @@ package cc.mrbird.febs.common.annotation;
 
 
 import cc.mrbird.febs.common.entity.LimitType;
+import cc.mrbird.febs.common.entity.Strings;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,17 +19,17 @@ public @interface Limit {
     /**
      * 资源名称，用于描述接口功能
      */
-    String name() default "";
+    String name() default Strings.EMPTY;
 
     /**
      * 资源 key
      */
-    String key() default "";
+    String key() default Strings.EMPTY;
 
     /**
      * key prefix
      */
-    String prefix() default "";
+    String prefix() default Strings.EMPTY;
 
     /**
      * 时间范围，单位秒

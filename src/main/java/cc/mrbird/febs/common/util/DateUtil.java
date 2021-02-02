@@ -1,8 +1,5 @@
 package cc.mrbird.febs.common.util;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import org.apache.commons.lang3.StringUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -11,6 +8,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
+
+import org.apache.commons.lang3.StringUtils;
+
+import cc.mrbird.febs.common.entity.Strings;
 
 /**
  * 时间工具类
@@ -52,14 +53,14 @@ public abstract class DateUtil {
 
     public static String formatUtcTime(String utcTime) {
         try {
-            String t = StringUtils.replace(utcTime, "T", StringPool.SPACE);
-            String z = StringUtils.replace(t, "Z", StringPool.EMPTY);
+            String t = StringUtils.replace(utcTime, "T", Strings.SPACE);
+            String z = StringUtils.replace(t, "Z", Strings.EMPTY);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FULL_TIME_SPLIT_PATTERN);
             LocalDateTime localDateTime = LocalDateTime.parse(z, formatter);
             LocalDateTime now = localDateTime.plusHours(8);
             return formatFullTime(now, FULL_TIME_SPLIT_PATTERN);
         } catch (Exception ignore) {
-            return StringPool.EMPTY;
+            return Strings.EMPTY;
         }
     }
 }

@@ -45,6 +45,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
 import cc.mrbird.febs.common.annotation.Helper;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.util.AddressUtil;
 import cc.mrbird.febs.generator.entity.Column;
 import cc.mrbird.febs.generator.entity.GeneratorConfig;
@@ -76,7 +77,7 @@ public class GeneratorHelper {
 				SERVICEIMPL_FILE_SUFFIX, SERVICEIMPL_TEMPLATE, configure);
 		generateFile(columns, javaPath, appPackage, configure.getModule(), configure.getControllerPackage(),
 				configure.getClassName(), CONTROLLER_FILE_SUFFIX, CONTROLLER_TEMPLATE, configure);
-		generateFile(columns, resourcesPath, configure.getMapperXmlPackage(), configure.getModule(), "/",
+		generateFile(columns, resourcesPath, configure.getMapperXmlPackage(), configure.getModule(), Strings.SLASH,
 				configure.getClassName(), MAPPERXML_FILE_SUFFIX, MAPPERXML_TEMPLATE, configure);
 		generateFile(columns, resourcesPath, configure.getHtmlRoot(), configure.getModule(), bizName, bizName,
 				HTML_FILE_SUFFIX, LIST_TEMPLATE, configure);
@@ -112,7 +113,7 @@ public class GeneratorHelper {
 	 */
 	private void generateFile(List<Column> columns, String root, String appPackage, String module, String bizName,
 			String fileName, String suffix, String templateName, GeneratorConfig configure) throws Exception {
-		String filePath = root + "/" + appPackage + "/" + module + "/" + bizName + "/" + fileName + suffix;
+		String filePath = root + Strings.SLASH + appPackage + Strings.SLASH + module + Strings.SLASH + bizName + Strings.SLASH + fileName + suffix;
 		File entityFile = new File(filePath);
 		ObjectMapper mapper = new ObjectMapper();
 		@SuppressWarnings("unchecked")
@@ -126,7 +127,7 @@ public class GeneratorHelper {
 		Template template = getTemplate(templateName);
 		Files.createParentDirs(file);
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
-		try (Writer out = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8), 10240)) {
+		try (Writer out = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8), 1024)) {
 			template.process(data, out);
 		} catch (Exception e) {
 			String message = "代码生成异常";
@@ -146,7 +147,7 @@ public class GeneratorHelper {
 		File file = new File(templatePath);
 		if (!file.exists()) {
 			templatePath = System.getProperties().getProperty("java.io.tmpdir");
-			file = new File(templatePath + "/" + templateName);
+			file = new File(templatePath + Strings.SLASH + templateName);
 			FileUtils.copyInputStreamToFile(Objects.requireNonNull(AddressUtil.class.getClassLoader()
 					.getResourceAsStream("classpath:generator/templates/" + templateName)), file);
 		}

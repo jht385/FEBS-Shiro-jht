@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 public abstract class BaseAspectSupport {
 
     Method resolveMethod(ProceedingJoinPoint point) {
-        MethodSignature signature = (MethodSignature)point.getSignature();
+        MethodSignature signature = (MethodSignature) point.getSignature();
         Class<?> targetClass = point.getTarget().getClass();
 
         Method method = getDeclaredMethod(targetClass, signature.getName(),

@@ -17,12 +17,15 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.exception.FebsException;
 import cc.mrbird.febs.common.exception.FileDownloadException;
 import cc.mrbird.febs.common.exception.LimitAccessException;
@@ -59,7 +62,7 @@ public class GlobalExceptionHandler {
 		StringBuilder message = new StringBuilder();
 		List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
 		for (FieldError error : fieldErrors) {
-			message.append(error.getField()).append(error.getDefaultMessage()).append(",");
+			message.append(error.getField()).append(error.getDefaultMessage()).append(Strings.COMMA);
 		}
 		message = new StringBuilder(message.substring(0, message.length() - 1));
 		return new FebsResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
@@ -77,8 +80,8 @@ public class GlobalExceptionHandler {
 		Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
 		for (ConstraintViolation<?> violation : violations) {
 			Path path = violation.getPropertyPath();
-			String[] pathArr = StringUtils.splitByWholeSeparatorPreserveAllTokens(path.toString(), ".");
-			message.append(pathArr[1]).append(violation.getMessage()).append(",");
+			String[] pathArr = StringUtils.splitByWholeSeparatorPreserveAllTokens(path.toString(), Strings.DOT);
+			message.append(pathArr[1]).append(violation.getMessage()).append(Strings.COMMA);
 		}
 		message = new StringBuilder(message.substring(0, message.length() - 1));
 		return new FebsResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
@@ -94,12 +97,26 @@ public class GlobalExceptionHandler {
 	public FebsResponse handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		StringBuilder message = new StringBuilder();
 		for (FieldError error : e.getBindingResult().getFieldErrors()) {
-			message.append(error.getField()).append(error.getDefaultMessage()).append(",");
+			message.append(error.getField()).append(error.getDefaultMessage()).append(Strings.COMMA);
 		}
 		message = new StringBuilder(message.substring(0, message.length() - 1));
 		log.error(message.toString(), e);
 		return new FebsResponse().code(HttpStatus.BAD_REQUEST).message(message.toString());
 	}
+	
+	@ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public FebsResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        String message = String.format("该方法不支持%s请求", StringUtils.substringBetween(e.getMessage(), Strings.SINGLE_QUOTE, Strings.SINGLE_QUOTE));
+        log.error(message, e.getMessage());
+        return new FebsResponse().code(HttpStatus.METHOD_NOT_ALLOWED).message(message);
+    }
+
+    @ExceptionHandler(value = MaxUploadSizeExceededException.class)
+    public FebsResponse handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        String message = "文件大小超出限制";
+        log.error(message, e.getMessage());
+        return new FebsResponse().code(HttpStatus.PAYLOAD_TOO_LARGE).message(message);
+    }
 
 	@ExceptionHandler(value = LimitAccessException.class)
 	public FebsResponse handleLimitAccessException(LimitAccessException e) {

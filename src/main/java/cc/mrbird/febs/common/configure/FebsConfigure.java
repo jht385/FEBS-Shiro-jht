@@ -26,9 +26,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * @author MrBird
  */
-@Configuration
 @EnableOpenApi
 @RequiredArgsConstructor
+@Configuration(proxyBeanMethods = false)
 public class FebsConfigure {
 
 	private final FebsProperties properties;

@@ -2,6 +2,7 @@ package cc.mrbird.febs.common.configure;
 
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.util.DateUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +21,8 @@ public class P6spySqlFormatConfigure implements MessageFormattingStrategy {
 			String sql, String url) {
 		return StringUtils.isNotBlank(sql)
 				? DateUtil.formatFullTime(LocalDateTime.now(), DateUtil.FULL_TIME_SPLIT_PATTERN) + " | 耗时 " + elapsed
-						+ " ms | SQL 语句：" + StringUtils.LF + sql.replaceAll("[\\s]+", StringUtils.SPACE) + ";"
-				: StringUtils.EMPTY;
+						+ " ms | SQL 语句：" + StringUtils.LF + sql.replaceAll("[\\s]+", StringUtils.SPACE)
+						+ Strings.SEMICOLON
+				: Strings.EMPTY;
 	}
 }

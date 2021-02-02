@@ -1,7 +1,25 @@
 package cc.mrbird.febs.system.service.impl;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
 import cc.mrbird.febs.common.util.SortUtil;
 import cc.mrbird.febs.system.entity.Role;
@@ -10,23 +28,7 @@ import cc.mrbird.febs.system.mapper.RoleMapper;
 import cc.mrbird.febs.system.service.IRoleMenuService;
 import cc.mrbird.febs.system.service.IRoleService;
 import cc.mrbird.febs.system.service.IUserRoleService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author MrBird
@@ -93,7 +95,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String roleIds) {
-        List<String> list = Arrays.asList(roleIds.split(StringPool.COMMA));
+        List<String> list = Arrays.asList(roleIds.split(Strings.COMMA));
         this.baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));
 
         this.roleMenuService.deleteRoleMenusByRoleId(list);
@@ -107,7 +109,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     private void saveRoleMenus(Role role) {
         if (StringUtils.isNotBlank(role.getMenuIds())) {
-            String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
+            String[] menuIds = role.getMenuIds().split(Strings.COMMA);
             List<RoleMenu> roleMenus = Lists.newArrayList();
             Arrays.stream(menuIds).forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();

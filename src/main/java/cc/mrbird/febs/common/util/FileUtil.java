@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
@@ -75,7 +76,7 @@ public abstract class FileUtil {
         }
         response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "utf-8"));
         response.setContentType("multipart/form-data");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         try (InputStream inputStream = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
             byte[] b = new byte[2048];
             int length;
