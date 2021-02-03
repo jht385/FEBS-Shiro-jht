@@ -40,21 +40,6 @@ public class FebsStartedUpRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		String pid = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
-		File dir = new File(".");
-		File[] files = dir.listFiles();
-		for (File file : files) {
-			if (file.isDirectory()) {
-				continue;
-			}
-
-			if (file.getName().endsWith(".pid")) {
-				file.delete();
-			}
-		}
-		File file = new File(pid + ".pid");
-		file.createNewFile();
-
 		if (context.isActive()) {
 			InetAddress address = InetAddress.getLocalHost();
 			String url = String.format("http://%s:%s", address.getHostAddress(), port);
