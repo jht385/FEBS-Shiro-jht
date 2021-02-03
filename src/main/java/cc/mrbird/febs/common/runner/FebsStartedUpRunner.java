@@ -1,12 +1,9 @@
 package cc.mrbird.febs.common.runner;
 
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.properties.FebsProperties;
-import cc.mrbird.febs.common.util.DateUtil;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -14,9 +11,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.lang.management.ManagementFactory;
-import java.net.InetAddress;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.properties.FebsProperties;
+import cc.mrbird.febs.common.util.DateUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author MrBird
