@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.util;
+package cc.mrbird.febs.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;

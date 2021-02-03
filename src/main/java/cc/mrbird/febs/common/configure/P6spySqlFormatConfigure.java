@@ -3,7 +3,7 @@ package cc.mrbird.febs.common.configure;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 import cc.mrbird.febs.common.entity.Strings;
-import cc.mrbird.febs.common.util.DateUtil;
+import cc.mrbird.febs.common.utils.DateUtil;
 
 import org.apache.commons.lang3.StringUtils;
 

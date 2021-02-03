@@ -1,7 +1,7 @@
 package cc.mrbird.febs.others.controller;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.util.FebsUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
@@ -94,11 +94,13 @@ public class ViewController {
     }
 
     @GetMapping("eximport/result")
+    @RequiresPermissions("others:eximport:view")
     public String eximportResult() {
         return FebsUtil.view("others/eximport/eximportResult");
     }
     
     @GetMapping("datapermission")
+    @RequiresPermissions("others:datapermission")
     public String dataPermissionTest() {
         return FebsUtil.view("others/datapermission/test");
     }

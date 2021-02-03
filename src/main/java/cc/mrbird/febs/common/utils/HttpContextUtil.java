@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.util;
+package cc.mrbird.febs.common.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

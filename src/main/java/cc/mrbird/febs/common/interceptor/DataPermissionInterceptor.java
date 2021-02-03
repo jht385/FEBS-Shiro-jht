@@ -2,7 +2,7 @@ package cc.mrbird.febs.common.interceptor;
 
 import cc.mrbird.febs.common.annotation.DataPermission;
 import cc.mrbird.febs.common.entity.Strings;
-import cc.mrbird.febs.common.util.FebsUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.system.entity.User;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;

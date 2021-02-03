@@ -2,7 +2,7 @@ package cc.mrbird.febs.system.service.impl;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.system.entity.Dict;
 import cc.mrbird.febs.system.mapper.DictMapper;
 import cc.mrbird.febs.system.service.IDictService;

@@ -20,7 +20,7 @@ import com.google.common.collect.Lists;
 import cc.mrbird.febs.common.entity.MenuTree;
 import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
-import cc.mrbird.febs.common.util.TreeUtil;
+import cc.mrbird.febs.common.utils.TreeUtil;
 import cc.mrbird.febs.system.entity.Menu;
 import cc.mrbird.febs.system.mapper.MenuMapper;
 import cc.mrbird.febs.system.service.IMenuService;

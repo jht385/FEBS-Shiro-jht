@@ -24,7 +24,7 @@ import cc.mrbird.febs.common.entity.FebsResponse;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.exception.FebsException;
-import cc.mrbird.febs.common.util.Md5Util;
+import cc.mrbird.febs.common.utils.Md5Util;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.service.IUserService;
 import lombok.RequiredArgsConstructor;

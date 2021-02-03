@@ -21,7 +21,7 @@ import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.event.UserAuthenticationUpdatedEventPublisher;
-import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.system.entity.Role;
 import cc.mrbird.febs.system.entity.RoleMenu;
 import cc.mrbird.febs.system.mapper.RoleMapper;

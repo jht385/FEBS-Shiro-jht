@@ -42,7 +42,7 @@ public interface IUserService extends IService<User> {
      *
      * @param username 用户名
      */
-    @Async(FebsConstant.ASYNC_POOL)
+    @Async(FebsConstant.FEBS_SHIRO_THREAD_POOL)
     void updateLoginTime(String username);
 
     /**

@@ -27,6 +27,7 @@
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <shiro.spring.version>1.7.0</shiro.spring.version>
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
+        <shiro.ehcache.version>1.7.1</shiro.ehcache.version>
         <google.guava.version>30.1-jre</google.guava.version>
         <springfox.swagger.version>3.0.0</springfox.swagger.version>
         <dynamic.datasource.version>3.3.1</dynamic.datasource.version>
@@ -144,6 +145,15 @@
                     <artifactId>Saxon-HE</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${shiro.ehcache.version}</version>
         </dependency>
 		<dependency>
             <groupId>com.github.theborakompanioni</groupId>

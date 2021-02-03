@@ -1,5 +1,6 @@
 package cc.mrbird.febs.common.authentication;
 
+import cc.mrbird.febs.common.properties.FebsProperties;
 import cc.mrbird.febs.monitor.service.ISessionService;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.service.IUserDataPermissionService;
@@ -11,12 +12,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.crazycake.shiro.RedisCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -32,24 +34,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
-    private final CacheManager cacheManager;
     private final ISessionService sessionService;
     private final ShiroLogoutService shiroLogoutService;
     private final IUserDataPermissionService userDataPermissionService;
-    private IUserService userService;
+    private final IUserService userService;
+
+    private RedisCacheManager redisCacheManager;
+    private EhCacheManager ehCacheManager;
+    @Value("${" + FebsProperties.ENABLE_REDIS_CACHE + "}")
+    private boolean enableRedisCache;
+
+    @Autowired(required = false)
+    public void setRedisCacheManager(RedisCacheManager redisCacheManager) {
+        this.redisCacheManager = redisCacheManager;
+    }
+
+    @Autowired(required = false)
+    public void setEhCacheManager(EhCacheManager ehCacheManager) {
+        this.ehCacheManager = ehCacheManager;
+    }
 
     @PostConstruct
     private void initConfig() {
         setAuthenticationCachingEnabled(true);
         setAuthorizationCachingEnabled(true);
         setCachingEnabled(true);
-        setCacheManager(cacheManager);
-    }
-
-    @Lazy
-    @Autowired
-    public void setUserService(IUserService userService) {
-        this.userService = userService;
+        setCacheManager(redisCacheManager == null ? ehCacheManager : redisCacheManager);
     }
 
     /**
@@ -98,7 +108,9 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     public void onLogout(PrincipalCollection principals) {
         super.onLogout(principals);
-        shiroLogoutService.cleanCacheFragment(principals);
+        if (enableRedisCache) {
+            shiroLogoutService.cleanCacheFragment(principals);
+        }
     }
 
     public void clearCache(Long userId) {

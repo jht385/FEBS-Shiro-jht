@@ -46,7 +46,7 @@ import com.google.common.io.Files;
 
 import cc.mrbird.febs.common.annotation.Helper;
 import cc.mrbird.febs.common.entity.Strings;
-import cc.mrbird.febs.common.util.AddressUtil;
+import cc.mrbird.febs.common.utils.AddressUtil;
 import cc.mrbird.febs.generator.entity.Column;
 import cc.mrbird.febs.generator.entity.GeneratorConfig;
 import freemarker.template.Configuration;

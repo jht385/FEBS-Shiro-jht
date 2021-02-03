@@ -2,8 +2,8 @@ package cc.mrbird.febs.system.controller;
 
 import cc.mrbird.febs.common.controller.BaseController;
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.util.DateUtil;
-import cc.mrbird.febs.common.util.FebsUtil;
+import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.system.entity.User;
 import cc.mrbird.febs.system.service.IUserDataPermissionService;
 import cc.mrbird.febs.system.service.IUserService;

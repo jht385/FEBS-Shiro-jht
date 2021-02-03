@@ -29,3 +29,8 @@ hs_err_pid*
 /target/
 
 *.pid
+
+.idea/
+log/
+*.iml
+cache/

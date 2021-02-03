@@ -2,6 +2,10 @@ package cc.mrbird.febs.common.properties;
 
 import cc.mrbird.febs.common.entity.ImageType;
 import lombok.Data;
+import org.springframework.boot.convert.DurationUnit;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author MrBird
@@ -12,7 +16,8 @@ public class ValidateCodeProperties {
     /**
      * 验证码有效时间，单位秒
      */
-    private Long time = 120L;
+    @DurationUnit(ChronoUnit.SECONDS)
+    private Duration time = Duration.ofSeconds(120);
     /**
      * 验证码类型，可选值 png和 gif
      */

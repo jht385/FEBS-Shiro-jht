@@ -21,11 +21,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
 import cc.mrbird.febs.common.entity.Strings;
-import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.job.entity.Job;
 import cc.mrbird.febs.job.mapper.JobMapper;
 import cc.mrbird.febs.job.service.IJobService;
-import cc.mrbird.febs.job.util.ScheduleUtil;
+import cc.mrbird.febs.job.utils.ScheduleUtil;
 import lombok.RequiredArgsConstructor;
 
 /**

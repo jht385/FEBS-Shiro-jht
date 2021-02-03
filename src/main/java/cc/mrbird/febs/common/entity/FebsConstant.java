@@ -28,29 +28,19 @@ public interface FebsConstant {
     String VIEW_PREFIX = "febs/views/";
 
     /**
-     * 验证码 Session Key
-     */
-    String CODE_PREFIX = "febs_captcha_";
-
-    /**
      * 允许下载的文件类型，根据需求自己添加（小写）
      */
     String[] VALID_FILE_TYPE = {"xlsx", "zip"};
 
     /**
-     * 异步线程池名称
+     * febs-shiro线程池名称
      */
-    String ASYNC_POOL = "febsAsyncThreadPool";
+    String FEBS_SHIRO_THREAD_POOL = "febsShiroThreadPool";
 
     /**
-     * 异步线程名称前缀
+     * febs-shiro线程名称前缀
      */
-    String ASYNC_THREAD_NAME_PREFIX = "febs-async-thread-";
-
-    /**
-     * 任务调度线程前缀
-     */
-    String QUARTZ_THREAD_NAME_PREFIX = "febs-job-thread-";
+    String FEBS_SHIRO_THREAD_NAME_PREFIX = "febs-shiro-thread-";
 
     /**
      * 开发环境
@@ -66,4 +56,14 @@ public interface FebsConstant {
 
     String DAY_START_PATTERN_SUFFIX = " 00:00:00";
     String DAY_END_PATTERN_SUFFIX = " 23:59:59";
+
+    /**
+     * 验证码ey前缀
+     */
+    String VALIDATE_CODE_PREFIX = "febs_captcha_";
+
+    /**
+     * 验证码有效期Key前缀
+     */
+    String VALIDATE_CODE_TIME_PREFIX = "febs_captcha_time_";
 }

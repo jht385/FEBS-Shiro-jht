@@ -26,7 +26,7 @@ public interface IJobLogService extends IService<JobLog> {
      *
      * @param log 定时任务日志
      */
-    @Async(FebsConstant.ASYNC_POOL)
+    @Async(FebsConstant.FEBS_SHIRO_THREAD_POOL)
     void saveJobLog(JobLog log);
 
     /**

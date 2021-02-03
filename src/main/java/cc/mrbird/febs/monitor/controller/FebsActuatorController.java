@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cc.mrbird.febs.common.annotation.ControllerEndpoint;
 import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.util.DateUtil;
+import cc.mrbird.febs.common.utils.DateUtil;
 import cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint;
 import cc.mrbird.febs.monitor.endpoint.FebsHttpTraceEndpoint.FebsHttpTraceDescriptor;
 import cc.mrbird.febs.monitor.entity.FebsHttpTrace;

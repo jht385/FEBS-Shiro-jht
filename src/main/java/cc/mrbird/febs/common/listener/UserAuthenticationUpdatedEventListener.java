@@ -27,7 +27,7 @@ public class UserAuthenticationUpdatedEventListener {
     private final ShiroRealm realm;
 
     @EventListener
-    @Async(FebsConstant.ASYNC_POOL)
+    @Async(FebsConstant.FEBS_SHIRO_THREAD_POOL)
     public void onUserAuthenticationUpdated(@NonNull UserAuthenticationUpdatedEvent event) {
         Set<Long> userIds = event.getUserIds();
         if (CollectionUtils.isNotEmpty(userIds)) {

@@ -1,7 +1,7 @@
 package cc.mrbird.febs.monitor.controller;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.util.FebsUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.monitor.entity.JvmInfo;
 import cc.mrbird.febs.monitor.entity.ServerInfo;
 import cc.mrbird.febs.monitor.entity.TomcatInfo;

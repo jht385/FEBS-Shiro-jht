@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.util.FebsUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
 import cc.mrbird.febs.job.entity.Job;
 import cc.mrbird.febs.job.service.IJobService;
 import lombok.RequiredArgsConstructor;

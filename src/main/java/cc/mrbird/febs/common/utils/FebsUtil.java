@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.util;
+package cc.mrbird.febs.common.utils;
 
 
 import java.util.regex.Matcher;

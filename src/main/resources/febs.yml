@@ -1,6 +1,6 @@
 # cc.mrbird.febs.common.properties.FebsProperties
 febs:
-  auto-open-browser: true
+  enable-redis-cache: false
   shiro:
     session-timeout: PT86400s
     cookie-timeout: PT604800s
@@ -11,7 +11,7 @@ febs:
     unauthorized-url: /unauthorized
   max-batch-insertNum: 300
   code:
-    time: 120
+    time: PT60s
     type: png
     width: 115
     height: 42

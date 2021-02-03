@@ -1,7 +1,7 @@
 package cc.mrbird.febs.monitor.entity;
 
 import cc.mrbird.febs.common.converter.TimeConverter;
-import cc.mrbird.febs.common.util.HttpContextUtil;
+import cc.mrbird.febs.common.utils.HttpContextUtil;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

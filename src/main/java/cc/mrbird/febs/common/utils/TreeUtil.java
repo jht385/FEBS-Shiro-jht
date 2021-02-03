@@ -1,4 +1,4 @@
-package cc.mrbird.febs.common.util;
+package cc.mrbird.febs.common.utils;
 
 
 import cc.mrbird.febs.common.entity.DeptTree;

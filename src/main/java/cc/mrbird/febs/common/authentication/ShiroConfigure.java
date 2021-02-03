@@ -1,18 +1,15 @@
 package cc.mrbird.febs.common.authentication;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.annotation.ConditionOnRedisCache;
 import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.session.SessionListener;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -20,17 +17,16 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
 
 /**
  * Shiro 配置类
@@ -42,7 +38,12 @@ import java.util.stream.Collectors;
 public class ShiroConfigure {
 
     private final FebsProperties febsProperties;
-    private final RedisProperties redisProperties;
+    private RedisProperties redisProperties;
+
+    @Autowired(required = false)
+    public void setRedisProperties(RedisProperties redisProperties) {
+        this.redisProperties = redisProperties;
+    }
 
     /**
      * shiro 中配置 redis 缓存
@@ -61,7 +62,8 @@ public class ShiroConfigure {
     }
 
     @Bean
-    public RedisCacheManager cacheManager() {
+    @ConditionOnRedisCache
+    public RedisCacheManager redisCacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         // 权限缓存超时时间，和session超时时间一致
         redisCacheManager.setExpire((int) febsProperties.getShiro().getSessionTimeout().getSeconds());
@@ -70,38 +72,25 @@ public class ShiroConfigure {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        // 设置 securityManager
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
-        // 登录的 url
-        shiroFilterFactoryBean.setLoginUrl(febsProperties.getShiro().getLoginUrl());
-        // 登录成功后跳转的 url
-        shiroFilterFactoryBean.setSuccessUrl(febsProperties.getShiro().getSuccessUrl());
-        // 未授权 url
-        shiroFilterFactoryBean.setUnauthorizedUrl(febsProperties.getShiro().getUnauthorizedUrl());
-        // 设置免认证 url
-        LinkedHashMap<String, String> filterChainDefinitionMap;
-        String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperties.getShiro().getAnonUrl(), Strings.COMMA);
-        filterChainDefinitionMap = Arrays.stream(anonUrls).collect(Collectors.toMap(url -> url, url -> "anon", (a, b) -> b, LinkedHashMap::new));
-        // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
-        filterChainDefinitionMap.put(febsProperties.getShiro().getLogoutUrl(), "logout");
-        // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        filterChainDefinitionMap.put(FebsConstant.REQUEST_ALL, "user");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        return shiroFilterFactoryBean;
+    @ConditionalOnMissingBean(RedisCacheManager.class)
+    public EhCacheManager ehCacheManager() {
+        EhCacheManager ehCacheManager = new EhCacheManager();
+        ehCacheManager.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
+        return ehCacheManager;
     }
 
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm, CacheManager cacheManager,
-            DefaultWebSessionManager sessionManager) {
+    public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm,
+                                                     @Nullable RedisCacheManager redisCacheManager,
+                                                     @Nullable EhCacheManager ehCacheManager,
+                                                     DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm);
         // 配置 shiro session管理器
         securityManager.setSessionManager(sessionManager);
         // 配置 缓存管理类 cacheManager
-        securityManager.setCacheManager(cacheManager);
+        securityManager.setCacheManager(redisCacheManager != null ? redisCacheManager : ehCacheManager);
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
@@ -136,13 +125,6 @@ public class ShiroConfigure {
         return cookieRememberMeManager;
     }
 
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
-    }
-
     /**
      * 用于开启 Thymeleaf 中的 shiro 标签的使用
      *
@@ -154,10 +136,17 @@ public class ShiroConfigure {
     }
 
     @Bean
+    @ConditionOnRedisCache
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
         return redisSessionDAO;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(RedisSessionDAO.class)
+    public MemorySessionDAO memorySessionDAO() {
+        return new MemorySessionDAO();
     }
 
     /**
@@ -166,15 +155,14 @@ public class ShiroConfigure {
      * @return DefaultWebSessionManager
      */
     @Bean
-    public DefaultWebSessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
+    public DefaultWebSessionManager sessionManager(@Nullable RedisSessionDAO redisSessionDAO,
+                                                   @Nullable MemorySessionDAO memorySessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        Collection<SessionListener> listeners = new ArrayList<>();
-        listeners.add(new ShiroSessionListener());
         // 设置 session超时时间
         sessionManager.setGlobalSessionTimeout(febsProperties.getShiro().getSessionTimeout().toMillis());
-        sessionManager.setSessionListeners(listeners);
-        sessionManager.setSessionDAO(redisSessionDAO);
+        sessionManager.setSessionDAO(redisSessionDAO == null ? memorySessionDAO : redisSessionDAO);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }
 }
+

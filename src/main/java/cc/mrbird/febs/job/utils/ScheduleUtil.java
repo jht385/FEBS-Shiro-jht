@@ -1,4 +1,4 @@
-package cc.mrbird.febs.job.util;
+package cc.mrbird.febs.job.utils;
 
 import cc.mrbird.febs.job.entity.Job;
 import lombok.extern.slf4j.Slf4j;

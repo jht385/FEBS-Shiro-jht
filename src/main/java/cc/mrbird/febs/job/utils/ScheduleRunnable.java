@@ -1,10 +1,10 @@
-package cc.mrbird.febs.job.util;
+package cc.mrbird.febs.job.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
-import cc.mrbird.febs.common.util.SpringContextUtil;
+import cc.mrbird.febs.common.utils.SpringContextUtil;
 
 import java.lang.reflect.Method;
 

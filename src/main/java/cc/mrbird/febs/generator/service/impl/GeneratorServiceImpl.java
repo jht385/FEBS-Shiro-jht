@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.utils.SortUtil;
 import cc.mrbird.febs.generator.entity.Column;
 import cc.mrbird.febs.generator.entity.Table;
 import cc.mrbird.febs.generator.mapper.GeneratorMapper;
