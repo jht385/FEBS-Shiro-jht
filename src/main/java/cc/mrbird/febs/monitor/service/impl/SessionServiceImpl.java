@@ -84,14 +84,12 @@ public class SessionServiceImpl implements ISessionService {
         List<SimplePrincipalCollection> collections = Lists.newArrayList();
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
-            if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) != null) {
-                SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) session
-                        .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                if (simplePrincipalCollection != null) {
-                    User user = (User) simplePrincipalCollection.getPrimaryPrincipal();
-                    if (userId.equals(user.getUserId())) {
-                        collections.add(simplePrincipalCollection);
-                    }
+            SimplePrincipalCollection simplePrincipalCollection = (SimplePrincipalCollection) session
+                    .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+            if (simplePrincipalCollection != null) {
+                User user = (User) simplePrincipalCollection.getPrimaryPrincipal();
+                if (userId.equals(user.getUserId())) {
+                    collections.add(simplePrincipalCollection);
                 }
             }
         }

@@ -50,10 +50,12 @@ public class ValidateCodeService {
         setHeader(response, code.getType());
 
         Captcha captcha = createCaptcha(code);
+        String codeKey = FebsConstant.VALIDATE_CODE_PREFIX + key;
+        String codeValue = StringUtils.lowerCase(captcha.text());
         if (enableRedisCache) {
-            redisService.set(FebsConstant.VALIDATE_CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime().getSeconds());
+            redisService.set(codeKey, codeValue, code.getTime().getSeconds());
         } else {
-            session.setAttribute(FebsConstant.VALIDATE_CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()));
+            session.setAttribute(codeKey, codeValue);
             LocalDateTime expireTime = LocalDateTime.now().plusSeconds(code.getTime().getSeconds());
             session.setAttribute(FebsConstant.VALIDATE_CODE_TIME_PREFIX + key, expireTime);
         }
@@ -64,8 +66,9 @@ public class ValidateCodeService {
         if (StringUtils.isBlank(value)) {
             throw new FebsException("请输入验证码");
         }
+        String codeKey = FebsConstant.VALIDATE_CODE_PREFIX + key;
         if (enableRedisCache) {
-            Object codeInRedis = redisService.get(FebsConstant.VALIDATE_CODE_PREFIX + key);
+            Object codeInRedis = redisService.get(codeKey);
             if (codeInRedis == null) {
                 throw new FebsException("验证码已过期");
             }
@@ -75,9 +78,8 @@ public class ValidateCodeService {
         } else {
             HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
             HttpSession session = request.getSession();
-            String validateCodeSessionKey = FebsConstant.VALIDATE_CODE_PREFIX + key;
             String validateCodeTimeSessionKey = FebsConstant.VALIDATE_CODE_TIME_PREFIX + key;
-            Object codeInSession = session.getAttribute(validateCodeSessionKey);
+            Object codeInSession = session.getAttribute(codeKey);
             LocalDateTime timeInSession = (LocalDateTime) session.getAttribute(validateCodeTimeSessionKey);
             try {
                 if (LocalDateTime.now().isAfter(timeInSession)) {
@@ -87,7 +89,7 @@ public class ValidateCodeService {
                     throw new FebsException("验证码不正确");
                 }
             } finally {
-                session.removeAttribute(validateCodeSessionKey);
+                session.removeAttribute(codeKey);
                 session.removeAttribute(validateCodeTimeSessionKey);
             }
         }
