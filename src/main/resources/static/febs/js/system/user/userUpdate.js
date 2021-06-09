@@ -36,9 +36,8 @@ layui.use(['febs', 'form', 'xmSelect', 'validate'], function () {
             if (data.isAdd) {
                 return data.change.slice(0, 1)
             }
-        });
-        return _deptTree;
-    }
+        }
+    });
 
     dataPermissionXmlSelect = xmSelect.render({
         el: '#user-update-data-permission',
