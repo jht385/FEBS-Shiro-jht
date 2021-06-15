@@ -2,7 +2,7 @@ package ${basePackage}.${module}.${serviceImplPackage};
 
 import cc.mrbird.febs.common.entity.FebsConstant;
 import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.common.util.SortUtil;
+import cc.mrbird.febs.common.utils.SortUtil;
 import ${basePackage}.${module}.${entityPackage}.${className};
 import ${basePackage}.${module}.${mapperPackage}.${className}Mapper;
 import ${basePackage}.${module}.${servicePackage}.I${className}Service;
