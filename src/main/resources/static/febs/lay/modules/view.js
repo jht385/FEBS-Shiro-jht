@@ -2,10 +2,10 @@
 layui
     .extend({
         loadBar: 'lay/modules/loadBar',
-        dropdown: 'lay/modules/dropdown'
+        dropdownMenu: 'lay/modules/dropdownMenu'
     })
     .define(
-        ['jquery', 'laytpl', 'element', 'form', 'loadBar', 'dropdown'],
+        ['jquery', 'laytpl', 'element', 'form', 'loadBar', 'dropdownMenu'],
         function (exports) {
             var $ = layui.jquery;
             var laytpl = layui.laytpl;
@@ -234,7 +234,7 @@ layui
                     var tab = this;
                     var btnCls = tab.wrap + ' .febs-tabs-btn';
 
-                    layui.dropdown.render({
+                    layui.dropdownMenu.render({
                         elem: '.febs-tabs-down',
                         click: function (name) {
                             if (name === 'all') {

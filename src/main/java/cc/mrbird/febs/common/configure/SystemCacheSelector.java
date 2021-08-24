@@ -27,21 +27,23 @@ public class SystemCacheSelector implements BeanDefinitionRegistryPostProcessor 
 
     @Override
     public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
-        // 时机较早，必须手动获取配置
-        YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
-        yamlPropertiesFactoryBean.setResources(new ClassPathResource("febs.yml"));
-        Properties properties = yamlPropertiesFactoryBean.getObject();
-        if (properties != null) {
-            enableRedisCache = Boolean.parseBoolean(properties.getProperty(FebsProperties.ENABLE_REDIS_CACHE));
-        }
-        if (!enableRedisCache && !finished) {
-            String[] beanDefinitionNames = registry.getBeanDefinitionNames();
-            Arrays.stream(beanDefinitionNames).filter(beanDefinitionName ->
-                    StringUtils.containsIgnoreCase(beanDefinitionName, "redis")
-                            || StringUtils.containsIgnoreCase(beanDefinitionName, "jedis")
-                            || StringUtils.containsIgnoreCase(beanDefinitionName, "lettuce"))
-                    .forEach(registry::removeBeanDefinition);
-            finished = true;
+        if (!finished) {
+            // 时机较早，必须手动获取配置
+            YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
+            yamlPropertiesFactoryBean.setResources(new ClassPathResource("febs.yml"));
+            Properties properties = yamlPropertiesFactoryBean.getObject();
+            if (properties != null) {
+                enableRedisCache = Boolean.parseBoolean(properties.getProperty(FebsProperties.ENABLE_REDIS_CACHE));
+            }
+            if (!enableRedisCache) {
+                String[] beanDefinitionNames = registry.getBeanDefinitionNames();
+                Arrays.stream(beanDefinitionNames).filter(beanDefinitionName ->
+                        StringUtils.containsIgnoreCase(beanDefinitionName, "redis")
+                                || StringUtils.containsIgnoreCase(beanDefinitionName, "jedis")
+                                || StringUtils.containsIgnoreCase(beanDefinitionName, "lettuce"))
+                        .forEach(registry::removeBeanDefinition);
+                finished = true;
+            }
         }
     }
 

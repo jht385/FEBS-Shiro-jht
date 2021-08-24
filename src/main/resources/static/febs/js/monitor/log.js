@@ -1,10 +1,10 @@
-layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function () {
+layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdownMenu'], function () {
     let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
         table = layui.table,
-        dropdown = layui.dropdown,
+        dropdownMenu = layui.dropdownMenu,
         $view = $('#febs-log'),
         $query = $view.find('#query'),
         $reset = $view.find('#reset'),
@@ -24,7 +24,7 @@ layui.use(['jquery', 'laydate', 'form', 'table', 'febs', 'dropdown'], function (
     form.render();
     initTable();
 
-    dropdown.render({
+    dropdownMenu.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
             if (name === 'delete') {

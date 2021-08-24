@@ -1,10 +1,10 @@
-layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
+layui.use(['dropdownMenu', 'jquery', 'form', 'table', 'febs'], function () {
 	let $ = layui.jquery,
 		laydate = layui.laydate,
 		febs = layui.febs,
 		form = layui.form,
 		table = layui.table,
-		dropdown = layui.dropdown,
+		dropdownMenu = layui.dropdownMenu,
 		$view = $('#febs-${className?uncap_first}'),
 		$query = $view.find('#query'),
 		$reset = $view.find('#reset'),
@@ -16,7 +16,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs'], function () {
 
 	initTable();
 
-	dropdown.render({
+	dropdownMenu.render({
 		elem: $view.find('.action-more'),
 		click: function (name, elem, event) {
 			let checkStatus = table.checkStatus('${className?uncap_first}Table');

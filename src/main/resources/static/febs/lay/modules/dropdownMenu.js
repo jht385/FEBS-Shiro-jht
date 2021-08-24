@@ -1,12 +1,12 @@
 layui.define(['jquery'], function (exports) {
     var $ = layui.jquery;
-    var CLS_DROPDOWN = 'layui-dropdown';
-    var CLS_DROPDOWN_RIGHT = 'layui-dropdown-direright';
-    var CLS_SELECT = 'layui-dropdown-select';
-    var CLS_OPTION = 'layui-dropdown-option';
-    var CLS_TITLE = 'layui-dropdown-title';
+    var CLS_DROPDOWN_MENU = 'layui-dropdownMenu';
+    var CLS_DROPDOWN_MENU_RIGHT = 'layui-dropdownMenu-direright';
+    var CLS_SELECT = 'layui-dropdownMenu-select';
+    var CLS_OPTION = 'layui-dropdownMenu-option';
+    var CLS_TITLE = 'layui-dropdownMenu-title';
     var CLS_ARROW = 'febs-arrow-up';
-    var HTML_DROPDOWN = '<div class="' + CLS_DROPDOWN + '"><div>';
+    var HTML_DROPDOWN_MENU = '<div class="' + CLS_DROPDOWN_MENU + '"><div>';
     var DEPTH = 0;
     var INDEX = 0;
 
@@ -18,7 +18,7 @@ layui.define(['jquery'], function (exports) {
         width: 150,
         trigger: 'click'
     };
-    Class.prototype.dropdownElem = '';
+    Class.prototype.dropdownMenuElem = '';
     Class.prototype.exists = false;
     Class.prototype.depth = 0;
     Class.prototype.index = 0;
@@ -32,47 +32,47 @@ layui.define(['jquery'], function (exports) {
 
         function event(e) {
             e.stopPropagation();
-            if (self.dropdownElem === '') {
+            if (self.dropdownMenuElem === '') {
                 INDEX += 1;
                 self.index = INDEX;
 
-                var dropdown = $(HTML_DROPDOWN).attr('lay-index', self.index);
-                $('.' + CLS_DROPDOWN + '[lay-index="' + self.index + '"]').remove();
+                var dropdownMenu = $(HTML_DROPDOWN_MENU).attr('lay-index', self.index);
+                $('.' + CLS_DROPDOWN_MENU + '[lay-index="' + self.index + '"]').remove();
 
-                dropdown.html(self.createOptionsHtml(config));
-                $('body').prepend(dropdown);
-                dropdown.on('click', '.' + CLS_OPTION, function (e) {
+                dropdownMenu.html(self.createOptionsHtml(config));
+                $('body').prepend(dropdownMenu);
+                dropdownMenu.on('click', '.' + CLS_OPTION, function (e) {
                     e.stopPropagation();
                     if ($.isFunction(config.click)) {
                         config.click($(this).attr('lay-name'), $(this), e);
-                        dropdown.hide()
+                        dropdownMenu.hide()
                     }
                 });
-                self.dropdownElem = dropdown;
-                self.dropdownSelect = dropdown.find('.' + CLS_SELECT)
+                self.dropdownMenuElem = dropdownMenu;
+                self.dropdownMenuSelect = dropdownMenu.find('.' + CLS_SELECT)
             }
 
-            var dropdown = self.dropdownElem;
+            var dropdownMenu = self.dropdownMenuElem;
 
             var top = $(this).offset().top + $(this).height() + 12;
             var left = $(this).offset().left - 5;
-            dropdown.css({
+            dropdownMenu.css({
                 top: top - 10
             });
             var offsetWidth = (self.depth + 1) * self.config.width;
 
             if (left + offsetWidth > $(window).width()) {
-                dropdown
-                    .addClass('layui-dropdown-right')
-                    .css('left', left - dropdown.width() + $(this).width());
-                self.dropdownSelect.css({left: 'auto', right: self.config.width})
+                dropdownMenu
+                    .addClass('layui-dropdownMenu-right')
+                    .css('left', left - dropdownMenu.width() + $(this).width());
+                self.dropdownMenuSelect.css({left: 'auto', right: self.config.width})
             } else {
-                dropdown.removeClass('layui-dropdown-right').css('left', left);
-                self.dropdownSelect.css({right: 'auto', left: self.config.width})
+                dropdownMenu.removeClass('layui-dropdownMenu-right').css('left', left);
+                self.dropdownMenuSelect.css({right: 'auto', left: self.config.width})
             }
 
             $('body').one('click', function (e) {
-                dropdown.stop().animate(
+                dropdownMenu.stop().animate(
                     {
                         top: '-=100000',
                         opacity: 0
@@ -81,7 +81,7 @@ layui.define(['jquery'], function (exports) {
                 );
             });
 
-            dropdown
+            dropdownMenu
                 .show()
                 .stop()
                 .animate(
@@ -150,5 +150,5 @@ layui.define(['jquery'], function (exports) {
             new Class(config)
         }
     };
-    exports('dropdown', self)
+    exports('dropdownMenu', self)
 });

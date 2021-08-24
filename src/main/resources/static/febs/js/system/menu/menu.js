@@ -1,4 +1,4 @@
-layui.use(['dropdown', 'jquery', 'febs', 'form', 'eleTree', 'validate', 'xmSelect'], function () {
+layui.use(['dropdownMenu', 'jquery', 'febs', 'form', 'eleTree', 'validate', 'xmSelect'], function () {
 	let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
@@ -6,7 +6,7 @@ layui.use(['dropdown', 'jquery', 'febs', 'form', 'eleTree', 'validate', 'xmSelec
         validate = layui.validate,
         eleTree = layui.eleTree,
         xmSelect = layui.xmSelect,
-        dropdown = layui.dropdown,
+        dropdownMenu = layui.dropdownMenu,
         $view = $('#febs-menu'),
         $query = $view.find('#query'),
         $reset = $view.find('#reset'),
@@ -59,7 +59,7 @@ layui.use(['dropdown', 'jquery', 'febs', 'form', 'eleTree', 'validate', 'xmSelec
         menuXmlSelect.update(data)
     });
 
-    dropdown.render({
+    dropdownMenu.render({
         elem: $view.find('#action-more'),
         click: function (name, elem, event) {
             if (name === 'add') {

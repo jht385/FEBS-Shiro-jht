@@ -536,7 +536,7 @@ layui.extend({
             },
             parseData: function (res) {
                 if (res.code !== 200) {
-                    console.error(res);
+                    console.error(res)
                     if (res.code === 403) {
                         self.alert.error('暂无权限访问该资源');
                     }

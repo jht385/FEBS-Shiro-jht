@@ -1,10 +1,10 @@
-layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function () {
+layui.use(['dropdownMenu', 'jquery', 'laydate', 'form', 'table', 'febs'], function () {
     let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
         table = layui.table,
-        dropdown = layui.dropdown,
+        dropdownMenu = layui.dropdownMenu,
         $view = $('#febs-job'),
         $query = $view.find('#query'),
         $reset = $view.find('#reset'),
@@ -26,7 +26,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs'], function (
         tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
     });
 
-    dropdown.render({
+    dropdownMenu.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
             let checkStatus = table.checkStatus('jobTable');

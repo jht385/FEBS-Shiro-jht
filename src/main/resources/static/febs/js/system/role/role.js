@@ -1,11 +1,11 @@
-layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 'validate'], function () {
+layui.use(['dropdownMenu', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 'validate'], function () {
     let $ = layui.jquery,
         laydate = layui.laydate,
         febs = layui.febs,
         form = layui.form,
         table = layui.table,
         eleTree = layui.eleTree,
-        dropdown = layui.dropdown,
+        dropdownMenu = layui.dropdownMenu,
         validate = layui.validate,
         $view = $('#febs-role'),
         $query = $view.find('#query'),
@@ -49,7 +49,7 @@ layui.use(['dropdown', 'jquery', 'laydate', 'febs', 'form', 'eleTree', 'table', 
         }
     });
 
-    dropdown.render({
+    dropdownMenu.render({
         elem: $view.find('.action-more'),
         click: function (name, elem, event) {
             let checkStatus = table.checkStatus('roleTable');

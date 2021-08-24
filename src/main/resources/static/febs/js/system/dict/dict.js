@@ -1,10 +1,10 @@
-layui.use(['dropdown', 'jquery', 'form', 'table', 'febs', 'xmSelect'], function () {
+layui.use(['dropdownMenu', 'jquery', 'form', 'table', 'febs', 'xmSelect'], function () {
 	var $ = layui.jquery,
 		laydate = layui.laydate,
 		febs = layui.febs,
 		form = layui.form,
 		table = layui.table,
-		dropdown = layui.dropdown,
+		dropdownMenu = layui.dropdownMenu,
 		xmSelect = layui.xmSelect,
 		$view = $('#febs-dict'),
 		$query = $view.find('#query'),
@@ -28,7 +28,7 @@ layui.use(['dropdown', 'jquery', 'form', 'table', 'febs', 'xmSelect'], function 
 
 	initTable();
 
-	dropdown.render({
+	dropdownMenu.render({
 		elem: $view.find('.action-more'),
 		click: function (name, elem, event) {
 			var checkStatus = table.checkStatus('dictTable');
