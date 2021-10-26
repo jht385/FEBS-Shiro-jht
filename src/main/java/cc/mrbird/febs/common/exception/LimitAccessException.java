@@ -5,7 +5,7 @@ package cc.mrbird.febs.common.exception;
  *
  * @author MrBird
  */
-public class LimitAccessException extends Exception {
+public class LimitAccessException extends FebsException {
 
     private static final long serialVersionUID = -3608667856397125671L;
 

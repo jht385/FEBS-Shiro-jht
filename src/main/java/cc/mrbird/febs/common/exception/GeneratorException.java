@@ -5,7 +5,7 @@ package cc.mrbird.febs.common.exception;
  *
  * @author MrBird
  */
-public class GeneratorException extends Exception {
+public class GeneratorException extends FebsException {
 
     private static final long serialVersionUID = 150902781087610054L;
 

@@ -5,7 +5,6 @@ import cc.mrbird.febs.common.annotation.ConditionOnRedisCache;
 import cc.mrbird.febs.common.entity.Strings;
 import cc.mrbird.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -23,10 +22,6 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
-import org.springframework.util.Base64Utils;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 /**
  * Shiro 配置类
@@ -39,6 +34,14 @@ public class ShiroConfigure {
 
     private final FebsProperties febsProperties;
     private RedisProperties redisProperties;
+    /**
+     * remember key
+     * 生成方式：
+     * String encryptKey = RandomStringUtils.randomAlphanumeric(15);
+     * byte[] encryptKeyBytes = encryptKey.getBytes(StandardCharsets.UTF_8);
+     * String rememberKey = Base64Utils.encodeToString(Arrays.copyOf(encryptKeyBytes, 16));
+     */
+    private final static String REMEMBER_ME_KEY = "M1RIN2FVNGt6T2lRU2VNAA==";
 
     @Autowired(required = false)
     public void setRedisProperties(RedisProperties redisProperties) {
@@ -117,11 +120,7 @@ public class ShiroConfigure {
     private CookieRememberMeManager rememberMeManager() {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         cookieRememberMeManager.setCookie(rememberMeCookie());
-        // rememberMe cookie 加密的密钥
-        String encryptKey = RandomStringUtils.randomAlphanumeric(15);
-        byte[] encryptKeyBytes = encryptKey.getBytes(StandardCharsets.UTF_8);
-        String rememberKey = Base64Utils.encodeToString(Arrays.copyOf(encryptKeyBytes, 16));
-        cookieRememberMeManager.setCipherKey(Base64.decode(rememberKey));
+        cookieRememberMeManager.setCipherKey(Base64.decode(REMEMBER_ME_KEY));
         return cookieRememberMeManager;
     }
 

@@ -56,7 +56,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @PostConstruct
     private void initConfig() {
-        setAuthenticationCachingEnabled(true);
+        setAuthenticationCachingEnabled(false);
         setAuthorizationCachingEnabled(true);
         setCachingEnabled(true);
         setCacheManager(redisCacheManager == null ? ehCacheManager : redisCacheManager);
