@@ -28,7 +28,7 @@
         <shiro.spring.version>1.7.0</shiro.spring.version>
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <shiro.ehcache.version>1.7.1</shiro.ehcache.version>
-        <google.guava.version>30.1-jre</google.guava.version>
+        <google.guava.version>32.0.0-jre</google.guava.version>
         <springfox.swagger.version>3.0.0</springfox.swagger.version>
         <dynamic.datasource.version>3.3.1</dynamic.datasource.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
